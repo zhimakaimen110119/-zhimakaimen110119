@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "product": "gmcc-universe",
+    "version": "v14",
+    "description": "只放人工书面确认的运营口径。rule engine 只把 status 为 confirmed 或 operational_default 的 override 当作可执行口径；pending 的 override 不参与判定。",
+    "statusValues": {
+      "confirmed": "公司（product desk / production）书面确认的正式口径",
+      "operational_default": "在公司确认前，由 LO 决定采用的保守运营口径；结果页必须标注『operational conservative default, not confirmed guideline』",
+      "pending": "占位：等待公司回复后填写"
+    },
+    "requiredFields": ["id", "title", "status", "resolution", "effectiveDate", "confirmedBy", "confirmationDate", "supersededRuleIds", "operationalNote"]
+  },
+
+  "overrides": [
+
+    { "id": "OVR-001", "title": "PITIA 由 LO 手动输入，系统不估算",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["AMB-001", "AMB-002"],
+      "resolution": "V1 要求 LO 手动输入 subject monthly PITIA（qualifying rate 口径）。系统不自动估算地税、保险、HOA、特别税、Mello-Roos。缺少 PITIA 时，reserve 与 large deposit 计算输出 insufficient_data。",
+      "operationalNote": "payment calculator 留待后续版本单独实现。" },
+
+    { "id": "OVR-002", "title": "ARM index 由 LO 输入当期值，不写死历史数字",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-012(closed)"],
+      "resolution": "LO 输入当期 1-year CMT（记录 index date），或直接输入 qualifying rate。系统保存 index date。ARM qualifying rate = max(locked note rate, index + 3.25% margin)。PDF 中的 3.79% / 3.59% 仅作历史参考展示，不参与计算。",
+      "operationalNote": null },
+
+    { "id": "OVR-003", "title": "NY 按 Outside published lending area 处理",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": ["UNI-DSCR-007"], "relatedConflictIds": ["CONF-013(closed)"],
+      "resolution": "NY 案件判定为 Ineligible / Outside published lending area（第 7 页清单）。第 22 页 NY DSCR 句保留为 orphaned guideline note，随结果展示；若 product desk 提供更新的扩展，经新 override 启用并转 manual review。",
+      "operationalNote": null },
+
+    { "id": "OVR-004", "title": "退休金折算归一化",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": ["UNI-RES-009"], "relatedConflictIds": ["CONF-010(resolved)"],
+      "resolution": "DTA：可支取的退休金余额按 100% 计入。Liquid reserve：年龄 ≥ 59½ 按 100%；年龄 < 59½ 按 70%。Non-liquid reserve：按 100%。不可支取的 pension：0%（不可使用）。需要 terms of withdrawal；IRA 不需要 terms of withdrawal。",
+      "operationalNote": "interpretation note：该表为第 26 页（按年龄）与第 42 页（按用途）的合并解释，级别为低风险 interpretation，非公司正式确认。" },
+
+    { "id": "OVR-005", "title": ">$2M 贷款分层 workflow",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": ["UNI-LOAN-002"], "relatedConflictIds": ["CONF-011(closed)"],
+      "resolution": "≤ $2M：normal workflow。> $2M 且 ≤ $3M：仅在完成第 3 页 exception 流程后可做（系统列出第 3 页所需信息清单）。> $3M：additional exception / outside standard limit。",
+      "operationalNote": null },
+
+    { "id": "OVR-006", "title": "Exhibit C 境外业务处理",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-017(closed)"],
+      "resolution": "在 US / China / Hong Kong / Taiwan 以外注册或经营的境外业务：owner → Ineligible under Exhibit C（hard stop）；employee（非 owner）→ 不因此自动不合格。PDF 未写例外，系统不创造例外。",
+      "operationalNote": null },
+
+    { "id": "OVR-007", "title": "Donor must be a relative 作为 active 规则执行",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-008(closed)"],
+      "resolution": "第 43 页 Donor must be a relative 按 active requirement 执行（规则单一出现且无矛盾来源，不构成冲突）。公司如书面放宽，再以新 override 取代。",
+      "operationalNote": null },
+
+    { "id": "OVR-008", "title": "Business ownership proof 的准确口径",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-016(closed)"],
+      "resolution": "Acceptable：CPA letter、articles of incorporation、或其他法律所有权文件（other legal ownership documents）。Not sufficient by themselves：business tax returns、schedules、K-1。",
+      "operationalNote": null },
+
+    { "id": "OVR-009", "title": "Gift donor statements 保守收件口径（运营默认，非确认 guideline）",
+      "status": "operational_default", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-007"],
+      "resolution": "在公司确认 CONF-007 之前，实际收件按较严口径执行：2 months donor bank statements；gift funds 在 docs 前进入 borrower account 或 title。",
+      "operationalNote": "结果页必须标注：This is an operational conservative default, not confirmed guideline。CONF-007 保持 open。" },
+
+    { "id": "OVR-010", "title": "Large deposit 双阈值展示行为",
+      "status": "operational_default", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": ["CONF-009"],
+      "resolution": "同时显示 1-month PITIA threshold 与 6-month PITIA threshold 及各自命中的存款；Final sourcing requirement = Manual confirmation required。不自动选择阈值，不因此自动判 loan 不合格。",
+      "operationalNote": "CONF-009 保持 open。" },
+
+    { "id": "OVR-011", "title": "Cash-out purpose LOE 的适用范围",
+      "status": "confirmed", "confirmedBy": "LO (roy)", "confirmationDate": "2026-08-11", "effectiveDate": "2026-08-11",
+      "supersededRuleIds": [], "relatedConflictIds": [],
+      "resolution": "Cash-out purpose LOE 仅要求于 business-purpose / DSCR cash-out（投资房 cash-out），不自动适用于所有 cash-out 贷款（对应第 12 页原文限定）。",
+      "operationalNote": null },
+
+    { "id": "OVR-PENDING-LTV", "title": "（占位）LTV 矩阵公司确认结果",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-LTV-001", "UNI-LTV-002", "UNI-LTV-003", "UNI-LTV-004"], "relatedConflictIds": ["CONF-001"],
+      "resolution": null, "operationalNote": "等待 Production 回复后填写完整矩阵。" },
+
+    { "id": "OVR-PENDING-DTA", "title": "（占位）DTA 定义公司确认结果",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-DTA-003", "UNI-DTA-004", "UNI-DTA-005", "UNI-DTA-006", "UNI-DTA-010"], "relatedConflictIds": ["CONF-002"],
+      "resolution": null, "operationalNote": null },
+
+    { "id": "OVR-PENDING-DSCR", "title": "（占位）投资房 DSCR/reserve 矩阵公司确认结果",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-DSCR-004", "UNI-DSCR-005", "UNI-RES-010", "UNI-TXN-008"], "relatedConflictIds": ["CONF-005"],
+      "resolution": null, "operationalNote": null },
+
+    { "id": "OVR-PENDING-LD", "title": "（占位）Large deposit 阈值公司确认结果",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-LD-001", "UNI-LD-002"], "relatedConflictIds": ["CONF-009"],
+      "resolution": null, "operationalNote": null },
+
+    { "id": "OVR-PENDING-MEXICO", "title": "（占位）墨西哥籍 FN 受理口径",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-BOR-006"], "relatedConflictIds": ["CONF-014"],
+      "resolution": null, "operationalNote": null },
+
+    { "id": "OVR-PENDING-GIFT", "title": "（占位）Gift donor statements 正式口径",
+      "status": "pending", "confirmedBy": null, "confirmationDate": null, "effectiveDate": null,
+      "supersededRuleIds": ["UNI-GIFT-005"], "relatedConflictIds": ["CONF-007"],
+      "resolution": null, "operationalNote": "确认后取代 OVR-009。" }
+  ]
+}

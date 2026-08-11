@@ -6,22 +6,32 @@
 
 ---
 
-## 当前进度：Phase 1 已完成，等待人工确认
+## 当前进度：Phase 2 设计已提交，等待确认后进入 Phase 3
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
-| Phase 1 | 阅读 PDF → guideline extraction report → 规则包草稿 → 冲突清单 → 待确认问题 | ✅ 完成 |
-| Phase 2 | 项目架构、数据 schema、rule engine 设计、计算器设计、UI wireframe | ⏸ 等待 Phase 1 确认 |
-| Phase 3 | 可运行 MVP + 测试 + synthetic sample case + 本地运行说明 | ⏸ |
+| Phase 1 | 阅读 PDF → guideline extraction report → 规则包草稿 → 冲突清单 → 待确认问题 | ✅ 完成（含 2026-08-11 修订：三层架构 + 重分类） |
+| Phase 2 | 项目架构、数据 schema、rule engine 设计、计算器设计、UI wireframe | ✅ 提交，见 [`docs/phase2-design.md`](docs/phase2-design.md)，等待确认 |
+| Phase 3 | 可运行 MVP + 测试 + synthetic sample case + 本地运行说明 | ⏸ 等待 Phase 2 确认 |
 
-### Phase 1 交付物
+### 规则库（三层架构）
 
 | 文件 | 内容 |
 |---|---|
-| [`docs/phase1-guideline-extraction-report.md`](docs/phase1-guideline-extraction-report.md) | 抽取报告：逐页覆盖表、核心参数、计算器依据、冲突汇总 |
-| [`products/universe-v14.json`](products/universe-v14.json) | 结构化规则包，**146 条规则**，21 个分类 |
-| [`products/universe-v14-conflicts.json`](products/universe-v14-conflicts.json) | **22 项规则冲突 + 10 项定义缺口**，每项含双方原文、页码、冲突原因、需 LO 确认的问题、系统应有行为 |
-| [`docs/phase1-open-questions.md`](docs/phase1-open-questions.md) | 需要人工确认的问题清单（A/B/C 三级优先级） |
+| [`products/universe-v14/source-rules.json`](products/universe-v14/source-rules.json) | PDF 原文抽取的 **146 条不可变规则**，不修改、不合并 |
+| [`products/universe-v14/conflicts.json`](products/universe-v14/conflicts.json) | **6 项核心未决冲突**（需公司确认）+ 3 项次要待定 + 14 项已关闭/重分类记录 + 9 项定义缺口 |
+| [`products/universe-v14/policy-overrides.json`](products/universe-v14/policy-overrides.json) | 人工书面确认的运营口径（9 confirmed + 2 operational default + 6 pending 占位）。**rule engine 只把 confirmed / operational_default 当最终口径** |
+
+未确认的规则不阻塞开发：能双口径计算的展示两个结果；需要数值的要求 LO 手动输入；影响资格的显示 `Manual Confirmation Required`；guideline 内部冲突绝不出现在发给 borrower 的问题里。
+
+### 文档
+
+| 文件 | 内容 |
+|---|---|
+| [`docs/phase1-guideline-extraction-report.md`](docs/phase1-guideline-extraction-report.md) | 抽取报告：逐页覆盖表、核心参数、计算器依据 |
+| [`docs/phase1-open-questions.md`](docs/phase1-open-questions.md) | 初版问题清单（历史存档，最新口径以 conflicts.json 为准） |
+| [`docs/company-questions-email.md`](docs/company-questions-email.md) | 发给 Production 的 **6 个核心问题**邮件草稿 |
+| [`docs/phase2-design.md`](docs/phase2-design.md) | Phase 2：架构、Zod schema、rule engine、6 个计算器、PII Guard、问题生成、UI wireframe、15 项测试计划 |
 
 ### 数据来源
 

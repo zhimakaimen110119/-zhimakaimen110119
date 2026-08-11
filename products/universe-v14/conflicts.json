@@ -1,0 +1,154 @@
+{
+  "meta": {
+    "product": "gmcc-universe",
+    "version": "v14",
+    "sourceDocument": "GMCC Universe V14 04-05-2026.pdf",
+    "revisedAt": "2026-08-11",
+    "policy": "coreConflicts 与 minorPending 中的任何一项，系统不得静默解决：能双口径计算的展示两个结果；需要数值输入的要求 LO 手工输入；影响资格的显示 Manual Confirmation Required。内部 guideline 冲突一律不得出现在发给 borrower 的问题里。closedOrReclassified 仅作追溯记录，不参与判定。",
+    "escalation": "coreConflicts 中的 6 项即为需发送公司确认的问题（Production@gmccloan.com, cc mlaw@gmccloan.com），见 docs/company-questions-email.md。"
+  },
+
+  "coreConflicts": [
+
+    { "id": "CONF-001", "title": "完整 LTV 矩阵（含 R/T，原 AMB-010 并入）",
+      "category": "LTV", "severity": "critical",
+      "affectedRuleIds": ["UNI-LTV-001", "UNI-LTV-002", "UNI-LTV-003", "UNI-LTV-004", "UNI-LTV-005"],
+      "positions": [
+        { "page": 14, "text": "Effective on 03-02-2026: Max LTV/CLTV/HLTV – 60% for Primary & 2nd Home & INVESTMENT / Max LTV/CLTV/HLTV-- 60% for Purchase, R/T & C/O", "reading": "全部 60%，带明确生效日" },
+        { "page": 6, "text": "4: LTV: Primary/2nd -60%, investment /C/O: 50%", "reading": "investment 与 C/O 50%" },
+        { "page": 32, "text": "LTV - Delayed Financing – max 60% for primary, Cash out – max at 50%", "reading": "常规 cash out 50%" },
+        { "page": 25, "text": "Maximum LTVs: 45.01- 50% / Up to 45% (Investment Loans table)", "reading": "投资房 reserve 表仅覆盖到 50%" }
+      ],
+      "assessment": "第 14 页带 Effective on 03-02-2026，大概率意在 supersede 旧口径；但投资房 reserve 表格仍只覆盖到 50%，系统不能直接认定 60%。",
+      "companyQuestion": "请给出完整 LTV 矩阵：Primary Purchase / Primary R/T / Primary Cash-out / Second Home Purchase & Refi / Investment Purchase / Investment R/T / Investment Cash-out 各自的最高 LTV，并确认第 14 页是否 supersede 第 6、25、32 页。若投资房允许 50.01%–60%，第 25 页 reserve 表如何延伸？",
+      "scenarios": [
+        { "key": "p14_unified_60", "label": "第 14 页口径：全部 60%", "params": { "maxLtvAll": 0.60 } },
+        { "key": "p6_p32_split", "label": "第 6/32 页口径：Primary/2nd 60%，Investment 与 Cash-out 50%", "params": { "maxLtvPrimarySecond": 0.60, "maxLtvInvestment": 0.50, "maxLtvCashOut": 0.50 } }
+      ],
+      "systemBehavior": "同时输出两套口径下的 LTV 判定；LTV 落在 50%–60% 区间时结果必然分歧，显示 Manual Confirmation Required。" },
+
+    { "id": "CONF-002", "title": "DTA 定义：subject 取值、扣减项与车辆取值基准（原 CONF-003/004 并入）",
+      "category": "DTA", "severity": "critical",
+      "affectedRuleIds": ["UNI-DTA-003", "UNI-DTA-004", "UNI-DTA-005", "UNI-DTA-006", "UNI-DTA-007", "UNI-DTA-008", "UNI-DTA-010", "UNI-LTV-005"],
+      "positions": [
+        { "page": 19, "text": "Total assets = Zillow value on all REOs (subject to ownership %) + liquid & non-liquid funds (bank, stocks, retirement) after cash to close + FMV of other assets", "reading": "REO 用 Zillow；扣 cash to close 全额" },
+        { "page": 21, "text": "Total assets: Subject property market value (per appraisal report) plus All verified assets ... minus Assets used to purchase subject property.", "reading": "subject 用 appraisal；purchase 扣『用于购买 subject 的资产』；refi 不扣" },
+        { "page": 20, "text": "Total assets = 2,000,000 + 1,000,000 + 950,000 + 70,000 + 20,000 - 800,000 – 15,000 = 3,225,000", "reading": "示例：subject 用 purchase price；扣 down payment + closing cost" },
+        { "page": 12, "text": "14. DTA ratio is based on purchase price or appraisal value – whichever is LOWER", "reading": "价值基准取低" },
+        { "page": 19, "text": "Auto loan is assumed to be offsetting asset/liability for DTA if value >loan balance and not used as non-liquid assets", "reading": "车辆按 offsetting asset/liability 处理（第 20 页示例把 20,000 同时计入两侧，与此一致）" }
+      ],
+      "assessment": "offsetting 做法本身两页一致，不再作为『计不计』的冲突。未决的是：(a) subject 取 appraisal、purchase price 还是取低；(b) 扣减项是 cash to close 全额还是仅 down payment + closing cost；(c) 车辆 offsetting asset 的取值按实际 FMV、按与贷款余额同额，还是其他规定值。",
+      "companyQuestion": "DTA 的 Total Assets：subject property 取值基准是什么？扣减项范围是什么？车辆 offsetting asset 应按实际 FMV、按贷款余额同额，还是其他规定值入表？",
+      "scenarios": [
+        { "key": "p20_example", "label": "第 20 页示例口径：subject=purchase price，扣 down payment + closing cost，车辆两侧按贷款余额同额", "params": { "subjectBasis": "purchase_price", "deduction": "down_payment_plus_closing", "vehicleBasis": "loan_balance_offset" } },
+        { "key": "p21_table", "label": "第 21 页表格口径：subject=appraisal，purchase 扣用于购买 subject 的资产，车辆按 FMV/余额进两侧", "params": { "subjectBasis": "appraisal", "deduction": "assets_used_to_purchase", "vehicleBasis": "fmv_asset_balance_liability" } },
+        { "key": "p12_lower", "label": "第 12 页价值基准：subject 取 purchase price 与 appraisal 较低者", "params": { "subjectBasis": "lower_of_price_appraisal" } }
+      ],
+      "systemBehavior": "按可用输入对每个 scenario 各算一次 DTA 并全部展示；缺输入的 scenario 输出 insufficient_data；显示 Manual Confirmation Required。" },
+
+    { "id": "CONF-005", "title": "投资房 DSCR / reserve 矩阵与 45% 边界（原 CONF-006 并入）",
+      "category": "DSCR", "severity": "critical",
+      "affectedRuleIds": ["UNI-DSCR-002", "UNI-DSCR-003", "UNI-DSCR-004", "UNI-DSCR-005", "UNI-RES-010", "UNI-TXN-008"],
+      "positions": [
+        { "page": 22, "text": "DSCR >= 1.2 – 6 months liquid reserve / DSCR <1.2 (or no ratio) – 12 months reserve (6 months liquid, 6 months non-liquid ok) / If LTV < 45%, cash out proceeds can be used as reserve, (if DSCR >1, no reserve needed)", "reading": "1.2 与 1 两档；<45%（不含等号）" },
+        { "page": 25, "text": "45.01-50%: Min 120% DSCR + 6mo liquid | 12mo PITIA (min 6 liquid). Up to 45%: Min 100% DSCR no reserve | 6mo PITIA (min 3 liquid, remaining non-liquid or subject cash proceeds)", "reading": "Option A/B 表格；Up to 45% 含等号" },
+        { "page": 25, "text": "If LTV is < 45% - no reserve if DSCR >= 1%; 6 month if DSCR is < 1%, 3 months non-liquid reserves can be from cash out proceeds, borrower need to have 3 months liquid reserves.", "reading": "同页文字与表格不一致；DSCR >= 1% 疑似 1.00 笔误" },
+        { "page": 6, "text": "C/O proceed can't be as reserves except investment DSCR for LTV<=45%", "reading": "<=45% 含等号" },
+        { "page": 2, "text": "Cash out proceed can't be used as reserves.", "reading": "摘要页无条件禁止" }
+      ],
+      "assessment": "需要公司给出：1.20 与 1.00 两档的 reserve 要求；45% 边界是 <45% 还是 ≤45%；『DSCR >= 1%』是否为 1.00 笔误；若 LTV 允许至 60%（CONF-001），50.01%–60% 档的 reserve 如何规定。",
+      "companyQuestion": "投资房请确认：以第 22 页文字还是第 25 页表格为准；45% 边界含不含等号；DSCR >= 1% 是否应为 1.00；若投资房 LTV 可到 60%，50.01–60% 档 DSCR/reserve 要求是什么；cash-out proceeds 作 reserve 的确切条件。",
+      "scenarios": [
+        { "key": "p22_text", "label": "第 22 页文字口径", "params": { "boundary": "lt_45_exclusive", "noReserveIf": "dscr_gt_1", "below12": { "months": 12, "liquidMonths": 6 } } },
+        { "key": "p25_table", "label": "第 25 页表格口径", "params": { "boundary": "lte_45_inclusive", "tiers": [ { "ltv": "45.01-50", "optionA": "dscr>=1.20 + 6mo liquid", "optionB": "12mo (>=6 liquid)" }, { "ltv": "<=45", "optionA": "dscr>=1.00, no reserve", "optionB": "6mo (>=3 liquid, rest non-liquid or cash proceeds)" } ] } }
+      ],
+      "systemBehavior": "两套口径各算一次；LTV 在 44.5%–45.5% 区间或结果分歧时显示 Manual Confirmation Required；『1%』原样展示并标注疑似笔误，不得由系统修正。" },
+
+    { "id": "CONF-009", "title": "Large deposit 阈值：6 个月 PITIA vs 100% of PITIA",
+      "category": "large deposits", "severity": "high",
+      "affectedRuleIds": ["UNI-LD-001", "UNI-LD-002"],
+      "positions": [
+        { "page": 26, "text": "Large deposit = 6 months PITIA on subject – need sourcing.", "reading": "阈值 = 6 × 月供" },
+        { "page": 9, "text": "8. Large deposits – even though the threshold is 6 months PITIA ...", "reading": "阈值 = 6 × 月供" },
+        { "page": 42, "text": "1) Personal bank account – ... need to source large deposits – 100% of pitia", "reading": "阈值 = 1 × 月供" }
+      ],
+      "assessment": "字面差 6 倍，决定要求客户解释多少笔存款。",
+      "companyQuestion": "个人账户的 large deposit sourcing 阈值是 6 个月 PITIA 还是 1 个月 PITIA（第 42 页 100% of pitia 应如何理解）？",
+      "scenarios": [
+        { "key": "one_month", "label": "1-month PITIA threshold", "params": { "multiplier": 1 } },
+        { "key": "six_month", "label": "6-month PITIA threshold", "params": { "multiplier": 6 } }
+      ],
+      "systemBehavior": "同时显示两个阈值金额与各自命中的存款清单，Final sourcing requirement 显示 Manual Confirmation Required；不自动选择，也不因此自动判 loan 不合格。" },
+
+    { "id": "CONF-014", "title": "墨西哥籍 Foreign National 的受理与例外流程",
+      "category": "citizenship and visa", "severity": "high",
+      "affectedRuleIds": ["UNI-BOR-004", "UNI-BOR-006"],
+      "positions": [
+        { "page": 2, "text": "Borrower from Mexico may ok by investor exception.", "reading": "可经 investor exception 受理" },
+        { "page": 35, "text": "Foreign national from Mexico will NOT be eligible-by exception.", "reading": "措辞含糊：不合格，或仅限例外" }
+      ],
+      "assessment": "Mexico 在 Exhibit A（第 53 项），两页表述无法确定是否可受理以及流程。",
+      "companyQuestion": "墨西哥籍 FN/NPRA：是否可以受理？是否必须先取得书面 exception？在开文件前还是 submission 后申请？哪些州/县可申请（TX 受 SB 17 限制）？",
+      "scenarios": [],
+      "systemBehavior": "countryOfOrigin=Mexico 且身份为 FN/NPR 时输出 Manual Confirmation Required（不直接 hard stop），并附两页原文；TX 案件仍按 UNI-AREA-004 直接 hard stop。" },
+
+    { "id": "CONF-007", "title": "Gift donor statement 月数与入账截止时点",
+      "category": "gift funds", "severity": "high",
+      "affectedRuleIds": ["UNI-GIFT-005"],
+      "positions": [
+        { "page": 27, "text": "Gift funds need to be deposited to borrower's account or escrow prior to CTC otherwise sourcing donor's ability with 1 month bank statements.", "reading": "CTC 前；否则 1 个月赠与人对账单" },
+        { "page": 43, "text": "Need gift funds to be deposited into title before doc, otherwise need 2 months of donor bank statements.", "reading": "doc 前；否则 2 个月赠与人对账单" }
+      ],
+      "assessment": "时点（CTC vs doc）、对象（borrower account/escrow vs title）、月数（1 vs 2）三处不一致。",
+      "companyQuestion": "Gift funds：赠与人对账单要求 1 个月还是 2 个月？入账截止以 CTC 还是 docs 为准？入到 borrower account、escrow 还是 title？",
+      "scenarios": [
+        { "key": "p27", "label": "第 27 页：CTC 前入账，否则 1 个月对账单", "params": { "deadline": "CTC", "donorStatements": 1 } },
+        { "key": "p43", "label": "第 43 页：docs 前入账，否则 2 个月对账单", "params": { "deadline": "docs", "donorStatements": 2 } }
+      ],
+      "systemBehavior": "实际收件按 OVR-009 的 operational conservative default（2 个月、docs 前）向客户提示，同时明确标注该口径为 operational default 而非已确认 guideline，并显示 Manual Confirmation Required。" }
+  ],
+
+  "minorPending": [
+    { "id": "CONF-015", "title": "FICO<680 时『more reserve / lower LTV』未量化", "severity": "warning",
+      "affectedRuleIds": ["UNI-CREDIT-002", "UNI-RES-001"], "sourcePage": [8, 18, 24],
+      "note": "680（管理层批准）与 700（reserve 分档）是两个用途不同的门槛，本身不冲突；未决的仅是 <680 时是否在 18 个月 PITIA 之外另有加码、LTV 降到多少。另：多借款人时 FICO 取值口径未定义（AMB-008）。",
+      "systemBehavior": "FICO<680 时输出管理层批准提示 + 18 个月 reserve 计算 + 待量化备注；不阻塞判定。" },
+    { "id": "CONF-018", "title": "无贷款境外房产可否主动计入 DTA；与 non-liquid reserve 可否并用", "severity": "warning",
+      "affectedRuleIds": ["UNI-DTA-009", "UNI-RES-006"], "sourcePage": [19, 25],
+      "note": "『does not need to be included』是允许省略还是禁止计入未说明。",
+      "systemBehavior": "计入 / 不计入各算一次 DTA；标记待确认。" },
+    { "id": "CONF-021", "title": "投资房 refinance 能否使用 gift funds", "severity": "warning",
+      "affectedRuleIds": ["UNI-GIFT-001"], "sourcePage": [2, 6, 27],
+      "note": "第 27 页写 Investment purchase，第 2/6 页未限定交易类型。",
+      "systemBehavior": "occupancy=investment 且 refinance 且存在 gift 时标记 Manual Confirmation Required。" }
+  ],
+
+  "closedOrReclassified": [
+    { "id": "CONF-003", "resolution": "merged", "into": "CONF-002", "note": "车贷 offsetting 做法两页一致；未决问题重新表述为取值基准（FMV vs 贷款余额 vs 规定值）。" },
+    { "id": "CONF-004", "resolution": "merged", "into": "CONF-002", "note": "subject 价值基准并入 DTA 定义问题。" },
+    { "id": "CONF-006", "resolution": "merged", "into": "CONF-005", "note": "cash-out proceeds 作 reserve 是投资房 DSCR/reserve 矩阵的一部分。" },
+    { "id": "CONF-008", "resolution": "reclassified_active", "ruleId": "UNI-GIFT-003", "note": "规则单一出现且无矛盾来源，不构成冲突；Donor must be a relative 按 active requirement 执行。" },
+    { "id": "CONF-010", "resolution": "resolved_by_override", "overrideId": "OVR-004", "note": "退休金按 OVR-004 归一化，保留低级别 interpretation note。" },
+    { "id": "CONF-011", "resolution": "closed_not_a_conflict", "note": ">$2M exception 流程与 $3M in-house 上限不矛盾，按分层 workflow 实现（UNI-LOAN-001/002）。" },
+    { "id": "CONF-012", "resolution": "closed_not_a_conflict", "note": "3.79% 与 3.59% 对应不同 as-of 日期（2026-06-14 vs 2026-03-09 示例），非冲突；按 UNI-RATE-004 要求 LO 输入当期 index 或 qualifying rate。" },
+    { "id": "CONF-013", "resolution": "closed_ny_outside_area", "note": "NY 按 Outside published lending area 处理（UNI-AREA-001）；第 22 页 NY 句标记 legacy_orphan，仅作来源备注；product desk 提供扩展时经 override 启用。" },
+    { "id": "CONF-016", "resolution": "reclassified_active", "ruleId": "UNI-ASSET-005", "note": "第 8 页本身已写明：CPA letter 或 other legal documents 可接受；税表/Schedule/K-1 单独不足。按此实现，非冲突。" },
+    { "id": "CONF-017", "resolution": "reclassified_active", "ruleId": "UNI-EMP-011", "note": "Exhibit C + 第 39 页示例已足够明确：US/China/HK/Taiwan 以外的境外业务 owner 不合格，员工不自动不合格；PDF 未写例外，系统不创造例外。" },
+    { "id": "CONF-019", "resolution": "downgraded_note", "ruleId": "UNI-OTHER-005", "note": "版本日期不一致作为 Guideline Sources 固定备注展示，不触发 Manual Confirmation。" },
+    { "id": "CONF-020", "resolution": "downgraded_note", "note": "『12 basic factors』实列 13 项，排版遗留，仅备注。" },
+    { "id": "CONF-022", "resolution": "reclassified_active", "ruleId": "UNI-TXN-007", "note": "cash out 禁用 POA 本身明确：purpose=cash_out 且 usePOA=true 直接 hard stop 提示。" },
+    { "id": "AMB-010", "resolution": "merged", "into": "CONF-001", "note": "R/T 的 LTV 是完整 LTV 矩阵的一部分。" }
+  ],
+
+  "unresolvedAmbiguities": [
+    { "id": "AMB-001", "topic": "PITIA 的构成", "note": "全文以 PITIA 为 reserve 与 large deposit 基数但未定义构成。V1 处理：LO 手动输入 monthly PITIA（OVR-001），系统不估算税、保险、HOA、特别税、Mello-Roos；不阻塞 Phase 3。", "sourcePage": [9, 12, 24, 25, 26, 29], "phase3Blocking": false },
+    { "id": "AMB-002", "topic": "Qualifying rate 下 PITIA 的税/保险取值", "note": "同 AMB-001，由 LO 输入。", "sourcePage": [24], "phase3Blocking": false },
+    { "id": "AMB-003", "topic": "no ratio DSCR 的定义", "note": "第 22 页把 no ratio 与 DSCR<1.2 同档；V1 按『未提供租金 = no ratio 档』处理并展示依据。", "sourcePage": [2, 22], "phase3Blocking": false },
+    { "id": "AMB-004", "topic": "CLTV/HLTV 次级留置权按余额还是额度", "note": "V1 要求 LO 分别输入余额与额度，双口径展示。", "sourcePage": [14], "phase3Blocking": false },
+    { "id": "AMB-005", "topic": "2-4 units 自住时其他单元租金处理", "note": "V1 不使用该租金，仅提示待确认。", "sourcePage": [31, 22], "phase3Blocking": false },
+    { "id": "AMB-006", "topic": "Departing residence 挂牌/已签约时的处理", "note": "V1 按第 20 页示例（计入两侧）处理并标注。", "sourcePage": [20], "phase3Blocking": false },
+    { "id": "AMB-007", "topic": "Exhibit A 对 gift 的国别判定基准（国籍/居住地/账户所在国）", "note": "V1 对三者任一命中 Exhibit A 即警告。", "sourcePage": [27, 43], "phase3Blocking": false },
+    { "id": "AMB-008", "topic": "多借款人 FICO 取值", "note": "V1 要求 LO 输入代表性 FICO 并标注口径待确认。", "sourcePage": [18, 24], "phase3Blocking": false },
+    { "id": "AMB-009", "topic": "Trust 名下房产在 DTA 的折算", "note": "V1 按 ownership % 处理并标注待确认。", "sourcePage": [30, 42], "phase3Blocking": false }
+  ]
+}

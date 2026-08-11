@@ -149,6 +149,6 @@ PDF 全文以 PITIA 作为 reserve 月数与 large deposit 阈值的基数，但
 - Primary/2nd reserve 分档：≥700 → 12 个月（≥6 liquid）；<700 或无分 → 18 个月（≥12 liquid）
 - Gift：最多 3 位赠与人（NO EXCEPTION）、不可作 reserve、不可来自 Exhibit A 国家、donor business 需 100% 持股
 - Gift of equity：仅 purchase、可作首付与费用、不可作 reserve
-- 资产逐类处理（第 26、42、43 页共 13 类）
+- 资产类别及基本 eligibility 已提取（第 26、42、43 页共 13 类）；但个别 haircut、documentation 与 sourcing 规则仍有冲突（退休金 liquid reserve 百分比、gift donor statement 月数、gift 入账截止时间、large deposit threshold），以 conflicts.json 为准
 - 房产类型与 ≤10 acres、appraisal + CDA、transferred appraisal
 - 文件类：W-8、condo cert、access letter、CPA letter、Source of Wealth LOE、Cash-out purpose LOE、签名一致性、EPO addendum
