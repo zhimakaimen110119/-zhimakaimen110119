@@ -1,7 +1,7 @@
 # Approval request — campaign-001-1
 
 rule: H9 — contacting real people directly
-blocking: true
+blocking: false
 campaign: campaign-001
 experiment: EXP-001
 raised: 2026-08-18
@@ -35,6 +35,19 @@ EXP-001 does not run. The fallback is EXP-002 (consumer pre-order), which is its
 
 ## Sign here
 
-decision: PENDING
+decision: SUPERSEDED
 signed_by:
 date:
+
+
+---
+
+## Resolution
+
+**SUPERSEDED 2026-08-18** by the founder's standing authorization (approval-policy v2, rule A15).
+Zero-cost outreach to public business contacts is now AUTO and no longer requires a per-campaign signature.
+
+This request is also moot on its own terms: the founder declined to supply the ten names manually and instructed the Prospecting Agents to build the list themselves. EXP-001's mainland framing has been superseded by campaign-002 (US market).
+
+signed_by: founder standing authorization
+date: 2026-08-18

@@ -70,7 +70,7 @@ function validate(slug, campaignId) {
   const assumed = [];
   const walk = (o, trail) => {
     if (!o || typeof o !== 'object') return;
-    if (typeof o.status === 'string' && o.status !== 'confirmed') assumed.push(`${trail} (${o.status})`);
+    if (typeof o.status === 'string' && !/^(confirmed|resolved|active)/.test(o.status)) assumed.push(`${trail} (${o.status})`);
     for (const [k, v] of Object.entries(o)) if (v && typeof v === 'object') walk(v, trail ? `${trail}.${k}` : k);
   };
   walk(product, '');

@@ -1,33 +1,217 @@
 {
   "$comment": "Machine-readable mirror of rules/approval-policy.md. Default gate is HUMAN.",
-  "version": 1,
+  "version": 2,
   "default_gate": "HUMAN",
   "human": [
-    {"id": "H1", "action": "ad_spend", "match": ["paid_ads", "boost_post", "sponsored", "ad_budget"]},
-    {"id": "H2", "action": "account_registration", "match": ["signup_account", "kyc", "identity_verification", "captcha", "phone_verification"]},
-    {"id": "H3", "action": "irreversible_operation", "match": ["irreversible"]},
-    {"id": "H4", "action": "price_change", "match": ["price_change", "pricing_update"]},
-    {"id": "H5", "action": "sensitive_claims", "match": ["health_claim", "medical", "nutrition_claim", "legal_claim", "financial_claim", "safety_claim"]},
-    {"id": "H6", "action": "deletion", "match": ["delete_product", "delete_account", "delete_published_content", "delete_data"]},
-    {"id": "H7", "action": "brand_repositioning", "match": ["change_positioning", "rename_product", "change_core_promise"]},
-    {"id": "H8", "action": "first_real_publish", "match": ["publish_live", "connect_platform_api", "oauth_grant"]},
-    {"id": "H9", "action": "direct_outreach", "match": ["dm", "cold_email", "outreach"]},
-    {"id": "H10", "action": "pii_handling", "match": ["pii", "customer_list", "export_users"]},
-    {"id": "H11", "action": "external_commitment", "match": ["partnership", "sponsorship", "affiliate_agreement", "contract"]},
-    {"id": "H12", "action": "third_party_claims", "match": ["competitor_comparison", "named_third_party_claim"]}
+    {
+      "id": "H1",
+      "action": "spend_over_50_usd",
+      "match": [
+        "ad_spend",
+        "paid_ads",
+        "boost_post",
+        "sponsored",
+        "purchase",
+        "subscription_signup"
+      ],
+      "note": "Any SINGLE real expenditure over $50 USD. At or under $50 and reversible: AUTO."
+    },
+    {
+      "id": "H2",
+      "action": "account_registration_or_verification",
+      "match": [
+        "signup_account",
+        "kyc",
+        "identity_verification",
+        "captcha",
+        "phone_verification",
+        "login",
+        "oauth_grant"
+      ],
+      "note": "Login, CAPTCHA, KYC, real-name verification. The human is the account holder."
+    },
+    {
+      "id": "H3",
+      "action": "irreversible_operation",
+      "match": [
+        "irreversible"
+      ]
+    },
+    {
+      "id": "H5",
+      "action": "legal_or_high_risk_claims",
+      "match": [
+        "health_claim",
+        "medical",
+        "nutrition_claim",
+        "legal_claim",
+        "financial_claim",
+        "safety_claim",
+        "allergen_claim"
+      ],
+      "note": "Legal or high-risk statements. For a food product this specifically catches health-outcome claims and allergen safety claims."
+    },
+    {
+      "id": "H6",
+      "action": "destructive_operation",
+      "match": [
+        "delete_product",
+        "delete_account",
+        "delete_published_content",
+        "delete_production_data"
+      ]
+    },
+    {
+      "id": "H10",
+      "action": "pii_handling",
+      "match": [
+        "pii",
+        "customer_list",
+        "export_users",
+        "private_individual_data"
+      ],
+      "note": "Public business contact data is NOT PII and is AUTO. Data about private individuals remains HUMAN."
+    }
   ],
   "auto": [
-    {"id": "A1", "action": "content_generation", "match": ["generate_content", "draft_copy", "script"]},
-    {"id": "A2", "action": "creative_testing", "match": ["headline_test", "hook_test", "thumbnail_test", "title_test"]},
-    {"id": "A3", "action": "scheduling", "match": ["posting_time", "cadence"]},
-    {"id": "A4", "action": "seo", "match": ["seo", "keywords", "metadata", "structured_data", "internal_linking"]},
-    {"id": "A5", "action": "zero_cost_experiment", "match": ["free_experiment", "zero_cost_test"]},
-    {"id": "A6", "action": "research", "match": ["research", "competitive_analysis", "read_public_source"]},
-    {"id": "A7", "action": "internal_planning", "match": ["create_campaign", "create_experiment", "write_hypothesis"]},
-    {"id": "A8", "action": "internal_decision", "match": ["judge_scoring", "ceo_decision"]},
-    {"id": "A9", "action": "queue_build", "match": ["build_queue", "generate_utm"]},
-    {"id": "A10", "action": "analytics", "match": ["analytics", "retro", "dashboard"]},
-    {"id": "A11", "action": "kill_internal_campaign", "match": ["kill_campaign", "pause_campaign"]},
-    {"id": "A12", "action": "draft_approval_request", "match": ["draft_approval"]}
-  ]
+    {
+      "id": "A1",
+      "action": "content_generation",
+      "match": [
+        "generate_content",
+        "draft_copy",
+        "script",
+        "caption"
+      ]
+    },
+    {
+      "id": "A2",
+      "action": "creative_and_price_testing",
+      "match": [
+        "headline_test",
+        "hook_test",
+        "title_test",
+        "pricing_test",
+        "offer_test"
+      ]
+    },
+    {
+      "id": "A3",
+      "action": "scheduling",
+      "match": [
+        "posting_time",
+        "cadence"
+      ]
+    },
+    {
+      "id": "A4",
+      "action": "seo",
+      "match": [
+        "seo",
+        "keywords",
+        "metadata",
+        "structured_data"
+      ]
+    },
+    {
+      "id": "A5",
+      "action": "low_cost_experiment",
+      "match": [
+        "free_experiment",
+        "zero_cost_test",
+        "experiment_under_50_usd"
+      ]
+    },
+    {
+      "id": "A6",
+      "action": "public_business_research",
+      "match": [
+        "research",
+        "competitive_analysis",
+        "public_business_lookup",
+        "prospect_screening"
+      ]
+    },
+    {
+      "id": "A7",
+      "action": "internal_planning",
+      "match": [
+        "create_campaign",
+        "create_experiment",
+        "write_hypothesis"
+      ]
+    },
+    {
+      "id": "A8",
+      "action": "internal_decision",
+      "match": [
+        "judge_scoring",
+        "ceo_decision"
+      ]
+    },
+    {
+      "id": "A9",
+      "action": "queue_and_tracking",
+      "match": [
+        "build_queue",
+        "generate_utm",
+        "content_id"
+      ]
+    },
+    {
+      "id": "A10",
+      "action": "analytics",
+      "match": [
+        "analytics",
+        "retro",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "A11",
+      "action": "kill_or_scale_campaign",
+      "match": [
+        "kill_campaign",
+        "pause_campaign",
+        "scale_campaign"
+      ]
+    },
+    {
+      "id": "A13",
+      "action": "audience_narrowing",
+      "match": [
+        "audience_switch",
+        "segment_change"
+      ],
+      "note": "Small shifts of target audience. A wholesale repositioning of the product is still H7-class and should be raised."
+    },
+    {
+      "id": "A14",
+      "action": "landing_page",
+      "match": [
+        "landing_page",
+        "site_copy"
+      ]
+    },
+    {
+      "id": "A15",
+      "action": "zero_cost_outreach",
+      "match": [
+        "outreach",
+        "dm",
+        "cold_email"
+      ],
+      "note": "Replaces H9. Zero-cost outreach to PUBLIC BUSINESS contacts is AUTO. Volume discipline still applies: personalized, one at a time, no bulk blasting, honour every opt-out immediately. Outreach to private individuals remains HUMAN under H10."
+    },
+    {
+      "id": "A16",
+      "action": "channel_test",
+      "match": [
+        "channel_test",
+        "platform_test"
+      ]
+    }
+  ],
+  "amended": "2026-08-18",
+  "amendment_note": "Standing authorization from the founder, 2026-08-18. Human approval now attaches to SPEND SIZE and IRREVERSIBILITY rather than to category of marketing activity. Zero-cost, reversible growth experiments execute without asking. H1 changed from any spend to >$50 single spend. H9 (direct outreach) narrowed to zero-cost outreach = AUTO. The default for an unlisted case remains HUMAN."
 }

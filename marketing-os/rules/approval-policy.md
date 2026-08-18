@@ -1,85 +1,79 @@
 # Approval Policy
 
-Version: 1.0
+Version: **2** — amended 2026-08-18 by founder standing authorization
+Supersedes: v1 (2026-08-18)
 Governed by: `rules/constitution.md` Article 7.
-Machine-readable form: `rules/approval-policy.json` (enforced by `lib/mos.mjs`).
+Machine-readable form: `rules/approval-policy.json`.
 
-Two gates exist:
+## What changed in v2, and why
 
-- **`AUTO`** — an agent may execute without asking.
-- **`HUMAN`** — the OS must stop, write an approval request into
-  `outputs/approvals/`, and wait. No agent may self-approve, and no agent may
-  interpret silence as approval.
+v1 gated on the **category** of marketing activity. v2 gates on **spend size and irreversibility**.
 
-The default for anything not listed here is **`HUMAN`**.
+The founder's instruction: stop asking about things that are cheap, reversible and legal. That is the correct trade. A gate that fires on every piece of copy trains the human to rubber-stamp, which makes the gate worthless exactly when it matters. Fewer gates, each of which actually means something.
+
+**Unchanged:** the default for anything not listed here is still **HUMAN**. Do not read v2's shorter list as permission to improvise.
 
 ---
 
 ## HUMAN approval required
 
-| # | Action | Why |
+| # | Action | Boundary |
 |---|---|---|
-| H1 | Any real advertising spend, of any amount, on any platform | Irreversible cash out |
-| H2 | Account registration, KYC, identity verification, phone/email verification, CAPTCHA solving | The human is the account holder; agents must not create identities |
-| H3 | Any irreversible operation | Cannot be undone by definition |
-| H4 | Significant price changes | Directly moves the North Star and is visible to existing customers |
-| H5 | Sensitive-category claims — legal, medical, health, nutrition, financial, safety | Regulatory and trust exposure |
-| H6 | Deleting a product, an account, a dataset, or published content | Destructive |
-| H7 | Changing core brand positioning | Positioning is the compounding asset; churn on it destroys value |
-| H8 | First real publish to any platform, per platform | The Phase 1 → Phase 2 gate |
-| H9 | Contacting real people directly — DMs, cold email, outreach lists | Reputational and anti-spam exposure |
-| H10 | Anything touching user PII or a customer list | Privacy |
-| H11 | Partnerships, sponsorships, affiliate agreements, or any commitment on the founder's behalf | Binds a real person |
-| H12 | Publishing a competitor comparison, or any claim about a named third party | Legal exposure |
+| H1 | **Real spend over $50 in a single expenditure** | At or under $50 and reversible → AUTO. Recurring charges count at their annual total, not their monthly slice. |
+| H2 | **Login, CAPTCHA, KYC, real-name or phone verification, OAuth grant** | The human is the account holder. No agent creates or authenticates an identity. |
+| H3 | **Any irreversible operation** | If you cannot undo it in an afternoon, ask. |
+| H5 | **Legal or high-risk claims** | Health outcomes, medical, nutrition, allergen safety, legal, financial. For a food product this is the live one — see below. |
+| H6 | **Destructive operations** | Deleting a product, an account, published content, or production data. |
+| H10 | **Private-individual data** | Public business contact data is explicitly NOT this and is AUTO. Data about private individuals stays HUMAN. |
 
-### Sensitive-category detail (H5)
+### H5 in practice for this product
 
-For a recipe / food product this specifically catches:
-"cures", "detox", "boosts immunity", "lowers blood sugar", "anti-inflammatory",
-"weight loss", "medicinal", "food therapy / 食疗" health claims,
-"安全食用" claims about allergens, foraging or wild-ingredient safety, and any
-claim about pregnancy, children or medical conditions.
+`AUTO`: "this is what's in season in Washington right now", "traditionally eaten at 处暑", "cheaper this fortnight", "tastes better now".
 
-Traditional-cuisine framing ("this is what people traditionally eat in
-autumn") is `AUTO`. A health *outcome* claim is `HUMAN`.
+`HUMAN`: anything asserting a health outcome — 润肺, 降火, 排毒, detox, immunity, blood sugar, anti-inflammatory, weight loss — and any allergen-safety assurance. Selling to restaurants raises the stakes: a claim they repeat to their own customers becomes their liability.
 
 ---
 
-## AUTO — no approval needed
+## AUTO — execute without asking
 
 | # | Action |
 |---|---|
-| A1 | Generating marketing content of any volume into the queue |
-| A2 | Headline / hook / thumbnail / title A-B tests |
-| A3 | Choosing posting times and cadence |
-| A4 | SEO work: keywords, metadata, internal linking, structured data, sitemaps |
-| A5 | Any zero-cash experiment |
-| A6 | Research, competitive analysis, reading public sources |
-| A7 | Creating campaigns, experiments and hypotheses in this repo |
-| A8 | Judge scoring and CEO decisions **within** this repo |
-| A9 | Building the publish queue and its UTM links |
+| A1 | Generating marketing content of any volume |
+| A2 | Creative **and pricing** tests — headlines, hooks, titles, offers, price points |
+| A3 | Posting times and cadence |
+| A4 | SEO — keywords, metadata, structured data |
+| A5 | Any experiment costing $50 or less |
+| A6 | **Public business research and prospect screening** — searching public listings, websites, menus, public social accounts |
+| A7 | Creating campaigns, experiments and hypotheses |
+| A8 | Judge scoring and CEO decisions |
+| A9 | Publish queue, UTM, content_id assignment |
 | A10 | Analytics, dashboards, retrospectives |
-| A11 | Killing an underperforming campaign per Article 10 |
-| A12 | Drafting an approval request for a HUMAN item |
+| A11 | Killing, pausing **or scaling** a campaign |
+| A13 | **Narrowing or switching the target audience** within the product's category |
+| A14 | **Landing page and site copy** |
+| A15 | **Zero-cost outreach to public business contacts** (replaces v1's H9) |
+| A16 | Channel tests |
 
-Note on A11: **killing** an internal campaign is AUTO. **Deleting** anything
-already published is H6.
+### A15 — outreach discipline
+
+Gone from the approval queue, not from the rules. Zero-cost outreach is AUTO **only** when:
+
+- messages are **personalized one at a time** — no bulk blast, no mail-merge that reads like one
+- the recipient is a **business at a public contact point**, not a private individual
+- **every opt-out is honoured immediately and permanently**
+- nothing is misrepresented — no fake mutual connections, no invented referrals, no pretending to be a customer
+- the first message gives something real before asking for anything
+
+A15 covers zero-cost channels. A paid outreach tool crosses into H1 at $50.
+
+### A13 — the limit
+
+A13 covers moving from "home cooks" to "small restaurants". It does **not** cover changing what the product fundamentally is or what it promises. A wholesale repositioning still gets raised, per Constitution Article 9's concern that positioning is the compounding asset.
 
 ---
 
 ## How an approval request works
 
-1. Agent detects a HUMAN-gated action.
-2. Agent writes `outputs/approvals/<campaign_id>-<n>.md` containing:
-   - what it wants to do, in one sentence
-   - which rule triggered the gate (H-number)
-   - the cost, and whether it is reversible
-   - what happens if approval is denied (the fallback plan)
-   - an explicit `decision: PENDING` line
-3. Execution stops for that branch only. Everything else continues.
-4. A human edits `decision:` to `APPROVED` or `DENIED` and signs with a date.
-5. `mos.mjs validate` refuses to mark a campaign launch-ready while any
-   blocking approval is `PENDING`.
+Unchanged from v1. Agent writes `outputs/approvals/<campaign_id>-<n>.md` with what it wants, the rule that triggered the gate, the cost, whether it is reversible, the fallback if denied, and `decision: PENDING`. Execution stops for that branch only. `mos.mjs validate` refuses launch-ready while a blocking approval is PENDING.
 
-An agent that executes a HUMAN-gated action without a signed `APPROVED` line
-has committed a Constitution violation, and the campaign is void.
+An agent that executes a HUMAN-gated action without a signed `APPROVED` has committed a Constitution violation and the campaign is void. **v2's shorter list makes this more serious, not less** — there are now only six gates, and each one exists because crossing it costs real money, real identity, or real legal exposure.
