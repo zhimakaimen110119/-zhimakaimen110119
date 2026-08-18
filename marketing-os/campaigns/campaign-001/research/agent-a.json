@@ -1,0 +1,121 @@
+{
+  "agent": "A",
+  "persona": "Distribution-first organic growth marketer: early products die of obscurity, and the fix is a repeatable, algorithm-friendly content format that reaches cold audiences for free and shows signal inside two weeks.",
+  "run_ts": "2026-08-18",
+  "isolation": "ran in parallel with B and C, no visibility of their output",
+  "language_market_position": {
+    "recommendation": "d",
+    "reasoning": "Sequenced combination with a clear beachhead: overseas Chinese-speaking diaspora (b) first, using China-style 节气 content mechanics (a) as top-of-funnel, deferring English localization (c) until there is paid evidence. The decisive factor is not audience size but whether money and traffic can legally move: Xiaohongshu's March 2025 交易导流违规管理细则 bans directing users off-platform (penalties up to permanent ban), its digital-goods category requires ~1000+ followers and prior monthly revenue history, and a .com on overseas hosting has no ICP filing - so a mainland-first strategy points users at a site the founder cannot legally funnel them to or charge them through. The diaspora keeps the existing Chinese-language site as-is, can be reached on platforms that permit outbound links, holds Western payment cards, and has a genuinely unsolved problem: 节气 intuition breaks when hemisphere, climate zone and supermarket change. Path (c) is the worst near-term bet: full localization plus entry into a market where Google recipe traffic is collapsing (reported 30-80% drops for food bloggers) and Pinterest referral share for food bloggers fell from 6.33% to 3.99%.",
+    "evidence": [
+      "https://www.yunyingpai.com/news/1051817.html",
+      "https://omnigoai.com/zh/blog/xiaohongshu-link-rules/",
+      "https://help.aliyun.com/zh/icp-filing/basic-icp-service/product-overview/icp-filing-requirements-for-a-regular-website",
+      "https://searchengineland.com/google-ai-slop-thanksgiving-food-bloggers-465200",
+      "https://almcorp.com/blog/google-ai-mode-recipe-update-2026/",
+      "https://www.hostragons.com/en/blog/attract-millions-visitors-food-blog-pinterest-trends/",
+      "no evidence: could not size the Chinese-speaking diaspora home-cook segment or its willingness to pay; www.shilingshipu.com was blocked by the network egress proxy"
+    ]
+  },
+  "assumption_challenges": [
+    "If the founder has a mainland entity, ICP 备案 and a WeChat Mini Program, the answer flips to (a): Xiaohongshu/抖音 search content feeding an in-WeChat Mini Program with WeChat Pay, monetized on-platform, and the .com becomes irrelevant. This single fact most changes the recommendation.",
+    "If the founder is physically in mainland China with no overseas entity, collecting money from diaspora users via Stripe is blocked; routing goes through Gumroad/Lemon Squeezy/Paddle-style merchants of record, and if none is usable the diaspora beachhead loses its main advantage.",
+    "If the site is not a recipe tool but a 24-solar-terms wellness/TCM content site (the 节气 search landscape is dominated by 养生 content, not recipes), the audience is health-motivated 35+ readers rather than weeknight cooks, and hooks, formats and product all change.",
+    "If the site has no account system, no email capture and no payment integration today, none of these entry points can be measured to revenue. Signup plus a $5-15 checkout is a hard prerequisite.",
+    "If the seasonality data is China-only (mainland produce calendars mapped to Chinese latitudes), the diaspora beachhead is actively wrong until regional data exists. 'In season' in Northern California is not 'in season' in 华北, and shipping the wrong list destroys trust faster than obscurity does.",
+    "If the founder will not appear in Chinese-language consumer content weekly, A1 and A2 both collapse and only A3 survives - which contradicts the two-week-signal prior."
+  ],
+  "entry_points": [
+    {
+      "id": "A1",
+      "name": "小红书 search-first 节气 notes for overseas supermarkets",
+      "target_audience": "Chinese-speaking home cooks aged 25-40 in North America, UK, Australia or Singapore who cook Chinese food 3+ times a week, shop a mix of Costco/Trader Joe's/H Mart/99 Ranch, and follow 节气 habits that no longer match their local produce calendar.",
+      "problem": "Their inherited seasonal instinct is broken abroad. Domestic 节气食谱 tell them to buy 香椿 or 莲藕 in a week when the local store has none, and the store's actual seasonal produce has no obvious Chinese dish attached. They buy the same four vegetables forever and feel both bored and vaguely homesick.",
+      "hook": "别再照着国内的节气食谱买菜了——你在Trader Joe's看到的\"当季\"，和老家完全不是一回事。这是八月北美超市真正的当季六样，和今晚就能做的三道中餐。",
+      "content_format": "Xiaohongshu image note, 6-9 vertical cards. Cover card is big-text: month + region + 真·当季. Cards 2-7 are one produce item each with price range, how to pick it, one Chinese dish. Title and body carry the terms people actually type: 八月 当季蔬菜 美国, Costco 当季, 北美 时令. 2-3x per week, retitled per region.",
+      "recommended_channel": "小红书, optimized for in-app search rather than the recommendation feed",
+      "cta": "评论区留下你所在的城市（比如「湾区」「多伦多」「悉尼」），下一期就出你那边的当季清单。",
+      "hypothesis": "If we publish region-specific, search-keyword-targeted 时令 notes for diaspora home cooks on Xiaohongshu, then a measurable share of readers will search the brand name and arrive at the site directly, measured by direct + brand-search sessions per note published and by comments naming a city, within 14 days of the first 6 notes.",
+      "expected_upside": "A repeatable, free, compounding search surface that supplies top-of-funnel for A2 and A3 at zero cash. Winning is a stable stream of self-identified regional demand telling the founder which regional data to build and sell next, plus the first 100-300 site visitors who arrived by typing the product name.",
+      "risk": "Xiaohongshu diversion rules make the link impossible - no URL, no QR, no WeChat ID, no 'see profile' hints without ban risk - so the funnel leaks almost entirely and attribution is near-blind. Secondary: the notes perform as generic 养生 content and attract a mainland audience the founder cannot serve or charge.",
+      "estimated_cost": {"founder_hours_per_week": 8, "cash_usd": 0, "notes": "Time is produce research and card design. No paid 薯条 promotion - paid boost does not fix an unlinked funnel."},
+      "confidence": 0.55,
+      "evidence_needed": [
+        "Whether direct/brand-search traffic rises in the 72 hours after each note - the only proxy available on a channel that forbids links",
+        "Whether commenters are actually overseas (city names, comment timezone) rather than mainland readers",
+        "Whether an account named after the product survives moderation without being treated as 导流"
+      ],
+      "supporting_evidence": [
+        "https://blog.moewah.com/posts/xiaohongshu-seo-practical-guide-2025-search/",
+        "https://www.qian-gua.com/information/detail/3149",
+        "https://www.yunyingpai.com/news/1051817.html"
+      ],
+      "revenue_path": "Note ranks for a seasonal query -> reader types the product name into Xiaohongshu search or Google -> lands on site -> sees this week's regional 时令 list gated after the first region -> free signup for one region -> after 3-4 weekly touches, offered a paid seasonal pack (one-off, ~$6-9) covering all regions plus recipes -> repeat buyers upgraded to ~$15-20/year.",
+      "time_to_first_signal_days": 14
+    },
+    {
+      "id": "A2",
+      "name": "Weekly 时令清单 drops into existing diaspora communities",
+      "target_audience": "Members of North-America Chinese diaspora communities that already index on grocery and cooking: Dealmoon/北美省钱快报 readers, 一亩三分地 生活版, Douban 海外生活/美食 groups, city-level WeChat grocery groups - people who already read weekly 'what to buy this week' content.",
+      "problem": "These communities are saturated with price-and-deal information but almost nothing tells them what is actually in season locally or what Chinese dish to make from it. Decision fatigue at 6pm, fridge full of the same rotation.",
+      "hook": "我做了一份【北美时令蔬菜表】：这周 H Mart 和 Costco 里真正当季的是什么、每样能做什么中餐，每周一更新，免费，不用登录也能看。",
+      "content_format": "One long-form community post per week per community (800-1200 characters, 5-8 images from the site's weekly list), plus a pinned reply updated weekly. Cross-posted but rewritten per community tone, never identical. Outbound links are permitted on all of these platforms.",
+      "recommended_channel": "Diaspora community forums and deal sites (一亩三分地 / Douban groups / Dealmoon-style guides), starting with the two where the founder can post without being flagged as spam",
+      "cta": "点这里看本周清单并留个邮箱，每周三给你发你所在地区的当季食材和菜谱（免费）。",
+      "hypothesis": "If we post a genuinely useful weekly regional seasonal list into 3-5 existing diaspora communities where outbound links are allowed, then we will convert a meaningful fraction of readers into email subscribers, measured by signups per post and week-2 open rate, within 10 days of the first post.",
+      "expected_upside": "The first owned list - the asset the product entirely lacks. Winning is 200-500 email subscribers in 6 weeks at $0: a list that can be surveyed for pricing and sold a paid pack directly, with no platform between founder and buyer.",
+      "risk": "Moderators treat it as self-promotion and delete or ban on the first or second post, especially on 一亩三分地 and Douban. Secondary: it does not scale - each post is manual and the channel plateaus once the handful of relevant communities are exhausted.",
+      "estimated_cost": {"founder_hours_per_week": 5, "cash_usd": 0, "notes": "Cash only if an email service exceeds a free tier (~$0-20/mo above ~500 subscribers). Requires site email capture before day 1."},
+      "confidence": 0.6,
+      "evidence_needed": [
+        "Whether each community's rules permit a recurring free-resource post, and whether the first post survives 72 hours",
+        "Signups per 1000 post views, and whether week-4 open rate stays above ~35%",
+        "Whether subscribers are geographically concentrated enough for one regional dataset to serve most of them"
+      ],
+      "supporting_evidence": [
+        "https://www.1point3acres.com/bbs/thread-713803-1-1.html",
+        "https://www.dealmoon.com/guide/930442",
+        "no evidence: no data found on signup conversion from diaspora forum posts specifically - must be measured, not assumed"
+      ],
+      "revenue_path": "Community post -> click to weekly list page -> email capture -> 4 free weekly issues establish the list is locally accurate -> issue 5 offers a paid seasonal pack (full-season regional produce calendar + 40 recipes + shopping lists, one-off ~$6-9) -> measure paid conversion off a real list rather than anonymous traffic -> convert repeat buyers to ~$15-20/year.",
+      "time_to_first_signal_days": 10
+    },
+    {
+      "id": "A3",
+      "name": "Chinese-language Google SEO for region-specific seasonal queries",
+      "target_audience": "Chinese-speaking people abroad who type Chinese-language grocery questions into Google, not Baidu: 八月 加州 当季蔬菜, 多伦多 冬天 有什么当季菜, H Mart 当季 - a query class far thinner in competition than its English equivalent because mainland recipe sites do not target overseas regions.",
+      "problem": "The existing Chinese-language answer set is written for mainland climates and mainland markets. Someone in Toronto searching in Chinese gets a 华北 produce calendar. There is no canonical, correct, Chinese-language answer for 'what is in season where I actually live'.",
+      "hook": "八月加州当季蔬菜清单：现在最值得买的12样，和它们的中式做法（附本周超市价格区间）",
+      "content_format": "A structured, semi-programmatic page set: region x month, ~60-120 pages, each with a produce table, selection tips, price ranges, 3 linked recipes. Real editorial depth on the top 10 region-months, templated but data-accurate on the long tail. Recipe/ItemList structured data.",
+      "recommended_channel": "Google organic search (Chinese-language queries), the site itself as the channel",
+      "cta": "把你所在的地区设为默认，每周三收到你那边的当季清单。",
+      "hypothesis": "If we publish region x month seasonal pages in Chinese aimed at overseas locales, then we accumulate low-competition organic impressions and clicks that compound month over month, measured by Search Console impressions/clicks for region-qualified Chinese queries and signups from organic landing pages, first read at 60 days.",
+      "expected_upside": "The only entry point that compounds without weekly founder labour and survives the founder taking a month off. Winning is organic search becoming the largest signup source by month 4-6, which is what makes a subscription price sustainable rather than a launch spike.",
+      "risk": "Breaks the two-week-signal rule and can absorb 8 weeks before revealing the queries have almost no volume. Exposed to AI answer engines summarizing the produce table without a click - the exact dynamic that cut English food-blog traffic 30-80%. Thin templated pages risk being treated as low-value at scale.",
+      "estimated_cost": {"founder_hours_per_week": 10, "cash_usd": 0, "notes": "Front-loaded: ~40-60 hours for the data model and first 30 pages, then ~3 hrs/week. No keyword-tool budget assumed."},
+      "confidence": 0.45,
+      "evidence_needed": [
+        "Actual search volume for region-qualified Chinese-language seasonal queries - this is the kill/confirm test and there is no data on it; a 10-page probe over 30 days answers it cheaply before committing to 100 pages",
+        "Whether Google shows AI Overviews on these Chinese-language queries at the same rate as English recipe queries",
+        "Whether organic visitors convert to signup at a materially different rate than social visitors"
+      ],
+      "supporting_evidence": [
+        "https://searchengineland.com/google-ai-slop-thanksgiving-food-bloggers-465200",
+        "https://almcorp.com/blog/google-ai-mode-recipe-update-2026/",
+        "https://www.seasonalfoodguide.org/",
+        "no evidence: no keyword volume data found for Chinese-language region-qualified seasonal produce queries - treat the premise as unvalidated until the 10-page probe runs"
+      ],
+      "revenue_path": "Chinese-language regional query -> region x month page -> the page answers fully, no bait, and offers the recurring version -> email signup -> weekly issues -> paid seasonal pack -> annual subscription. Organic is also the only channel that can later carry affiliate or commerce revenue, because it delivers purchase-adjacent intent - but not until traffic exists.",
+      "time_to_first_signal_days": 60
+    }
+  ],
+  "what_i_would_not_do": [
+    "Do not translate the site into English and chase Western seasonal-eating SEO now. Weeks of rewriting into a market where food-blog Google traffic is reportedly down 30-80% from AI answers, against free incumbents like seasonalfoodguide.org and a $14.99/year native app. Revisit only after the Chinese-language funnel proves someone pays.",
+    "Do not post any URL, QR code, WeChat ID or 'link in profile' hint inside Xiaohongshu notes or comments. The March 2025 交易导流违规管理细则 treats this as a violation with penalties up to permanent account closure. Losing the account destroys the only free reach channel in the plan.",
+    "Do not simultaneously launch TikTok, Reels, Shorts, Pinterest and X. Five channels at zero audience produces five dead accounts and no learning. Picking the format an algorithm will push only works when one format is iterated 20+ times, not five formats posted twice.",
+    "Do not build a freemium subscription and wait for conversion. RevenueCat's benchmark median for freemium is roughly 2.1-2.2% free-to-paid at Day 35 versus about 12% for hard paywalls; at a few hundred visitors that is zero paying users and zero information. Sell a cheap one-off pack early to get a real yes/no on willingness to pay.",
+    "Do not target mainland China as the first paying market with this .com. Without ICP filing and a mainland payment vehicle the site is a dead end for those users - and 下厨房 shut its membership tier in 2019 and leaned on courses, brand deals and commerce instead, with roughly 60M MAU behind it.",
+    "Do not chase follower counts or plan on 商单 sponsorship revenue. It is the standard Xiaohongshu route but it makes the founder a creator, not a software business, and it does not transfer to the next product in the portfolio.",
+    "Do not attempt affiliate or grocery commerce yet. It needs volume the founder will not have for months and it corrupts the core promise of honest seasonality advice the moment it starts."
+  ],
+  "biggest_unknown": "Where the founder can legally and practically collect money, and where the first users physically are - mainland China (needs ICP filing, a WeChat Mini Program, WeChat Pay, on-platform monetization) versus overseas (needs only Stripe or a merchant of record). That single fact decides language, channel, product shape and revenue model, and it could not be learned because both the live site and the domain's search footprint were unreachable."
+}
