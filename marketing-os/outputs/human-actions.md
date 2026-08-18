@@ -1,85 +1,60 @@
 # Human actions required — ONE batch
 
-Everything on this page is blocked on a human. Everything **not** on this page
-is being executed automatically without asking.
+Updated: 2026-08-18, after the council, Red Team, Judge and CEO decision.
 
-Last updated: 2026-08-18
-
----
-
-## TIER 0 — Blocks the Product Audit (STEP 1). Nothing downstream is real until this clears.
-
-The mission's first instruction is "inspect the existing product: website, GitHub
-repo, features, user flow, analytics, signup, database, payment, SEO, traffic
-sources." **None of that is reachable from this environment.** Here is exactly
-what was tried and exactly what failed:
-
-| # | What was attempted | Result |
-|---|---|---|
-| T0-1 | `WebFetch https://www.shilingshipu.com` | `EGRESS_BLOCKED` — the sandbox network policy denies this domain |
-| T0-2 | `curl https://www.shilingshipu.com/` | `CONNECT tunnel failed, response 403` from the agent proxy |
-| T0-3 | Web search for the domain | No public footprint. Nothing indexed under `shilingshipu.com` |
-| T0-4 | List every repo this GitHub account can reach | `-zhimakaimen110119`, `ai-tree`, `questhero`, `ridepilot`. **No 时令食谱 repo exists on this account.** |
-
-**Consequence:** an audit of core value, friction, conversion path, analytics
-coverage, attribution readiness, or whether payment exists cannot be performed.
-Any such report produced from here would be invented. It is not being produced.
-
-**Pick ONE to unblock:**
-
-- **T0-A (fastest, recommended).** Run this same mission on a Claude Code /
-  Codex instance **on the Mac that has the 时令食谱 code checked out**. That
-  agent can read the repo, the analytics config, the payment integration and
-  the live pages directly. This session becomes the auditor of its output —
-  which is the role your external reviewer already proposed.
-- **T0-B.** Push 时令食谱 to a GitHub repo on this account, then say the name.
-  It can be attached to this session in one call and the audit runs here.
-- **T0-C.** Paste, in one message: the live HTML of the homepage and one recipe
-  page, plus answers to the six questions in TIER 0-Q below. This is the
-  lowest-bandwidth option and enough to start.
-
-### TIER 0-Q — six answers that unblock the most work per word
-
-1. What does the site actually do today — browse, search, filter by season, generate a plan?
-2. Is there a signup / account / email capture on it right now? Yes or no.
-3. Is there any payment integration wired up? Which processor?
-4. Is any analytics installed — GA4, Plausible, Umami, Vercel Analytics, none?
-5. Where are you, and where can you legally collect money — mainland entity with ICP filing, or overseas with Stripe / a merchant of record?
-6. Is the seasonality data mainland-China-based, or does it handle other regions?
-
-Question 5 is the one that most changes the strategy. Research Agent A's single
-biggest finding was that 小红书's 2025 交易导流 rules plus the lack of an ICP
-filing make a mainland-first funnel to a `.com` structurally unable to convert —
-which points the whole plan at the overseas diaspora instead. That conclusion
-inverts if a mainland entity and a WeChat Mini Program exist.
+Three things need you. Nothing else does. Total time: **about 50 minutes.**
 
 ---
 
-## TIER 1 — Platform authorization (STEP 7). Do NOT do this yet.
+## 1 · Answer one question (60 seconds)
 
-Deliberately withheld until TIER 0 clears, because content is being written
-against an unverified product and would have to be redone.
+**Are you resident in mainland China with no company, or overseas / incorporated?**
 
-When it is time, it will arrive as exactly one list of logins and nothing else:
+Three research agents, working in isolation with three different priors, each independently named this as their single biggest unknown, unprompted, in their own words. It decides the language, the channel, the price point (by roughly 5x) and the payment rail.
 
-| Platform | What is needed | Why |
-|---|---|---|
-| TikTok | account + Content Posting API access | scheduled publishing |
-| Instagram | Business account + Facebook Page + Graph API | Reels publishing |
-| YouTube | channel + Data API OAuth | Shorts publishing |
-| Pinterest | business account + API access | the cleanest attribution surface |
-| X | account + API tier | text posts |
-| 小红书 | account only, manual posting | no compliant publishing API exists; assume permanent manual |
+If it helps, the fuller version:
+- Country of residence
+- Do you hold a mainland 身份证, a mainland bank card and a real-name WeChat?
+- Is the site's seasonality data mainland-only, or multi-region?
 
-Also needed at that point, and cheap: an email service (Resend / Buttondown /
-ConvertKit free tier), and a payment link (Stripe Payment Link, or Gumroad /
-Lemon Squeezy if a merchant of record is required).
+**What each answer unlocks:**
+- **Mainland, no entity** → rails are a plain 微信收款码 with manual delivery for the first twenty buyers, then 知识星球 or 公众号付费阅读. Stripe is confirmed unavailable to you. The pack's ingredient list as written is already correct.
+- **Overseas / incorporated** → Payhip or Ko-fi in your country, EXP-002 unblocks, and the ingredient list swaps to your local produce calendar.
+
+## 2 · Sign one approval (5 minutes)
+
+`outputs/approvals/campaign-001-1.md` — rule **H9, contacting real people**.
+
+The OS drafted ten outreach messages and cannot send any of them. Read them first: `campaigns/campaign-001/content/outreach-messages.md`. Do not approve a message you have not read.
+
+Change `decision: PENDING` to `APPROVED` or `DENIED`, sign, date. `mos.mjs validate` refuses to mark the campaign launch-ready until you do — this is the one FAIL in the current dry run, and it is intentional.
+
+## 3 · Name ten businesses (40 minutes)
+
+The OS cannot know who is in your contacts. Ten small food businesses you can already reach: 私房菜, 社区团购团长, 便当 sellers, a bakery studio, a 生鲜 shop, a small restaurant. The ten drafted messages are already segmented by type.
+
+Then send, and log each in `analytics/campaign-001-tracking.csv`.
 
 ---
 
-## Nothing else is waiting on you
+## Still blocked, still unresolved
 
-Currently running or complete without approval: market research, the
-independent council, red-team attack, judging, campaign design, content
-generation, tracking scheme, UTM and `content_id` assignment, and the publish
-queue. Those continue regardless of this page.
+**MC-01 — the product itself is unreachable from this environment.** `WebFetch` returns `EGRESS_BLOCKED`; `curl` gets `403 CONNECT` from the agent proxy; the domain has no public search footprint; and no 时令食谱 repository exists on this GitHub account (only `-zhimakaimen110119`, `ai-tree`, `questhero`, `ridepilot`). So no product audit has been performed and none was invented. To clear it: run this mission on the machine that has the code, or push the repo here and name it.
+
+**MC-02 — no analytics.** Unknown whether GA4/Plausible/Umami exists. Every UTM in the queue is built correctly and lands nowhere measurable until one does.
+
+**MC-03 — no link tracking domain.** UTMs are constructed; there is no shortener or click-tracking host.
+
+**MC-04 — no email service and no list.**
+
+**MC-05 — no payment rail confirmed.** Downstream of question 1.
+
+---
+
+## Deliberately NOT asked for
+
+**Platform logins — TikTok, Instagram, YouTube, Pinterest, X, 小红书.** All six are withheld on purpose.
+
+The Judge ranked 小红书 5th, 7th and 10th of eleven, each with a disqualifier. The Feb 2026 digital-goods gate is verified across three independent sources: 1,000 followers, 180 days, 30 notes, ¥6,000 monthly GMV before a new account may legally sell anything digital. Asking you to authorize six accounts you cannot yet sell through, on a channel where clicks cannot be attributed, would be motion, not progress.
+
+They will be requested in one batch when a message has been proven to convert somewhere measurable. Deferring costs nothing — the 180-day clock runs whether or not you sign up today.

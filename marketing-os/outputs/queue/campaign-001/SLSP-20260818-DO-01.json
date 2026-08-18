@@ -1,0 +1,28 @@
+{
+  "content_id": "SLSP-20260818-DO-01",
+  "campaign_id": "campaign-001",
+  "product": "shilingshipu",
+  "channel": "direct_outreach",
+  "channel_name": "Direct 1:1 outreach",
+  "claim_id": "CLAIM-001",
+  "hook_family": "cost-of-getting-it-wrong",
+  "status": "queued",
+  "phase": 1,
+  "publish_blocked_by": "Constitution Article 11 — Phase 1 is generate-and-queue only. Approval H8 required per channel.",
+  "destination_url": "https://www.shilingshipu.com/?utm_source=outreach&utm_medium=direct&utm_campaign=campaign-001&utm_content=SLSP-20260818-DO-01&utm_term=cost-of-getting-it-wrong",
+  "attribution_quality": "CLEAN — link is clickable and carries UTM.",
+  "sequence": 1,
+  "payload": {
+    "content_id": "SLSP-20260818-DO-01",
+    "channel": "direct_outreach",
+    "claim_id": "CLAIM-001",
+    "hook_family": "cost-of-getting-it-wrong",
+    "audience_segment": "私房菜/小馆子（熟人）",
+    "post": "见 content/outreach-messages.md 编号 SLSP-20260818-DO-01",
+    "attachment": "chushu-pack-v1.md",
+    "landing_path": "/",
+    "human_action": "由创始人本人逐条发送，需 H9 审批",
+    "experiment": "EXP-001"
+  },
+  "human_action_required": "Post manually on Direct 1:1 outreach. Set the bio link to the destination URL above if the channel is bio-link-only."
+}

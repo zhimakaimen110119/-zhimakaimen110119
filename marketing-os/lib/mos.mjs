@@ -93,14 +93,19 @@ function validate(slug, campaignId) {
 
   // Article 3 — banned metrics
   const banned = readJson(p('rules', 'banned-metrics.json'));
-  const pm = String(camp.primary_metric || '').toLowerCase();
-  if (banned.banned_as_primary_metric.some(b => pm === b || pm.includes(b))) {
+  const pm = String(camp.primary_metric || '').toLowerCase().trim();
+  // Match on whole tokens, never on bare substrings. "er" inside "paid_conversions"
+  // is not an engagement-rate metric, and a matcher that thinks so is worse than none.
+  const hits = (name, list) => list.some(m => name === m ||
+    new RegExp(`(^|[^a-z0-9])${m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[^a-z0-9])`).test(name));
+  const tiers = { 1: banned.tier_1_metrics, 2: banned.tier_2_metrics, 3: banned.tier_3_metrics };
+  const tier = Object.entries(tiers).find(([, list]) => hits(pm, list));
+  if (tier) {
+    pass('CON-03', `primary_metric "${camp.primary_metric}" is Tier ${tier[0]} — allowed`);
+  } else if (hits(pm, banned.banned_as_primary_metric)) {
     fail('CON-03', `primary_metric "${camp.primary_metric}" is a banned vanity metric (Article 3)`);
   } else {
-    const tiers = { 1: banned.tier_1_metrics, 2: banned.tier_2_metrics, 3: banned.tier_3_metrics };
-    const tier = Object.entries(tiers).find(([, list]) => list.some(m => pm.includes(m)));
-    if (tier) pass('CON-03', `primary_metric "${camp.primary_metric}" is Tier ${tier[0]} — allowed`);
-    else warn('CON-03', `primary_metric "${camp.primary_metric}" is not in the Tier 1-3 registry; confirm it is not a vanity metric`);
+    warn('CON-03', `primary_metric "${camp.primary_metric}" is not in the Tier 1-3 registry; confirm it is not a vanity metric`);
   }
   const li = camp.leading_indicators || [];
   if (li.length && !camp.primary_metric) fail('CON-03', 'leading indicators declared with no primary metric');

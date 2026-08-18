@@ -1,0 +1,44 @@
+campaign_id: campaign-001
+product: shilingshipu
+title: "First revenue signal — who actually pays for seasonality"
+created: 2026-08-18
+status: ready_pending_human
+parent_experiment: none
+
+hypothesis: "If we send a free 处暑 seasonal operations pack to 10 small food businesses and offer the next six 节气 for ¥199, then at least 3 will say yes within 14 days."
+
+claim_id: CLAIM-001
+claim: "Seasonality is worth paying for when getting it wrong costs you money — which is true for a small food business and false for a home cook."
+
+primary_metric: paid_conversions
+primary_metric_tier: 2
+success_threshold: "3 or more of 10 prospects commit to ¥199"
+kill_threshold: "0 replies from 10 prospects"
+decision_date: 2026-09-01
+
+leading_indicators:
+  - replies_received
+  - packs_opened
+predicts: "replies_received is claimed to predict paid_conversions. It is a leading indicator only and may never be reported as the result."
+
+audience: "Small food businesses that set a menu or a buy-list on a recurring cycle — 私房菜 kitchens, meal-prep and 便当 sellers, 社区团购 团长, bakery studios, small 生鲜 shops."
+
+offer:
+  free: "One 处暑 pack, complete, no gate."
+  paid: "The next six 节气 packs for ¥199, delivered on the 节气 date."
+  rail: "Whatever the founder can actually collect on today. Manual 收款码 with manual delivery is acceptable and preferred for the first twenty buyers — zero gate, zero fee, perfect attribution."
+
+why_this_campaign_survives_the_open_question: "The buyer exists in both the mainland and the diaspora branch. Only the ingredient list swaps; the pack structure, the outreach script and the price hold either way."
+
+supporting_experiments:
+  - EXP-002
+  - EXP-003
+
+approvals_required:
+  - H9
+
+phase_1_constraints:
+  no_ad_spend: true
+  no_account_registration: true
+  no_live_platform_publishing: true
+  no_product_modification: true

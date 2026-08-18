@@ -1,0 +1,37 @@
+experiment_id: EXP-002
+campaign_id: campaign-001
+product: shilingshipu
+status: blocked
+role: supporting
+created: 2026-08-18
+origin: "Agent C entry point C3, modified by Red Team. Judge rank 2 of 11, weighted 6.95."
+
+question: "Will a stranger consumer pay before the product exists?"
+
+hypothesis: "If we put up a $19 pre-order page for a seasonal guide with an honest ship date and post it in two link-permitting diaspora communities, then at least 1 stranger pays within 7 days."
+
+decorrelation_from_primary: "Deliberately shares no assumption with EXP-001. Different buyer (consumer, not business), different price point, different rail, different channel. If EXP-001 fails because businesses do not care, EXP-002 is unaffected - and vice versa. A backup that fails for the same reason as the primary is a wasted slot."
+
+method:
+  - "Stand up a pre-order page on whichever rail the founder can actually collect on."
+  - "State the ship date (秋分) and offer an unconditional refund. Both are mandatory - see honesty gate below."
+  - "Post into two communities where outbound links are permitted, with UTM."
+  - "Wait 7 days."
+
+primary_metric: paid_conversions
+primary_metric_tier: 2
+success_threshold: "1 or more strangers pay $19"
+kill_threshold: "0 sales in 7 days"
+decision_date: 2026-08-28
+
+blocked_by:
+  - "MC-01 — founder residence and payment rail unknown. A pre-order page needs a working checkout, and which one works depends entirely on that answer."
+
+honesty_gate: "Constitution Article 8. Pre-selling an unbuilt product is honest ONLY with an explicit ship date AND an unconditional refund offer, both stated above the fold. Without both, this experiment must not run. The dishonest version would convert better, which is exactly why the rule is written down before launch."
+
+cost:
+  founder_hours: 2
+  cash_usd: 0
+  reversible: true
+
+attribution: "Clean. Communities permit real links, so UTM works end to end."

@@ -92,6 +92,28 @@ channels:
     link_in_post: true
     notes: "Weakest fit for a recipe product. Kept in the queue because it is zero marginal cost once the script exists."
 
+  - id: direct_outreach
+    name: Direct 1:1 outreach
+    connected: false
+    account: none
+    utm_source: outreach
+    utm_medium: direct
+    format: one message plus one attached pack
+    post_max_chars: 600
+    link_in_post: true
+    notes: "The only channel with perfect attribution by construction - you know exactly who received what. Sending is a HUMAN action under approval H9; the OS drafts, the founder sends."
+
+  - id: community
+    name: Link-permitting communities
+    connected: false
+    account: none
+    utm_source: community
+    utm_medium: forum
+    format: long-form post with images
+    post_max_chars: 4000
+    link_in_post: true
+    notes: "一亩三分地 / Douban groups / Dealmoon-style guides. Outbound links are permitted, so UTM works end to end. Best broadcast attribution available in month one."
+
 not_in_scope_phase_1:
   - id: douyin
     reason: "Domestic China platform. Requires a verified domestic account and likely ICP filing. Gate H2 + H8."

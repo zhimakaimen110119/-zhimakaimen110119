@@ -1,0 +1,172 @@
+{
+  "campaign_id": "campaign-001",
+  "rubric_source": "rules/constitution.md Article 6",
+  "note": "Scores are assigned by the Judge Agent; the weighted arithmetic is computed by lib/mos.mjs so it is reproducible and cannot drift. Cost is scored INVERTED - cheaper scores higher. Evidence is capped by the tier actually cited: 'no evidence' caps Evidence at 3. Red Team fact-checks were applied to Evidence scores after the council reported.",
+  "positions": [
+    {
+      "id": "RT1",
+      "source": "Red Team (unasked question)",
+      "label": "B2B 节气 operations pack to small food businesses, sold by 1:1 outreach",
+      "scores": {"revenue_potential": 9, "evidence": 5, "cost": 9, "speed_to_learn": 10, "reversibility": 10, "brand_risk": 7},
+      "reasoning": {
+        "revenue_potential": "¥199/quarter x 20 buyers is ~¥14k/yr against ¥39 x 100 = ¥3.9k, and the buyer has a budget line rather than discretionary spend. The buyer loses money weekly by getting seasonality wrong, which is the only profile in this whole set with non-trivial willingness to pay.",
+        "evidence": "Structurally strong reasoning, but zero direct evidence that these buyers exist for THIS product - no agent researched B2B demand and the Red Team cited none. Tier 7 opinion resting on Tier 6 category logic. Capped at 5; it is the highest-variance position here.",
+        "cost": "Three hours and ¥0 for the full test. The content asset is nearly identical to what all nine consumer plans already require building, so it reuses rather than adds work.",
+        "speed_to_learn": "Ten sends, replies within days. 处暑 is ~5 days out, giving a natural deadline. Fastest true/false in the set by a wide margin.",
+        "reversibility": "Nothing is built, published, registered or spent. If all ten ignore it, the founder has lost one afternoon.",
+        "brand_risk": "1:1 outreach to businesses is legitimate but sits close to cold outreach; sloppy execution reads as spam and burns local reputation in a small community. Requires approval H9 before sending. Deducted for that."
+      },
+      "disqualifiers": []
+    },
+    {
+      "id": "C3M",
+      "source": "Agent C, modified by Red Team",
+      "label": "Consumer pre-order test: $19 seasonal guide sold into link-permitting diaspora communities before it is built",
+      "scores": {"revenue_potential": 7, "evidence": 5, "cost": 8, "speed_to_learn": 9, "reversibility": 9, "brand_risk": 6},
+      "reasoning": {
+        "revenue_potential": "Western price norms give roughly 5x the mainland ceiling for identical content, and if it converts the entire library re-prices at USD 29-39/yr for zero extra production cost. Ceiling is real but bounded by a small addressable niche.",
+        "evidence": "Western price anchors are real and cited (NYT Cooking ~USD 40/yr, Substack default USD 50/yr), but Agent C found no instance of a Chinese-language diaspora food newsletter actually converting, and the Red Team only partly verified the payment rails. Mixed Tier 6.",
+        "cost": "Two hours to stand up a Payhip or Ko-fi page and post it. No cash. The Red Team's modification - skip the 12 free weeks entirely - removes the expensive part of C's original plan.",
+        "speed_to_learn": "Seven days to a first stranger sale or silence. Tests willingness-to-pay, payment rail and community link tolerance in one move.",
+        "reversibility": "A pre-order page can be taken down. The only real exposure is refunding anyone who paid, which at this volume is trivial.",
+        "brand_risk": "Pre-selling an unbuilt product is honest ONLY with an explicit ship date and an unconditional refund offer. Without both it violates Constitution Article 8. Deducted because the honest version is materially less persuasive than the dishonest one, and that temptation is the risk."
+      },
+      "disqualifiers": []
+    },
+    {
+      "id": "A2",
+      "source": "Agent A",
+      "label": "Weekly 时令清单 posts into diaspora communities where outbound links are permitted",
+      "scores": {"revenue_potential": 6, "evidence": 6, "cost": 8, "speed_to_learn": 8, "reversibility": 9, "brand_risk": 7},
+      "reasoning": {
+        "revenue_potential": "Builds the first owned email list, which is the asset the product entirely lacks. But it is one step removed from money - it produces subscribers, not buyers, and the conversion step is still untested.",
+        "evidence": "The load-bearing claim - that these communities permit outbound links - is verified and is the strongest verified fact supporting any channel here. Conversion rate from such posts is unknown; Agent A explicitly wrote 'no evidence'.",
+        "cost": "5 h/wk, ¥0. Requires email capture to exist on the site first, which is currently unknown.",
+        "speed_to_learn": "Ten days. Moderation survival is visible at 48 hours, which is a genuinely cheap partial read.",
+        "reversibility": "A deleted post costs nothing. Worst case is one banned forum account.",
+        "brand_risk": "Moderators may treat recurring posts as self-promotion. Real but survivable, and the failure is visible immediately rather than after weeks."
+      },
+      "disqualifiers": []
+    },
+    {
+      "id": "C2",
+      "source": "Agent C",
+      "label": "小报童 paid column, ¥39 season pack rising to ¥128/yr annual pass",
+      "scores": {"revenue_potential": 5, "evidence": 2, "cost": 7, "speed_to_learn": 6, "reversibility": 8, "brand_risk": 7},
+      "reasoning": {
+        "revenue_potential": "A ¥128/yr pass with 24 renewal touchpoints is the correct product SHAPE. The ceiling is modest and the Red Team's net-revenue arithmetic (¥39 gross becomes ~¥33-34 after 云账户 fee and withholding) makes it thinner than it looks.",
+        "evidence": "The rail claim was REFUTED by fact-check. 小报童 is not open registration, carries a reported ~3,000-follower de-facto bar, and pays only through 云账户 with mainland ID and bank card. The premise that this is the no-licence escape hatch is wrong. Evidence floor.",
+        "cost": "8 h/wk of writing, ¥0 upfront, 15% of revenue.",
+        "speed_to_learn": "30 days, and only after clearing an application gate that may reject outright.",
+        "reversibility": "A column can be abandoned, though a missed 节气 in a calendar-shaped product is a visible broken promise.",
+        "brand_risk": "Low. Honest, well-shaped product."
+      },
+      "disqualifiers": ["Rail refuted: 小报童 requires mainland real-name ID, a mainland bank card and a de-facto pre-existing audience. Blocked before the first sale unless the application succeeds.", "Shares a single point of failure with B3 - the two are not independent bets."]
+    },
+    {
+      "id": "A1",
+      "source": "Agent A",
+      "label": "小红书 search-first 节气 notes for overseas supermarkets",
+      "scores": {"revenue_potential": 4, "evidence": 4, "cost": 6, "speed_to_learn": 7, "reversibility": 8, "brand_risk": 6},
+      "reasoning": {
+        "revenue_potential": "Capped by the verified Feb 2026 digital-goods gate: a new account cannot legally sell anything digital on the platform for at least 180 days, and off-platform diversion is penalised. Reach without a legal sale endpoint.",
+        "evidence": "The channel constraints are well verified; the demand for diaspora-specific seasonal queries is not. Agent A itself scored 0.55 confidence.",
+        "cost": "8 h/wk, ¥0, but requires physical access to the supermarkets being described.",
+        "speed_to_learn": "14 days for reach, but attribution is blind - so what is learned is reach, which is a banned metric. Learning about revenue is far slower.",
+        "reversibility": "Content can stop at any time. Account-level throttling from a diversion attempt is harder to undo.",
+        "brand_risk": "Honest content, low intrinsic risk. Deducted because the workarounds people reach for on this channel are rule-breaking."
+      },
+      "disqualifiers": ["Attribution is structurally impossible: no referrer, no click data, no note-level conversion. Article 4 traceability cannot be satisfied."]
+    },
+    {
+      "id": "B1",
+      "source": "Agent B",
+      "label": "City-and-month supermarket seasonality notes optimized for 小红书 in-app search",
+      "scores": {"revenue_potential": 4, "evidence": 4, "cost": 5, "speed_to_learn": 7, "reversibility": 8, "brand_risk": 6},
+      "reasoning": {
+        "revenue_potential": "Same platform ceiling as A1. The city dimension may also be fake specificity that fragments an already-thin demand pool.",
+        "evidence": "Same as A1. The Xiaohongshu search-share figures Agent B cited come from Chinese marketing blogs that contradict each other, and Agent B flagged this itself.",
+        "cost": "10 h/wk - the second most expensive in the set, at ~2.5h per note.",
+        "speed_to_learn": "21 days, with the same blind-attribution problem as A1.",
+        "reversibility": "Same as A1.",
+        "brand_risk": "Same as A1."
+      },
+      "disqualifiers": ["Same attribution impossibility as A1.", "Near-duplicate of A1 - not an independent bet."]
+    },
+    {
+      "id": "B3",
+      "source": "Agent B",
+      "label": "节气-anchored WeChat 公众号 column found via 搜一搜, sold on 小报童 at ¥39/yr",
+      "scores": {"revenue_potential": 4, "evidence": 2, "cost": 7, "speed_to_learn": 6, "reversibility": 8, "brand_risk": 7},
+      "reasoning": {
+        "revenue_potential": "Agent B was honest that ¥39/yr is 'a genuinely low ceiling' and that 10 subscribers is ~¥390 gross - validation, not a business.",
+        "evidence": "Same refutation as C2. The 小报童 rail premise does not hold.",
+        "cost": "6 h/wk, ¥0.",
+        "speed_to_learn": "30 days, gated behind an application that may be rejected.",
+        "reversibility": "High.",
+        "brand_risk": "Low."
+      },
+      "disqualifiers": ["Same rail refutation as C2."]
+    },
+    {
+      "id": "C1",
+      "source": "Agent C",
+      "label": "菜市场食单 小红书 carousels routing commenters to personal WeChat, then selling a ¥39 pack",
+      "scores": {"revenue_potential": 4, "evidence": 3, "cost": 5, "speed_to_learn": 6, "reversibility": 7, "brand_risk": 2},
+      "reasoning": {
+        "revenue_potential": "WeChat 私域 conversion is genuinely higher than any link-based funnel. But the mechanic that gets people there is the part that is prohibited.",
+        "evidence": "Agent C found no engagement or search-volume data for 节气食谱 on 小红书 and said so. Meanwhile the prohibition on the core mechanic is verified.",
+        "cost": "12 h/wk - the most expensive position in the set.",
+        "speed_to_learn": "21 days.",
+        "reversibility": "Content stops easily; a permanent account ban does not reverse.",
+        "brand_risk": "Lowest score in the set. The core mechanic - putting contact details into 小红书 comments, DMs or auto-replies - is a documented platform violation as of Jan 2025, with penalties escalating to permanent, effectively unappealable ban. Agent B named this exact mechanic as the thing not to do."
+      },
+      "disqualifiers": ["Core mechanic is a documented platform rule violation, not merely a risk. Cannot be executed as written under Constitution Article 8."]
+    },
+    {
+      "id": "B2",
+      "source": "Agent B",
+      "label": "Chinese-language ingredient hub pages with Recipe JSON-LD",
+      "scores": {"revenue_potential": 5, "evidence": 2, "cost": 5, "speed_to_learn": 1, "reversibility": 6, "brand_risk": 8},
+      "reasoning": {
+        "revenue_potential": "The only compounding, founder-owned asset in the set, and the pages double as the paid product. Real long-run value, near-zero near-term value.",
+        "evidence": "Demand is unverifiable from here and Agent B scored it 0.40 against its own search-first prior. The Red Team additionally found the JSON-LD premise structurally wrong - an ingredient explainer is not a recipe and does not qualify for Recipe rich results, so the stated differentiation does not exist.",
+        "cost": "8 h/wk for 12 weeks before any read.",
+        "speed_to_learn": "90 days. Incompatible with a stated revenue urgency. Worst in the set.",
+        "reversibility": "Published pages persist, and 12 weeks of founder time does not come back.",
+        "brand_risk": "Lowest risk of anything here - honest, useful, evergreen content that strengthens positioning."
+      },
+      "disqualifiers": ["Recipe JSON-LD premise is structurally wrong per Red Team fact-check."]
+    },
+    {
+      "id": "A3",
+      "source": "Agent A",
+      "label": "Chinese-language Google SEO, 60-120 region x month pages",
+      "scores": {"revenue_potential": 5, "evidence": 2, "cost": 4, "speed_to_learn": 2, "reversibility": 6, "brand_risk": 8},
+      "reasoning": {
+        "revenue_potential": "Compounding and founder-owned, same as B2, and the only channel that survives the founder taking a month off.",
+        "evidence": "Agent A wrote 'treat the entire premise as unvalidated'. The Red Team confirmed the volume question is unresolvable without Keyword Planner. This is the single largest unverified quantity in the whole set.",
+        "cost": "10 h/wk with 40-60 hours front-loaded before any signal.",
+        "speed_to_learn": "60 days minimum.",
+        "reversibility": "Sunk time is unrecoverable.",
+        "brand_risk": "Very low."
+      },
+      "disqualifiers": ["Premise unvalidated and cheaply testable - must not be built before the 1-hour Keyword Planner check."]
+    },
+    {
+      "id": "XHS-DEFER",
+      "source": "Judge (synthesis of A1 + B1 + C1 under Red Team attack)",
+      "label": "小红书 as a whole, deferred to month 3+ as an amplifier",
+      "scores": {"revenue_potential": 6, "evidence": 6, "cost": 7, "speed_to_learn": 3, "reversibility": 9, "brand_risk": 7},
+      "reasoning": {
+        "revenue_potential": "Real once the account clears the 180-day gate and a converting message already exists. Scored as the deferred version, not the month-1 version.",
+        "evidence": "The platform rules are the best-verified facts in this entire campaign - three independent confirmations of the Feb 2026 gate and the diversion enforcement. What is well evidenced is precisely why to wait.",
+        "cost": "Zero now, by construction.",
+        "speed_to_learn": "Slow, and that is the point - deferring costs nothing because the 180-day clock runs regardless.",
+        "reversibility": "Total. Nothing committed.",
+        "brand_risk": "Low when used as an amplifier for proven copy rather than as a discovery experiment."
+      },
+      "disqualifiers": []
+    }
+  ]
+}
