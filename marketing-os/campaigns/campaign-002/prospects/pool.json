@@ -1,0 +1,725 @@
+{
+  "campaign_id": "campaign-002",
+  "built": "2026-08-18",
+  "source_agents": [
+    "P1"
+  ],
+  "verification_caveat": "WebFetch was blocked by the sandbox egress proxy for every external domain. Verification is listing-level: real URLs plus address/phone text carried in search-result titles. No business's own page was opened. Anything below 0.85 agent confidence is a listing match only — confirm the business is still open before sending.",
+  "churn_warning": "At least nine permanently closed Chinese businesses were hit in one afternoon of searching, several of them ID institutions (Harbor City, Shanghai Garden, Mon Hei). Do not assume a 2024 memory of the International District is current.",
+  "excluded_as_too_large": [
+    "Din Tai Fung",
+    "Haidilao",
+    "Liuyishou",
+    "The Dolar Shop",
+    "Dough Zone",
+    "Panda Express",
+    "Uwajimaya",
+    "H Mart",
+    "Asian Family Market",
+    "Regent Bakery",
+    "Zhang Liang Malatang"
+  ],
+  "segment_gap": "私房菜 / WeChat-based meal-prep operators could not be found. Four discovery angles returned essentially nothing — they advertise inside WeChat groups and 小红书, which western web search does not index. This segment needs a different discovery method and is arguably the best-fit buyer of all.",
+  "prospects": [
+    {
+      "id": "P1-01",
+      "name": "Tai Tung Chinese Restaurant",
+      "business_type": "Cantonese restaurant",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/tai-tung-chinese-restaurant-seattle",
+      "public_contact": "+1 206-622-7372 / taitungrestaurant.com",
+      "personalization_hook": "Bruce Lee's table is still there; his order, oyster sauce beef, is a house signature",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Legacy 1935 restaurant, 3rd-gen family. Famous fixed menu = low menu-change appetite, but real produce cost. Strongest personalization hook in the set.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-02",
+      "name": "Dim Sum King",
+      "business_type": "Dim sum takeout counter",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/dim-sum-king-seattle",
+      "public_contact": null,
+      "personalization_hook": "Opens 7am, closed Wednesdays — an early-morning dim sum counter, not cart service",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 2
+      },
+      "scoring_note": "Fixed dumpling lineup, low produce. High turnover. No public contact found.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-03",
+      "name": "Jin Huang",
+      "business_type": "Cantonese / dim sum",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/jin-huang-seattle",
+      "public_contact": null,
+      "personalization_hook": "Also trades as King's Kitchen on aggregators — a small ID dim sum house, not a banquet hall",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 1
+      },
+      "scoring_note": "Family-run single location. No contact surfaced.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-04",
+      "name": "Sichuanese Cuisine",
+      "business_type": "Sichuan restaurant",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/sichuanese-cuisine-seattle",
+      "public_contact": "sichuan-cuisine.com/locations",
+      "personalization_hook": "Plates family-style for two or more and carries a real vegetarian sub-menu — unusual for a Sichuan house here",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Vegetable-forward Sichuan: string beans, mapo, veggie subs. Own site. Strong fit.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-05",
+      "name": "Golden Daisy 永盛",
+      "business_type": "Dim sum + Cantonese BBQ, takeout only",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/golden-daisy-restaurant-seattle",
+      "public_contact": "goldendaisyrestaurant.weebly.com",
+      "personalization_hook": "Cash-only, to-go-only counter that still keeps 永盛 on its own self-built site",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 1,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 2,
+        "personalization": 2
+      },
+      "scoring_note": "Protein-fixed. Self-built Weebly = owner controls own channel, a documented buying signal. Pitch turnover, not menu.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-06",
+      "name": "Asian Kitchen 德记",
+      "business_type": "Chinese kitchen",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/asian-kitchen-no-title-3",
+      "public_contact": "+1 206-403-1199 / asiankitchenorder.com",
+      "personalization_hook": "Keeps 德记 alongside the English name, closed Tuesdays — a one-kitchen operation",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "Own single-restaurant ordering domain. Bilingual framing safe. Broad small-plate menu.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-07",
+      "name": "Young's Restaurant",
+      "business_type": "Chinese/Thai + American diner",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/youngs-restaurant-seattle",
+      "public_contact": "+1 206-762-3438 / youngsrestaurantwhitecenter.com",
+      "personalization_hook": "Runs an American breakfast menu and a Chinese/Thai menu out of one kitchen",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "Cross-menu operation buys produce for both. Multi-gen Cantonese-American: use English.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-08",
+      "name": "Ton Kiang Barbeque Noodle House",
+      "business_type": "Cantonese BBQ / noodles",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/ton-kiang-barbeque-noodle-house-seattle",
+      "public_contact": null,
+      "personalization_hook": "Closes at 6pm — roast duck and crispy pork sold by the pound during the day",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 2
+      },
+      "scoring_note": "Protein-fixed, owner couple. Pitch inventory turnover only.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-09",
+      "name": "Mike's Noodle House",
+      "business_type": "Congee / wonton noodles",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/mikes-noodle-house-seattle",
+      "public_contact": "mikesnoodlehouse.ca/location",
+      "personalization_hook": "Congee with a Chinese donut is the ordering ritual locals push",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "1,568 reviews — busy enough to ignore cold outreach. Fixed protein/noodle menu.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-10",
+      "name": "Jade Garden",
+      "business_type": "HK-style dim sum",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/jade-garden-seattle",
+      "public_contact": "jade-garden-restaurant.com",
+      "personalization_hook": "Named to The Infatuation's 2025 list of the 25 best restaurants in the CID",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 1,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 2,
+        "personalization": 2
+      },
+      "scoring_note": "1,971 reviews. Too busy to read cold mail.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-11",
+      "name": "Little Ting's Dumplings",
+      "business_type": "Handmade dumplings",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/little-tings-dumplings-seattle",
+      "public_contact": "littletingsdumplingsus.com",
+      "personalization_hook": "Pork & chive is the signature and they carry vegan dumplings too",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Filling vegetables are a real weekly variable input. Own branded ordering site.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-12",
+      "name": "Seattle Dumpling House",
+      "business_type": "Late-night dumplings / dim sum",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/seattle-dumpling-house-seattle",
+      "public_contact": null,
+      "personalization_hook": "Serves dumplings until 3:30am — The Infatuation titled its review '3am dumplings are within reach'",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Great hook, no contact surfaced. High turnover.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-13",
+      "name": "Dumpling The Noodle",
+      "business_type": "Northern dumplings / hand-pulled noodles",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/dumpling-the-noodle-seattle",
+      "public_contact": "dumplingthenoodle.com/locations/seattle",
+      "personalization_hook": "Advertises both handmade Northern dumplings and hand-pulled lamen made in house",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "Two labour-heavy items in one small kitchen.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-14",
+      "name": "Chuan House",
+      "business_type": "Sichuan restaurant",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/chuan-house-seattle",
+      "public_contact": "chuanhouseuw.com",
+      "personalization_hook": "Named their domain after the UW campus — the business runs on the student calendar",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 2,
+        "personalization": 2
+      },
+      "scoring_note": "Sichuan = produce-intensive. Student calendar means demand swings, so over-buying is a live problem.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-15",
+      "name": "Red Pepper",
+      "business_type": "Sichuan restaurant",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/red-pepper-seattle",
+      "public_contact": null,
+      "personalization_hook": null,
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 0
+      },
+      "scoring_note": "Good category fit, no contact, no hook. Needs enrichment before it is contactable.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-16",
+      "name": "Taste of Xian",
+      "business_type": "Shaanxi / Xi'an",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/taste-of-xian-seattle-4",
+      "public_contact": null,
+      "personalization_hook": "Makes real hand-pulled noodles in house and markets on Shaanxi regional cooking, not generic Chinese",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 2
+      },
+      "scoring_note": "Noodle-fixed with vegetable-heavy cold dishes. No contact surfaced.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-17",
+      "name": "University Kitchen",
+      "business_type": "Chinese restaurant",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/university-kitchen-seattle-2",
+      "public_contact": null,
+      "personalization_hook": null,
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 0
+      },
+      "scoring_note": "77 reviews — small enough to actually read a message, but nothing verified to personalize with.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-18",
+      "name": "Seattle Dumpling",
+      "business_type": "Dumpling stall",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/seattle-dumpling-seattle",
+      "public_contact": null,
+      "personalization_hook": "Operates out of stall 14 at Pike Place, steps from the market's own produce vendors",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "The most literal 'what is peaking locally' pitch in the whole list. Micro-operation.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-19",
+      "name": "Kiki Bakery & Cafe",
+      "business_type": "Taiwanese bakery",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/kiki-bakery-and-cafe-seattle",
+      "public_contact": "kikibakery.com",
+      "personalization_hook": "Bakes handmade Taiwanese breads daily and pours teas sourced from Taiwan",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 3,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Fruit seasonality maps directly onto cake and drink specials. Daily bake = constant menu decisions.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-20",
+      "name": "Yummy House Bakery",
+      "business_type": "HK-style bakery",
+      "city": "Seattle",
+      "source_url": "https://en.wikipedia.org/wiki/Yummy_House_Bakery",
+      "public_contact": "yummyhousebakery.com",
+      "personalization_hook": "Open since 1998 and positions on 'healthy' cakes and buns rather than the standard HK bakery pitch",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "Fruit-based, not vegetable. Own site.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-21",
+      "name": "Sweet Dream Bakes",
+      "business_type": "Instagram dessert studio",
+      "city": "Seattle",
+      "source_url": "https://www.instagram.com/sweetdreambakes/",
+      "public_contact": "@sweetdreambakes",
+      "personalization_hook": "Her profile frames the desserts around culture, memory and belonging",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 3,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Solo operator, Instagram IS the menu — needs postable seasonal content constantly. Only verifiable Instagram-native operator found.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-22",
+      "name": "Lulu Mart",
+      "business_type": "Small Chinese grocery",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/lulu-mart-seattle",
+      "public_contact": null,
+      "personalization_hook": "One of the newer Chinatown grocers, opening as Rising Produce and Vy's Produce closed off Jackson",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 1,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Produce IS the perishable inventory. Highest waste-reduction fit. No contact surfaced.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-23",
+      "name": "Dong Hing Market",
+      "business_type": "Chinese market + butcher",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/dong-hing-market-seattle-2",
+      "public_contact": null,
+      "personalization_hook": "Still open on Jackson after Rising Produce closed and Vy's was redeveloped — it absorbed that produce demand",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 1,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Fresh produce and meat. Independent corner grocer, 29 reviews.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-24",
+      "name": "Dong Sing Market",
+      "business_type": "Small Asian grocery",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/dong-sing-market-seattle",
+      "public_contact": null,
+      "personalization_hook": null,
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 1,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 0
+      },
+      "scoring_note": "Tiny (12 reviews). Great category fit, nothing to personalize with yet.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-25",
+      "name": "Seattle Chinese Herb & Grocery",
+      "business_type": "Herb shop + grocery",
+      "city": "Seattle",
+      "source_url": "https://www.yelp.com/biz/seattle-chinese-herb-and-grocery-seattle-2",
+      "public_contact": null,
+      "personalization_hook": "An herb shop is the one retailer where 节气 framing is already native to how customers shop",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Dried + fresh. The 节气 frame needs no explaining here.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-26",
+      "name": "Tasty Szechuan 蜀府宴语",
+      "business_type": "Sichuan / Taiwanese",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/tasty-szechuan-bellevue-3",
+      "public_contact": "tastyszechuanwa.com / @tastyszechuan",
+      "personalization_hook": "Posts to Instagram as @tastyszechuan under the Chinese name 蜀府宴语 — a bilingual feed you can write captions straight into",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 3,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Best overall fit found: produce-intensive, already runs weekday specials, own site AND own Instagram. Bilingual opener safe.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-27",
+      "name": "Dan Gui Sichuan Cuisine",
+      "business_type": "Sichuan restaurant",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/dan-gui-sichuan-cuisine-bellevue",
+      "public_contact": "Chowbus store page",
+      "personalization_hook": "Signature is stir-fried pork with pepper — a dish whose character depends on which chilies are good that week",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 2,
+        "personalization": 3
+      },
+      "scoring_note": "Pepper-and-vegetable led. On Chowbus rather than own domain.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-28",
+      "name": "Facing East Taiwanese 東來食府",
+      "business_type": "Taiwanese restaurant",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/facing-east-bellevue",
+      "public_contact": "facingeastbellevue.com/about / facebook",
+      "personalization_hook": "Sells Taiwanese bento boxes alongside the bao burgers",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 3,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Bento format is the easiest place to slot a rotating seasonal side. Two locations, owner-run.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-29",
+      "name": "Xiang House",
+      "business_type": "Hunan restaurant",
+      "city": "Bellevue",
+      "source_url": "https://m.yelp.com/biz/xiang-house-bellevue",
+      "public_contact": "xianghousebellevue.com",
+      "personalization_hook": "Hunan is still a thin category on the Eastside — leads on smoky wok aroma and signature rice noodles",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 2
+      },
+      "scoring_note": "Hunan = chili, garlic, fresh vegetable driven. Site says 'made fresh every day'. Own ordering domain.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-30",
+      "name": "Best Wok",
+      "business_type": "Chinese restaurant",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/best-wok-bellevue",
+      "public_contact": null,
+      "personalization_hook": "Third-generation chef-owner Dennis has been reworking the family recipes at a restaurant open since 1984",
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Documented, specific hook. No direct contact surfaced.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-31",
+      "name": "Dumpling & Noodle",
+      "business_type": "Dumpling / noodle shop",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/dumpling-and-noodle-bellevue",
+      "public_contact": null,
+      "personalization_hook": null,
+      "scores": {
+        "waste_reduction": 2,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 1,
+        "personalization": 0
+      },
+      "scoring_note": "120 reviews, small independent. Nothing verified to personalize with.",
+      "source_agent": "P1",
+      "why_not": "low fit or nothing verified to personalize with"
+    },
+    {
+      "id": "P1-32",
+      "name": "Cafe Aloe",
+      "business_type": "Asian bakery + cafe",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/cafe-aloe-bellevue-2",
+      "public_contact": "cafealoe.com/visitus",
+      "personalization_hook": "Their piggy buns are the item people photograph",
+      "scores": {
+        "waste_reduction": 1,
+        "menu_decision": 3,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Already leans on visual postable items. Specialty-drink program is the natural seasonal slot.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-33",
+      "name": "Frying Fish",
+      "business_type": "Sichuan seafood",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/frying-fish-bellevue-2",
+      "public_contact": "fryingfishtogo.com",
+      "personalization_hook": "Built a separate takeout-only domain, fryingfishtogo.com — takeout is where their menu decisions land",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 2,
+        "turnover": 2,
+        "reachable": 3,
+        "personalization": 3
+      },
+      "scoring_note": "Chilies, pickled vegetables, aromatics. Owns own channel.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-34",
+      "name": "Rice & Noodles Chinese Kitchen",
+      "business_type": "Food-court kitchen",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/rice-and-noodles-chinese-kitchen-bellevue",
+      "public_contact": null,
+      "personalization_hook": "A food-court stall competing on portion size and value — cheaper seasonal produce goes straight to margin",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 2,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 3
+      },
+      "scoring_note": "Tofu substitution on most mains = produce-flexible. 30 reviews, micro-operation.",
+      "source_agent": "P1",
+      "why_not": null
+    },
+    {
+      "id": "P1-35",
+      "name": "S-Mart Asian Supermarket",
+      "business_type": "Independent Asian grocery",
+      "city": "Bellevue",
+      "source_url": "https://www.yelp.com/biz/s-mart-asian-supermarket-bellevue",
+      "public_contact": null,
+      "personalization_hook": "Positions on a selection of organic and natural foods, unusual for a small Asian grocer here",
+      "scores": {
+        "waste_reduction": 3,
+        "menu_decision": 1,
+        "margin": 3,
+        "turnover": 3,
+        "reachable": 1,
+        "personalization": 2
+      },
+      "scoring_note": "Produce is the perishable inventory driving waste and turnover.",
+      "source_agent": "P1",
+      "why_not": null
+    }
+  ]
+}
