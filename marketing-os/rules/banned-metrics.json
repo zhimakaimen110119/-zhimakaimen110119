@@ -1,0 +1,21 @@
+{
+  "$comment": "Constitution Article 3. Enforced by lib/mos.mjs validate.",
+  "version": 1,
+  "banned_as_primary_metric": [
+    "views", "impressions", "reach", "plays", "video_views",
+    "likes", "hearts", "reactions", "favorites",
+    "followers", "subscribers", "fans", "audience_size",
+    "shares", "reposts", "retweets", "saves", "bookmarks", "pins", "repins",
+    "comments", "replies",
+    "engagement", "engagement_rate", "er",
+    "watch_time", "completion_rate", "avg_view_duration",
+    "mentions", "press_mentions", "brand_awareness"
+  ],
+  "allowed_as_leading_indicator_only": true,
+  "leading_indicator_rule": "A banned metric may appear in leading_indicators ONLY if the campaign also declares a Tier 1-3 primary_metric that the indicator is claimed to predict.",
+  "tier_1_metrics": ["revenue", "net_revenue", "mrr", "arr", "ltv", "refund_adjusted_revenue"],
+  "tier_2_metrics": ["paid_conversions", "checkout_completions", "trial_to_paid", "upgrade_rate", "paying_customers"],
+  "tier_3_metrics": ["signups", "activated_users", "activation_rate", "email_subscribers_activated", "qualified_signups"],
+  "tier_4_metrics": ["experiment_result", "variant_lift"],
+  "tier_5_metrics": ["sessions", "retention_d7", "retention_d30", "funnel_dropoff", "search_queries", "clicks", "ctr", "session_duration"]
+}

@@ -1,0 +1,64 @@
+# Brand rules. The Content Agent must satisfy every rule here.
+# Constitution Article 8 (honesty) and approval rule H5 (sensitive claims)
+# outrank anything in this file.
+
+slug: shilingshipu
+
+positioning:
+  statement: "For people who want to eat well without deciding, 时令食谱 answers one question — what should I cook right now — using what the season already decided for you."
+  status: assumed
+  change_gate: H7   # changing this needs human approval
+
+promise: "Less deciding. Better ingredients. Food that matches the month you are actually in."
+
+voice:
+  register: warm, plain, unhurried
+  person: second person ("you"), never corporate "we are excited to"
+  sentence_length: short. one idea per sentence.
+  humor: dry and light, never zany
+  cultural_frame: "Seasonality is treated as ordinary common sense, not as a wellness trend."
+
+do:
+  - "Name a specific ingredient and a specific month."
+  - "Show the food before showing the app."
+  - "Give the value away in the post itself. The click is for more, not for the answer."
+  - "Use 节气 / solar-term framing as a calendar fact."
+  - "Admit limits. 'This works better in the north' is good copy."
+
+do_not:
+  - "Health outcome claims — detox, immunity, blood sugar, weight loss, anti-inflammatory. Gate H5."
+  - "食疗 / medicinal framing presented as fact."
+  - "Fake urgency, fake scarcity, fake countdowns."
+  - "Fabricated testimonials, review counts, user counts or download numbers."
+  - "Engagement bait: 'comment 1 for the link', 'follow before it's deleted'."
+  - "Trend-chasing audio or memes that contradict the unhurried register."
+  - "Claiming the product does something it does not do. See product.yaml Q1."
+
+banned_phrases:
+  - 排毒
+  - 提高免疫力
+  - 降血糖
+  - 抗炎
+  - 减肥神器
+  - detox
+  - boosts immunity
+  - superfood cure
+  - doctors hate
+  - "you won't believe"
+
+visual:
+  palette_direction: "Muted natural tones that shift with the season. High contrast on food, low contrast on background."
+  typography_direction: "One serif for the dish name, one clean sans for everything else."
+  imagery_rule: "Real food, real kitchen light. No stock-photo perfection. No AI-generated food images presented as real dishes."
+  logo_use: "Small, corner, last frame only."
+
+localization:
+  zh:
+    tone_note: "口语化，不要书面报告体。可以用节气名，但要顺带解释。"
+    avoid: "过度网络流行语，会和'不慌不忙'的调性冲突。"
+  en:
+    tone_note: "Plain English. Explain a Chinese ingredient the first time it appears, in four words or fewer."
+    avoid: "Exoticising language — 'mysterious', 'ancient secret', 'oriental'."
+
+attribution:
+  disclosure_rule: "If content is ever sponsored or affiliate-linked, disclose in the first line. No exceptions."

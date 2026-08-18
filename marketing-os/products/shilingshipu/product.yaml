@@ -1,0 +1,110 @@
+# Product fact sheet — read by every agent before it reasons.
+# Every fact carries a verification status. Agents must weight CONFIRMED facts
+# above ASSUMED ones, and must flag when an ASSUMED fact is load-bearing.
+# Statuses: confirmed | assumed | unknown
+
+slug: shilingshipu
+name_native: 时令食谱
+name_pinyin: Shiling Shipu
+name_en: Seasonal Recipes
+url: https://www.shilingshipu.com
+verification_status: partially_unverified
+last_verified: 2026-08-18
+verification_note: "The live site could not be fetched from this environment (network egress to www.shilingshipu.com returns 403 from the agent proxy) and the domain has no public search footprint. Every field below marked 'assumed' is an inference, not an observation. See outputs/missing-connections.md item MC-01."
+
+identity:
+  one_liner:
+    value: "Tells you what to cook right now, based on what is actually in season."
+    status: assumed
+  category:
+    value: recipe / seasonal meal inspiration
+    status: assumed
+  interface_language:
+    value: zh-CN
+    status: assumed
+  founder_model:
+    value: solo founder, first product in a portfolio
+    status: confirmed
+
+stage:
+  lifecycle:
+    value: early / pre-traction
+    status: assumed
+  existing_traffic:
+    value: near zero
+    status: assumed
+  existing_email_list:
+    value: none
+    status: assumed
+  existing_social_accounts:
+    value: none
+    status: assumed
+  paying_customers:
+    value: 0
+    status: assumed
+
+monetization:
+  current_model:
+    value: none confirmed
+    status: unknown
+  candidate_models:
+    - subscription
+    - paid seasonal meal plan
+    - one-off digital product
+    - affiliate / grocery commerce
+    - sponsorship
+  price_point:
+    value: not set
+    status: unknown
+  payment_rail:
+    value: not set
+    status: unknown
+  note: "Constitution Article 1 makes revenue the North Star, so 'no monetization decided' is the single largest gap in this file. Campaign 001 must produce evidence toward closing it."
+
+audience_hypotheses_note: "Unresolved at time of writing. Research Agents A/B/C were each required to take a position; the CEO decision records the resolution."
+audience_hypotheses:
+  - id: AH-1
+    label: "Domestic China, 小红书/微信 ecosystem, Chinese-language"
+    status: assumed
+  - id: AH-2
+    label: "Overseas Chinese-speaking diaspora on Western platforms"
+    status: assumed
+  - id: AH-3
+    label: "English-speaking Western audience interested in seasonal eating"
+    status: assumed
+
+constraints:
+  cash_budget_usd_phase_1: 0
+  founder_hours_per_week:
+    value: 10
+    status: assumed
+  can_register_accounts: false
+  can_publish_live: false
+  can_modify_product: false
+  note: "Phase 1 is generate-and-queue only. Constitution Article 11."
+
+north_star: sustainable revenue
+
+primary_metrics_allowed:
+  - revenue
+  - paid_conversions
+  - signups
+  - activated_users
+
+open_questions:
+  - id: Q1
+    question: "What does the site actually do today — browse, search, generate, plan?"
+    blocks: "Content accuracy. Every hook currently written assumes 'what's in season now'."
+    owner: human
+  - id: Q2
+    question: "Is there any signup or email capture on the site right now?"
+    blocks: "Tier 3 metrics. Without capture, no campaign can be measured past a click."
+    owner: human
+  - id: Q3
+    question: "Which market is the product legally and practically able to charge?"
+    blocks: "Monetization path and payment rail."
+    owner: human
+  - id: Q4
+    question: "Is any analytics installed (GA4, Plausible, Umami)?"
+    blocks: "All UTM attribution. Without it the OS is blind."
+    owner: human

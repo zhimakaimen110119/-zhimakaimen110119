@@ -1,0 +1,33 @@
+{
+  "$comment": "Machine-readable mirror of rules/approval-policy.md. Default gate is HUMAN.",
+  "version": 1,
+  "default_gate": "HUMAN",
+  "human": [
+    {"id": "H1", "action": "ad_spend", "match": ["paid_ads", "boost_post", "sponsored", "ad_budget"]},
+    {"id": "H2", "action": "account_registration", "match": ["signup_account", "kyc", "identity_verification", "captcha", "phone_verification"]},
+    {"id": "H3", "action": "irreversible_operation", "match": ["irreversible"]},
+    {"id": "H4", "action": "price_change", "match": ["price_change", "pricing_update"]},
+    {"id": "H5", "action": "sensitive_claims", "match": ["health_claim", "medical", "nutrition_claim", "legal_claim", "financial_claim", "safety_claim"]},
+    {"id": "H6", "action": "deletion", "match": ["delete_product", "delete_account", "delete_published_content", "delete_data"]},
+    {"id": "H7", "action": "brand_repositioning", "match": ["change_positioning", "rename_product", "change_core_promise"]},
+    {"id": "H8", "action": "first_real_publish", "match": ["publish_live", "connect_platform_api", "oauth_grant"]},
+    {"id": "H9", "action": "direct_outreach", "match": ["dm", "cold_email", "outreach"]},
+    {"id": "H10", "action": "pii_handling", "match": ["pii", "customer_list", "export_users"]},
+    {"id": "H11", "action": "external_commitment", "match": ["partnership", "sponsorship", "affiliate_agreement", "contract"]},
+    {"id": "H12", "action": "third_party_claims", "match": ["competitor_comparison", "named_third_party_claim"]}
+  ],
+  "auto": [
+    {"id": "A1", "action": "content_generation", "match": ["generate_content", "draft_copy", "script"]},
+    {"id": "A2", "action": "creative_testing", "match": ["headline_test", "hook_test", "thumbnail_test", "title_test"]},
+    {"id": "A3", "action": "scheduling", "match": ["posting_time", "cadence"]},
+    {"id": "A4", "action": "seo", "match": ["seo", "keywords", "metadata", "structured_data", "internal_linking"]},
+    {"id": "A5", "action": "zero_cost_experiment", "match": ["free_experiment", "zero_cost_test"]},
+    {"id": "A6", "action": "research", "match": ["research", "competitive_analysis", "read_public_source"]},
+    {"id": "A7", "action": "internal_planning", "match": ["create_campaign", "create_experiment", "write_hypothesis"]},
+    {"id": "A8", "action": "internal_decision", "match": ["judge_scoring", "ceo_decision"]},
+    {"id": "A9", "action": "queue_build", "match": ["build_queue", "generate_utm"]},
+    {"id": "A10", "action": "analytics", "match": ["analytics", "retro", "dashboard"]},
+    {"id": "A11", "action": "kill_internal_campaign", "match": ["kill_campaign", "pause_campaign"]},
+    {"id": "A12", "action": "draft_approval_request", "match": ["draft_approval"]}
+  ]
+}
