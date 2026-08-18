@@ -2,8 +2,11 @@ campaign_id: campaign-001
 product: shilingshipu
 title: "First revenue signal — who actually pays for seasonality"
 created: 2026-08-18
-status: ready_pending_human
+status: superseded
 parent_experiment: none
+superseded_by: campaign-002
+superseded_on: 2026-08-18
+superseded_reason: "Founder confirmed 2026-08-18: resident in Washington State, US is the phase-1 market, USD pricing, Stripe available. Conflict CF-1 resolved in favour of Agents A and B. This campaign's mainland framing, its ¥199 price and its 处暑 ingredient list are all void for the live market. Kept unmodified as the decision record - the council reasoning, the Judge scoring and the Red Team findings all carry forward to campaign-002 and must remain auditable."
 
 hypothesis: "If we send a free 处暑 seasonal operations pack to 10 small food businesses and offer the next six 节气 for ¥199, then at least 3 will say yes within 14 days."
 

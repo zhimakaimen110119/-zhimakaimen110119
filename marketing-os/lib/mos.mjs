@@ -270,6 +270,59 @@ function build(campaignId) {
   return { entries, channelsUsed: Object.keys(groups).length };
 }
 
+
+// --------------------------------------------------------- score-prospects
+// Buyer-fit rubric. Mirrors the founder's stated criteria: does seasonal
+// information reduce procurement waste, drive menu decisions, improve margin,
+// improve turnover. Executability is scored separately so a perfect-fit
+// prospect you cannot reach does not outrank a good-fit prospect you can.
+const FIT_RUBRIC = [
+  { key: 'waste_reduction', weight: 0.30 },
+  { key: 'menu_decision',   weight: 0.25 },
+  { key: 'margin',          weight: 0.25 },
+  { key: 'turnover',        weight: 0.20 },
+];
+const EXEC_RUBRIC = [
+  { key: 'reachable',       weight: 0.50 },
+  { key: 'personalization', weight: 0.50 },
+];
+const FIT_SHARE = 0.7;
+
+function scoreProspects(campaignId) {
+  const dir = p('campaigns', campaignId, 'prospects');
+  const pool = readJson(path.join(dir, 'pool.json'));
+  const scored = pool.prospects.map(x => {
+    const sc = (rubric) => rubric.reduce((acc, r) => {
+      const v = x.scores[r.key];
+      if (typeof v !== 'number' || v < 0 || v > 3) throw new Error(`${x.id}: "${r.key}" must be 0-3, got ${v}`);
+      return acc + v * r.weight;
+    }, 0);
+    const fit = (sc(FIT_RUBRIC) / 3) * 10;
+    const exec = (sc(EXEC_RUBRIC) / 3) * 10;
+    const total = fit * FIT_SHARE + exec * (1 - FIT_SHARE);
+    return { ...x, fit: +fit.toFixed(2), exec: +exec.toFixed(2), total: +total.toFixed(2) };
+  });
+  scored.sort((a, b) => b.total - a.total);
+  scored.forEach((x, i) => { x.rank = i + 1; x.tier = i < 20 ? 'top20' : 'pool'; });
+
+  const out = { campaign_id: campaignId, generated_by: 'lib/mos.mjs score-prospects',
+    fit_rubric: FIT_RUBRIC, exec_rubric: EXEC_RUBRIC, fit_share: FIT_SHARE,
+    pool_size: scored.length, top20: scored.slice(0, 20).map(x => ({ rank: x.rank, id: x.id, name: x.name, city: x.city, type: x.business_type, total: x.total, fit: x.fit, exec: x.exec })),
+    prospects: scored };
+  writeOut(path.join(dir, 'scored.json'), JSON.stringify(out, null, 2));
+
+  let md = `# Prospect pool — ${campaignId}\n\n`;
+  md += `Pool: **${scored.length}** verified businesses. Scored on buyer fit (70%) and executability (30%).\n\n`;
+  md += `Fit = does seasonal information reduce their produce waste, drive their menu, improve margin, improve turnover.\n`;
+  md += `Exec = can we actually reach them, and do we have one true detail to open with.\n\n`;
+  md += `## Top 20\n\n| # | Business | City | Type | Total | Fit | Exec |\n|---|---|---|---|---|---|---|\n`;
+  for (const x of scored.slice(0, 20)) md += `| ${x.rank} | ${x.name} | ${x.city} | ${x.business_type} | **${x.total}** | ${x.fit} | ${x.exec} |\n`;
+  md += `\n## Remainder of pool (${Math.max(0, scored.length - 20)})\n\n| # | Business | City | Total | Why not top 20 |\n|---|---|---|---|---|\n`;
+  for (const x of scored.slice(20)) md += `| ${x.rank} | ${x.name} | ${x.city} | ${x.total} | ${x.why_not || '-'} |\n`;
+  writeOut(path.join(dir, 'ranked.md'), md);
+  return out;
+}
+
 // ------------------------------------------------------------- new-product
 function newProduct(slug) {
   const dir = p('products', slug);
@@ -383,10 +436,11 @@ try {
     case 'validate': { const v = validate(a1, a2); console.log(fmtFindings(v.findings)); process.exit(v.ok ? 0 : 1); }
     case 'judge': { const j = judge(a1); console.log(JSON.stringify(j.ranking, null, 2)); break; }
     case 'build': { const b = build(a1); console.log(`queued ${b.entries.length} assets`); break; }
+    case 'score-prospects': { const r = scoreProspects(a1); console.log(`scored ${r.pool_size} prospects; top 20 written to campaigns/${a1}/prospects/ranked.md`); console.table(r.top20); break; }
     case 'dryrun': process.exit(dryrun(a1, a2));
     case 'new-product': console.log('scaffolded ' + newProduct(a1)); break;
     default:
-      console.log('commands: validate <slug> [campaign] | judge <campaign> | build <campaign> | dryrun <slug> <campaign> | new-product <slug>');
+      console.log('commands: validate <slug> [campaign] | judge <campaign> | score-prospects <campaign> | build <campaign> | dryrun <slug> <campaign> | new-product <slug>');
       process.exit(2);
   }
 } catch (e) { console.error('ERROR: ' + e.message); process.exit(1); }
