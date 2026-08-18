@@ -1,8 +1,8 @@
 experiment_id: EXP-002
 campaign_id: campaign-001
 product: shilingshipu
-status: blocked
-role: supporting
+status: ready
+role: parallel_primary
 created: 2026-08-18
 origin: "Agent C entry point C3, modified by Red Team. Judge rank 2 of 11, weighted 6.95."
 
@@ -24,8 +24,10 @@ success_threshold: "1 or more strangers pay $19"
 kill_threshold: "0 sales in 7 days"
 decision_date: 2026-08-28
 
-blocked_by:
-  - "MC-01 — founder residence and payment rail unknown. A pre-order page needs a working checkout, and which one works depends entirely on that answer."
+unblocked_on: 2026-08-18
+unblocked_by: "Founder confirmed Washington State residency. Stripe is available to a US sole proprietor with no company formed. The only blocker on this experiment is gone."
+promoted_reason: "Promoted from supporting to parallel_primary at the founder's direction. The founder believes consumer demand is real; that is a hypothesis, and this experiment is what tests it. It already ranked #2 of 11 on the Judge rubric (6.95) - it was never a weak position, only a blocked one. It runs alongside campaign-002 rather than instead of it, because the two share no assumption and whichever produces the first dollar settles the question on evidence."
+campaign: campaign-003
 
 honesty_gate: "Constitution Article 8. Pre-selling an unbuilt product is honest ONLY with an explicit ship date AND an unconditional refund offer, both stated above the fold. Without both, this experiment must not run. The dishonest version would convert better, which is exactly why the rule is written down before launch."
 

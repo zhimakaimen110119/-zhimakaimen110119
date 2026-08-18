@@ -416,7 +416,7 @@ function dryrun(slug, campaignId) {
     const j = judge(campaignId);
     for (const r of j.ranking) say(`  #${r.rank}  ${String(r.weighted).padStart(5)}  ${r.id.padEnd(4)} ${r.label}${r.disqualifiers.length ? '  [DQ: ' + r.disqualifiers.join('; ') + ']' : ''}`);
   } else {
-    const inherited = v.campaign && v.campaign.supersedes;
+    const inherited = v.campaign && (v.campaign.supersedes || v.campaign.inherits_decision_from);
     if (inherited && exists(p('campaigns', inherited, 'judge-scores.json'))) {
       const prev = readJson(p('campaigns', inherited, 'judge-scores.json'));
       say(`  no judge input — decision inherited from ${inherited}`);

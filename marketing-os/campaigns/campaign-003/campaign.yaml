@@ -1,0 +1,55 @@
+campaign_id: campaign-003
+product: shilingshipu
+title: "消费者线 — $19 北美秋季时令中餐包预售"
+created: 2026-08-18
+status: ready
+parent_experiment: EXP-002
+runs_parallel_to: campaign-002
+inherits_decision_from: campaign-001
+inherited_position: "C3M — Judge rank 2 of 11, weighted 6.95. Not re-judged, because the council already scored this exact position and nothing in the evidence has changed except that its blocker cleared."
+
+origin: "Founder conviction: the consumer demand is real and will exist. That is a hypothesis, not a feeling, and it already ranked #2 of 11 in the campaign-001 Judge scoring (C3M, 6.95). Its only blocker was an unconfirmed payment rail. The founder is in Washington State and Stripe is available, so the blocker is gone."
+
+market: United States
+currency: USD
+payment_rail: "Stripe Payment Link"
+
+hypothesis: "If we sell a $19 autumn seasonal pack by pre-order into Chinese-diaspora communities that permit outbound links, then at least 1 stranger pays within 7 days."
+
+claim_id: CLAIM-003
+claim: "节气 intuition breaks when you emigrate. Domestic 节气食谱 tell you to buy 香椿 in a week when your store has none, and the store's actual seasonal produce has no Chinese dish attached to it. Someone will pay to have that gap closed."
+
+decorrelation_from_campaign_002: "Shares no assumption with the B2B track. Different buyer, different price, different channel, different failure mode. If businesses do not care, this is unaffected — and vice versa. Whichever produces the first dollar wins the argument on evidence rather than on anyone's judgment."
+
+primary_metric: paid_conversions
+primary_metric_tier: 2
+success_threshold: "1 or more strangers pay $19"
+kill_threshold: "0 sales in 7 days from 3 community posts"
+ambiguous_band: "Clicks but no purchase — the interest is real and the offer or the price is wrong. Test $9 and $29 before concluding anything about demand."
+decision_date: 2026-08-28
+
+leading_indicators:
+  - landing_page_visits
+  - city_field_completions
+predicts: "city_field_completions predicts which regional edition to build next. Leading indicator only."
+
+offer:
+  product: "《北美秋季时令中餐包》— 6 个节气（白露→小雪），每期一份：本地超市真正当季的食材、怎么挑、能做什么中餐、采购清单"
+  price_usd: 19
+  edition: "太平洋西北首发（西雅图/波特兰/温哥华）。其他地区照买，但必须在页面上写清楚差异，并给无条件退款。"
+  ships: "2026-09-25 之前交付第一期"
+  refund: "无条件，不问原因"
+
+honesty_gate: "Constitution Article 8. Pre-selling an unbuilt product is honest ONLY with an explicit ship date AND an unconditional refund, both above the fold. Both are in the copy. The dishonest version would convert better — which is exactly why this is written down before launch, not after."
+
+channels:
+  - community
+  - landing_page
+
+approvals:
+  outreach: "AUTO, approval-policy v2 rule A15."
+  spend: "$0."
+
+phase_1_constraints:
+  no_ad_spend: true
+  no_live_platform_publishing: true

@@ -114,6 +114,16 @@ channels:
     link_in_post: true
     notes: "一亩三分地 / Douban groups / Dealmoon-style guides. Outbound links are permitted, so UTM works end to end. Best broadcast attribution available in month one."
 
+  - id: landing_page
+    name: Pre-order landing page
+    connected: false
+    account: none
+    utm_source: direct
+    utm_medium: landing
+    format: single page, no navigation
+    link_in_post: true
+    notes: "Owned surface. Cleanest attribution of anything we have — the checkout sits on the same page as the copy."
+
 not_in_scope_phase_1:
   - id: douyin
     reason: "Domestic China platform. Requires a verified domestic account and likely ICP filing. Gate H2 + H8."
