@@ -1,0 +1,30 @@
+{
+  "content_id": "SLSP-20260818-DO-US-06",
+  "campaign_id": "campaign-002",
+  "product": "shilingshipu",
+  "channel": "direct_outreach",
+  "channel_name": "Direct 1:1 outreach",
+  "claim_id": "CLAIM-002",
+  "hook_family": "your-own-documented-detail",
+  "status": "queued",
+  "phase": 1,
+  "publish_blocked_by": "Constitution Article 11 — Phase 1 is generate-and-queue only. Approval H8 required per channel.",
+  "destination_url": "https://www.shilingshipu.com/?utm_source=outreach&utm_medium=direct&utm_campaign=campaign-002&utm_content=SLSP-20260818-DO-US-06&utm_term=your-own-documented-detail",
+  "attribution_quality": "CLEAN — link is clickable and carries UTM.",
+  "sequence": 6,
+  "payload": {
+    "content_id": "SLSP-20260818-DO-US-06",
+    "channel": "direct_outreach",
+    "claim_id": "CLAIM-002",
+    "hook_family": "your-own-documented-detail",
+    "audience_segment": "Chan's Place",
+    "language": "en",
+    "post": "见 content/outreach-top20.md 编号 SLSP-20260818-DO-US-06",
+    "attachment": "chushu-pack-pnw-v1.md",
+    "landing_path": "/",
+    "offer": "free 处暑 pack now; $49 customized 白露 pack Sept 7",
+    "human_action": "确认商户仍在营业后，由创始人逐条发送（A15 AUTO）",
+    "experiment": "EXP-004"
+  },
+  "human_action_required": "Post manually on Direct 1:1 outreach. Set the bio link to the destination URL above if the channel is bio-link-only."
+}

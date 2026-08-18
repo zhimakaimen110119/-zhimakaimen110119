@@ -1,60 +1,56 @@
 # Human actions required — ONE batch
 
-Updated: 2026-08-18, after the council, Red Team, Judge and CEO decision.
+Updated 2026-08-18, after market resolution, prospecting and content generation.
 
-Three things need you. Nothing else does. Total time: **about 50 minutes.**
-
----
-
-## 1 · Answer one question (60 seconds)
-
-**Are you resident in mainland China with no company, or overseas / incorporated?**
-
-Three research agents, working in isolation with three different priors, each independently named this as their single biggest unknown, unprompted, in their own words. It decides the language, the channel, the price point (by roughly 5x) and the payment rail.
-
-If it helps, the fuller version:
-- Country of residence
-- Do you hold a mainland 身份证, a mainland bank card and a real-name WeChat?
-- Is the site's seasonality data mainland-only, or multi-region?
-
-**What each answer unlocks:**
-- **Mainland, no entity** → rails are a plain 微信收款码 with manual delivery for the first twenty buyers, then 知识星球 or 公众号付费阅读. Stripe is confirmed unavailable to you. The pack's ingredient list as written is already correct.
-- **Overseas / incorporated** → Payhip or Ko-fi in your country, EXP-002 unblocks, and the ingredient list swaps to your local produce calendar.
-
-## 2 · Sign one approval (5 minutes)
-
-`outputs/approvals/campaign-001-1.md` — rule **H9, contacting real people**.
-
-The OS drafted ten outreach messages and cannot send any of them. Read them first: `campaigns/campaign-001/content/outreach-messages.md`. Do not approve a message you have not read.
-
-Change `decision: PENDING` to `APPROVED` or `DENIED`, sign, date. `mos.mjs validate` refuses to mark the campaign launch-ready until you do — this is the one FAIL in the current dry run, and it is intentional.
-
-## 3 · Name ten businesses (40 minutes)
-
-The OS cannot know who is in your contacts. Ten small food businesses you can already reach: 私房菜, 社区团购团长, 便当 sellers, a bakery studio, a 生鲜 shop, a small restaurant. The ten drafted messages are already segmented by type.
-
-Then send, and log each in `analytics/campaign-001-tracking.csv`.
+**Two things need you. Everything else is done and needs no approval.**
 
 ---
 
-## Still blocked, still unresolved
+## 1 · Verify the businesses are still open (~30 min)
 
-**MC-01 — the product itself is unreachable from this environment.** `WebFetch` returns `EGRESS_BLOCKED`; `curl` gets `403 CONNECT` from the agent proxy; the domain has no public search footprint; and no 时令食谱 repository exists on this GitHub account (only `-zhimakaimen110119`, `ai-tree`, `questhero`, `ridepilot`). So no product audit has been performed and none was invented. To clear it: run this mission on the machine that has the code, or push the repo here and name it.
+**This is not optional and I cannot do it.** Neither prospecting agent could open a single business page — the sandbox egress proxy blocks WebFetch for every external domain. All addresses and phone numbers came from search-result summaries, not from the businesses' own pages.
 
-**MC-02 — no analytics.** Unknown whether GA4/Plausible/Umami exists. Every UTM in the queue is built correctly and lands nowhere measurable until one does.
+Between them the two agents hit **14 permanently closed Chinese businesses** in this metro in one afternoon, several of them institutions (Harbor City, Shanghai Garden, Mon Hei, A Bite of Sichuan, Regent Bakery Redmond). That is a brutal churn rate.
 
-**MC-03 — no link tracking domain.** UTMs are constructed; there is no shortener or click-tracking host.
+Open `campaigns/campaign-002/prospects/ranked.md`, work down the top 20, confirm each is open. Two are flagged and must be resolved first:
+- **U Lin Asian Bistro** — shares an address with Mount & Bao; one may have replaced the other (`verify_open`)
+- **Great China Restaurant** — listings disagree on Kirkland vs Redmond Way (`verify_city`)
 
-**MC-04 — no email service and no list.**
+## 2 · Send the 20 messages (~45 min)
 
-**MC-05 — no payment rail confirmed.** Downstream of question 1.
+`campaigns/campaign-002/content/outreach-top20.md` — 20 messages, each opening on a documented detail about that specific business. Attach `content/chushu-pack-pnw-v1.md`.
+
+**No approval needed.** Zero-cost outreach to public business contacts is AUTO under approval-policy v2 rule A15.
+
+Before the first send, create one Stripe Payment Link for **"节气 Pack — one pack, $49."** When someone asks how to pay, you send the link in that message, not the next one.
+
+处暑 is Aug 23 — five days out. The free pack is only current until Sept 6.
 
 ---
 
-## Deliberately NOT asked for
+## Not asked for, on purpose
 
-**Platform logins — TikTok, Instagram, YouTube, Pinterest, X, 小红书.** All six are withheld on purpose.
+**Platform logins.** Still withheld. The Judge ranked 小红书 5th, 7th and 10th of eleven, all with disqualifiers, and the Feb 2026 digital-goods gate (1,000 followers / 180 days / 30 notes / ¥6,000 monthly GMV) means a new account cannot legally sell there for six months. Nothing in the US campaign needs a single social account.
 
-The Judge ranked 小红书 5th, 7th and 10th of eleven, each with a disqualifier. The Feb 2026 digital-goods gate is verified across three independent sources: 1,000 followers, 180 days, 30 notes, ¥6,000 monthly GMV before a new account may legally sell anything digital. Asking you to authorize six accounts you cannot yet sell through, on a channel where clicks cannot be attributed, would be motion, not progress.
+**The ten店名 you declined to supply.** Correctly declined — the agents found 65 and scored them.
 
-They will be requested in one batch when a message has been proven to convert somewhere measurable. Deferring costs nothing — the 180-day clock runs whether or not you sign up today.
+---
+
+## Open items that block scaling, not the first sale
+
+| # | Item | Blocks | Owner |
+|---|---|---|---|
+| L1 | **WA ESSB 5814** broadened retail sales tax to digital automated services and removed the "human effort" exclusion (eff. Oct 1 2025). Whether a paid seasonal report falls inside is unresolved. | Any published price list. Not a $49 test. | A WA CPA. Not resolvable by research, and not something I should answer. |
+| L2 | WA DOR business licence threshold — $12,000/yr gross, among other triggers | Sustained revenue | You, via the DOR page |
+| MC-01 | **The product itself is still unreachable.** `shilingshipu.com` returns 403 from the sandbox proxy; no repo on this account. No product audit has been performed and none was invented. | Any claim about what the site does | Run this on the machine with the code, or push the repo here |
+| MC-02 | No analytics confirmed on the site | All UTM attribution | You |
+
+Note on MC-01: campaign-002 routes around it deliberately. The pack is the product for this test, delivered as a PDF. Nothing in the first sale depends on the website working.
+
+---
+
+## The gap worth knowing about
+
+**私房菜 / WeChat-group meal-prep / 社区团购 operators could not be found.** Two agents, working independently in different territories, ran nine discovery angles between them in Chinese and English. Both concluded the same thing: these operators advertise inside closed WeChat groups and 小红书, which web search does not index.
+
+Two independent agents converging makes this a finding, not a failure. **This segment is plausibly the best-fit buyer of all** — smallest, most produce-sensitive, most caption-hungry — and reaching it needs a human with WeChat access, not another agent. If you are in any Seattle-area Chinese food or grocery WeChat groups, that is a channel no agent here can open.
