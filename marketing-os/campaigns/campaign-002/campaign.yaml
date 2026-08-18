@@ -1,0 +1,65 @@
+campaign_id: campaign-002
+product: shilingshipu
+title: "First US dollar — $49 节气 pack to Seattle-metro Chinese food businesses"
+created: 2026-08-18
+status: building
+parent_experiment: none
+supersedes: campaign-001
+
+market: United States
+region: Seattle metro (Seattle, Bellevue, Kirkland, Redmond, Bothell)
+currency: USD
+payment_rail: "Stripe Payment Link, US sole proprietor. No company formation required."
+
+hypothesis: "If we send a free, PNW-specific 处暑 pack to 20 scored Seattle-metro Chinese food businesses and offer one menu-customized 节气 pack for $49, then at least 1 stranger pays within 14 days."
+
+claim_id: CLAIM-002
+claim: "Seasonality is worth paying for when getting it wrong costs you money. A small restaurant loses margin to produce waste and menu indecision; a home cook loses nothing."
+
+primary_metric: paid_conversions
+primary_metric_tier: 2
+success_threshold: "1 or more strangers pay $49"
+kill_threshold: "0 replies from 20 sends"
+ambiguous_band: "Replies but no payment — the interest is real and the offer is wrong. Iterate the offer once, not the audience. New decision date +14 days."
+decision_date: 2026-09-08
+
+leading_indicators:
+  - replies_received
+  - menu_photos_received
+predicts: "menu_photos_received is the strongest leading indicator - it costs the owner real effort, so it separates politeness from intent. Leading indicator only; never reportable as the result."
+
+offer:
+  free: "One complete PNW 处暑 pack. No gate, no email capture, no signup."
+  paid: "One 节气 pack built against their actual menu, $49 one-time, PDF in 48 hours, refund on request."
+  not_offered_yet: "Subscription. It requires trust an unknown vendor does not have. Only after a one-time pack converts."
+
+why_free_first: "The pack IS the proof. An unknown solo vendor asking a restaurant owner for $49 on a cold message converts at approximately zero; an unknown vendor who already handed over something genuinely useful is having a different conversation."
+
+audience: AH-4
+prospecting: "Built automatically by Prospecting Agents P1 and P2 from public business listings. Scored by lib/mos.mjs score-prospects on buyer fit (70%) and executability (30%). Top 20 receive personalized outreach; no two messages identical."
+
+china_track:
+  status: parallel_non_blocking
+  note: "小红书 / RMB experiments may continue but may never block or delay the first US dollar. Constitution Article 10 kill discipline applies to them independently."
+
+approvals:
+  outreach: "AUTO under approval-policy v2 rule A15 - zero-cost outreach to public business contacts."
+  spend: "$0. Nothing in this campaign costs money. Stripe fees only apply on a completed sale."
+
+open_legal_items:
+  - id: L1
+    item: "WA ESSB 5814 digital-automated-services sales tax treatment"
+    blocks: "Scaling and any published price list."
+    does_not_block: "A $49 test sale."
+    owner: "WA CPA. Not resolvable by research."
+  - id: L2
+    item: "WA DOR business licence threshold ($12,000/yr gross, among other triggers)"
+    blocks: "Sustained revenue."
+    does_not_block: "First sale."
+    owner: human
+
+phase_1_constraints:
+  no_ad_spend: true
+  no_account_registration_by_agent: true
+  no_live_platform_publishing: true
+  no_product_modification: true
