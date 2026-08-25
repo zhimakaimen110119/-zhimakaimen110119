@@ -1,0 +1,39 @@
+experiment_id: EXP-001
+campaign_id: campaign-001
+product: shilingshipu
+status: ready_pending_approval
+role: primary
+created: 2026-08-18
+origin: "Red Team, unasked question. Judge rank 1 of 11, weighted 8.00."
+
+question: "Will a small food business pay for seasonality information that a home cook gets free?"
+
+hypothesis: "If we send a free, complete 处暑 pack to 10 small food businesses and offer the next six 节气 for ¥199, then at least 3 will commit within 14 days."
+
+why_it_matters: "This is the Red Team's single most dangerous assumption, tested directly. Every one of the nine council plans requires a home cook to pay for information that is free, already published by larger free sources, and physically visible at the market. If that is false, all nine die - and this test costs three hours instead of six weeks to find out."
+
+branch_independence: "Runs under either answer to the open founder-residence question. Small food businesses that lose money mis-guessing the season exist in both markets. Only the ingredient list swaps."
+
+method:
+  - "Build one deliberately ugly 2-page 处暑 pack. No design pass, no logo, no landing page. DONE - see campaigns/campaign-001/content/chushu-pack-v1.md"
+  - "Identify 10 named small food businesses the founder can already reach. HUMAN - the OS cannot know who is in the founder's contacts."
+  - "Send the pack free and individually, each with a unique tracking code. HUMAN, approval H9."
+  - "Log every send and every reply in analytics/campaign-001-tracking.csv."
+
+primary_metric: paid_conversions
+primary_metric_tier: 2
+success_threshold: "3 or more of 10 commit to ¥199"
+kill_threshold: "0 replies from 10 sends"
+ambiguous_band: "1-2 commitments — iterate the offer once with a different deliverable, new decision date +14 days"
+decision_date: 2026-09-01
+
+cost:
+  founder_hours: 3
+  cash_usd: 0
+  reversible: true
+
+attribution: "Perfect by construction. Each recipient gets a unique code; a reply maps to exactly one send."
+
+what_would_falsify_it: "Zero replies from ten. Not 'low engagement' - zero human replies to a free, useful, personally-sent document means the buyer does not care."
+
+known_weakness: "n=10 is small and the sample is the founder's existing network, so a yes may reflect goodwill rather than demand. This is why success is 3, not 1, and why any yes must be followed by an actual payment request, not a verbal maybe."
