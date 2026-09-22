@@ -40,6 +40,19 @@ banned_phrases:
   - 降血糖
   - 抗炎
   - 减肥神器
+  # 2026-09-22 补充：食疗 / 功效框架的常见写法。gap-closing-spec 1.5 早已要求删除，
+  # 这里加进机器可查的列表，让 validate 的 BRD-01 能抓到。
+  - 润肺
+  - 润燥
+  - 以润
+  - 清热
+  - 降火
+  - 去湿
+  - 祛湿
+  - 养胃
+  - 滋阴
+  - 温补
+  - 性味
   - detox
   - boosts immunity
   - superfood cure
