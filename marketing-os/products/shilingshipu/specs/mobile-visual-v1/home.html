@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-season="autumn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F8F6F0">
+<meta name="color-scheme" content="only light">
+<title>时令食谱 · 秋分</title>
+<!-- 宋体 600 + 黑体 400/500。Google Fonts 按 unicode-range 分片，只下载用到的字；真机上 PingFang 优先，黑体不会下载 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* 合成版 · 首页。只在 base.css 之上加，不改 token。
+     骨架来自方向 B：整页一种排版单元（.kv：标签列 + 内容列 + 细线），tabular-nums。
+     --accent 只出现在三处：节气名、主按钮、勾选框（本页无勾选框）。链接一律 --ink + 下划线。 */
+  body { font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  /* 开发者提示：全页唯一的"起草"标记 */
+  .notice {
+    font-size: 0.75rem; line-height: 1.5; letter-spacing: 0.04em;
+    color: var(--ink-2); padding: 8px 0; border-bottom: 1px solid var(--rule);
+  }
+
+  .app-header .bar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    min-height: 48px; padding: 14px 0 6px;
+  }
+  .wordmark { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; }
+  .region { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-2); }
+
+  /* 黑体标题：清单名、分区名这类不是节气名也不是菜名的标题 */
+  .h-sans { font-family: var(--font-sans); font-weight: 500; letter-spacing: 0; text-wrap: initial; }
+
+  /* 首屏：一个大字、一个填色按钮，其余降级 */
+  .hero { padding: 36px 0 0; }
+  .kicker {
+    margin: 0 0 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--ink-2);
+  }
+  .kicker .jieqi {
+    font-family: var(--font-serif); font-weight: 600; font-size: 1.0625rem;
+    letter-spacing: 0.16em; color: var(--accent);
+  }
+  h1.title { font-family: var(--font-sans); letter-spacing: 0; display: block; }
+  h1.title .lead {
+    display: block; font-size: 0.9375rem; font-weight: 500;
+    letter-spacing: 0.06em; line-height: 1.4; margin-bottom: 6px;
+  }
+  h1.title .name {
+    display: block; font-family: var(--font-serif); font-weight: 600;
+    letter-spacing: 0.06em; font-size: clamp(2.75rem, 1.8rem + 5vw, 3.75rem); line-height: 1.1;
+  }
+  .sub { margin: 18px 0 0; font-size: 1rem; line-height: 1.75; max-width: 24em; }
+
+  /* 实拍图：没有真照片就不占位。<img> 加载成功才显示 figure；拍摄要求见下方 HTML 注释 */
+  .photo { margin: 24px 0 0; }
+  .photo[hidden] { display: none; }
+  .photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+
+  /* 键值行：整页唯一的排版单元 */
+  .kv { list-style: none; margin: 0; padding: 0; }
+  .kv > li {
+    display: grid; grid-template-columns: 4.5em 1fr; column-gap: 12px;
+    padding: 12px 0; border-top: 1px solid var(--rule);
+  }
+  .kv > li:last-child { border-bottom: 1px solid var(--rule); }
+  .kv .k { font-size: 0.8125rem; letter-spacing: 0.12em; color: var(--ink-2); line-height: 1.75; padding-top: 0.1em; }
+  .kv .v { font-size: 1rem; line-height: 1.75; margin: 0; }
+  .kv .dish { font-family: var(--font-serif); font-weight: 600; letter-spacing: 0.04em; font-size: 1.0625rem; }
+  .kv .num { color: var(--ink-2); white-space: nowrap; }
+  .kv ol { margin: 0; padding-left: 1.3em; }
+  .kv ol li + li { margin-top: 4px; }
+
+  .three { margin-top: 28px; }
+  .cta { margin: 24px 0 0; }
+  .cta .btn { letter-spacing: 0.06em; text-decoration: none; min-height: 52px; font-size: 1.0625rem; }
+  .grace { margin: 16px 0 0; font-size: 0.9375rem; line-height: 1.75; color: var(--ink-2); }
+
+  .sec { margin-top: 44px; }
+  .sec-h {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; color: var(--ink-2);
+    margin: 0 0 8px;
+  }
+
+  /* 折叠：另外 13 样 */
+  .fold-toggle {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    min-height: 48px; padding: 0; border: 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    background: none; text-align: left; cursor: pointer;
+    font-weight: 500; letter-spacing: 0.04em; color: var(--ink);
+  }
+  .fold-toggle .chev { color: var(--ink-2); font-size: 1rem; }
+  .fold-toggle:active { opacity: 0.7; }
+  .more .fold[data-open="true"] .fold-toggle { border-bottom: 0; }
+  .more .item {
+    display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: baseline;
+    min-height: 44px; padding: 9px 0; border-top: 1px solid var(--rule);
+  }
+  .more .item:first-child { border-top: 0; }
+  .more .rule-list { border-bottom: 1px solid var(--rule); }
+  .more .name { font-family: var(--font-serif); font-weight: 600; letter-spacing: 0.04em; font-size: 1.0625rem; white-space: nowrap; }
+  .more .name small { font-family: var(--font-sans); font-weight: 400; font-size: 0.8125rem; color: var(--ink-2); letter-spacing: 0.02em; margin-left: 0.25em; }
+  .more .how { font-size: 0.9375rem; line-height: 1.6; min-width: 0; }
+  .more .tag { color: var(--ink-2); letter-spacing: 0.04em; white-space: nowrap; }
+
+  footer { margin: 52px 0 0; padding: 20px 0 40px; border-top: 1px solid var(--rule); }
+  footer p { margin: 0; font-size: 0.9375rem; line-height: 1.75; }
+  footer p + p { margin-top: 6px; color: var(--ink-2); }
+  footer .colophon { margin-top: 14px; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--ink-2); }
+  footer .colophon span + span::before { content: "·"; margin: 0 0.5em; }
+
+  /* 菜谱页：点主按钮到达。同一套 .kv */
+  .recipe { padding: 28px 0 48px; border-top: 1px solid var(--rule); }
+  .recipe .kicker { margin-bottom: 12px; }
+  .recipe .kv { margin-top: 20px; }
+  .recipe .back {
+    display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px;
+    font-size: 0.875rem; letter-spacing: 0.04em; color: var(--ink);
+    text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="page wrap">
+
+  <div class="notice" role="note">样张 · 食材信息为起草，未到店核实</div>
+
+  <header class="app-header">
+    <div class="bar">
+      <span class="wordmark">时令食谱</span>
+      <span class="region">华盛顿州</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="headline">
+      <p class="kicker"><span class="jieqi">秋分</span><span>9月22日 — 10月7日</span></p>
+      <h1 class="title" id="headline">
+        <span class="lead">这两周，买</span>
+        <span class="name">番茄</span>
+      </h1>
+      <p class="sub">本地露地番茄就剩这两周，秋雨一下透就收摊。</p>
+
+      <!-- 实拍图：创始人自己灶台上拍的番茄炒蛋。
+           要求（gap-spec 3.1）：厨房顶灯，45 度，手机随手拍；不摆盘，不打光，酱油瓶入镜不用挪。
+           文件放到 photo/qiufen-fanqie.jpg。图片加载成功前，这个位置不占高度、不放占位色块、不放草图。
+           照片未到位时控制台会有一条 ERR_FILE_NOT_FOUND，是预期内的，不是 bug。 -->
+      <figure class="photo" hidden>
+        <img src="photo/qiufen-fanqie.jpg" alt="番茄炒蛋，灶台上" loading="eager"
+             onload="this.closest('figure').hidden=false">
+      </figure>
+    </section>
+
+    <section class="three" aria-label="时机、挑法、做法">
+      <ul class="kv">
+        <li><span class="k">时机</span><p class="v">本地番茄一年只熟这一茬，寒露前后就换回大棚的。</p></li>
+        <li><span class="k">挑法</span><p class="v">捏着要硬，蒂还是绿的。掂一掂，上手比看着沉的才好，轻飘飘的放回去。</p></li>
+        <li><span class="k">做法</span><p class="v"><span class="dish">番茄炒蛋</span> <span class="num">· 6 分钟</span><br>做法人人会。差别全在番茄，一月的做不出这个味。</p></li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn-primary btn-block" href="#recipe">今晚就做番茄炒蛋</a>
+      </div>
+      <p class="grace">没赶上也不用追。节气两周一换，10 月 8 日寒露，我再给你挑一样。</p>
+    </section>
+
+    <section class="sec" aria-label="老家与这边">
+      <p class="sec-h">老家 · 这边</p>
+      <ul class="kv">
+        <li><span class="k">江浙这周</span><p class="v">芋艿（这边叫芋头）、毛豆、大闸蟹。中秋 9 月 25 日。</p></li>
+        <li><span class="k">这边</span><p class="v">芋头亚超有，进口，全年不断。毛豆冷冻柜有。活大闸蟹买不到。</p></li>
+        <li><span class="k">换成</span><p class="v">大闸蟹不换。芋头这边不缺，挑掂着沉、皮上没有软坑的，蒸排骨正好。毛豆冷冻的就行。</p></li>
+      </ul>
+    </section>
+
+    <section class="sec more" aria-label="本期其余食材">
+      <div class="fold-wrap">
+        <button class="fold-toggle" type="button" aria-expanded="false" aria-controls="more-list">
+          <span>另外 13 样，挑法都写了</span><span class="chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="fold" id="more-list" data-open="false">
+          <div class="fold-inner">
+            <ul class="rule-list">
+              <li class="item"><span class="name">梨<small>Bartlett</small></span><span class="how">挑肚子发黄的，青的买回家放两天。</span><span class="tag">刚下来</span></li>
+              <li class="item"><span class="name">苹果<small>Honeycrisp</small></span><span class="how">掂着沉，指节敲一下要脆响。</span><span class="tag">刚下来</span></li>
+              <li class="item"><span class="name">南瓜<small>kabocha</small></span><span class="how">蒂要干。皮发乌的甜。</span><span class="tag">刚下来</span></li>
+              <li class="item"><span class="name">玉米</span><span class="how">扒开顶端看，粒要满到尖。</span><span class="tag">只剩两周</span></li>
+              <li class="item"><span class="name">意大利李子</span><span class="how">捏着微软，皮上带白霜的没被摸过。</span><span class="tag">只剩两周</span></li>
+              <li class="item"><span class="name">茄子</span><span class="how">同样大小，拿轻的。</span><span class="tag">只剩两周</span></li>
+              <li class="item"><span class="name">青椒</span><span class="how">皮亮、肉厚、蒂不皱。</span><span class="tag">普通超市就有</span></li>
+              <li class="item"><span class="name">菠菜</span><span class="how">根发红的甜。叶子湿了的别拿。</span><span class="tag">刚下来</span></li>
+              <li class="item"><span class="name">葡萄<small>Concord</small></span><span class="how">拎起来一串不掉粒的。</span><span class="tag">刚下来</span></li>
+              <li class="item"><span class="name">大白菜</span><span class="how">拍一下要实，外叶没蔫。</span><span class="tag">普通超市就有</span></li>
+              <li class="item"><span class="name">秋葵</span><span class="how">掐一下，掐得断再买。</span><span class="tag">亚超才有</span></li>
+              <li class="item"><span class="name">韭菜</span><span class="how">挑叶窄的，香。</span><span class="tag">亚超才有</span></li>
+              <li class="item"><span class="name">冬瓜</span><span class="how">买切开的，瓤要白，籽要饱。</span><span class="tag">亚超才有</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>我住华盛顿州，菜就在 H Mart、99 Ranch、Trader Joe's 这几家买。这份东西最早是写给我自己用的。</p>
+    <p>哪家店有什么，去之前当参考，别当保证。</p>
+    <p class="colophon"><span>9 月 22 日</span><span>节气按西雅图时间</span><span>每个节气更新一次</span></p>
+  </footer>
+
+</div>
+
+<!-- 菜谱页：真机上是主按钮「今晚就做番茄炒蛋」落到的独立页面（#recipe）；样张里放在同一份文件末尾，只用一根细线隔开，不放第二条开发者提示 -->
+<div class="page wrap">
+  <section class="recipe" id="recipe" aria-labelledby="dish">
+    <p class="kicker"><span class="jieqi">秋分</span><span>今晚做</span></p>
+    <h1 id="dish" class="t-serif">番茄炒蛋</h1>
+    <ul class="kv">
+      <li><span class="k">买</span><p class="v">番茄 2 个 · 鸡蛋 3 个<br><span class="t-meta">盐、糖、油，家里的。</span></p></li>
+      <li><span class="k">做</span>
+        <ol class="v">
+          <li>番茄切块。鸡蛋加一小撮盐，打散。</li>
+          <li>油热下蛋，八分熟盛出。</li>
+          <li>番茄下锅炒到出汁，加一小勺糖，蛋倒回去翻两下，出锅。</li>
+        </ol>
+      </li>
+      <li><span class="k">用时</span><p class="v">6 分钟，切番茄算在内。一口锅。</p></li>
+    </ul>
+    <a class="back" href="#headline">回本期首页</a>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var btn = document.querySelector('.fold-toggle');
+    var fold = document.getElementById('more-list');
+    btn.addEventListener('click', function () {
+      var open = fold.getAttribute('data-open') === 'true';
+      fold.setAttribute('data-open', String(!open));
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+</body>
+</html>
