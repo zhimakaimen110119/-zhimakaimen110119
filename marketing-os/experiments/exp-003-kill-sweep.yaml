@@ -1,0 +1,49 @@
+experiment_id: EXP-003
+campaign_id: campaign-001
+product: shilingshipu
+status: ready
+role: supporting
+created: 2026-08-18
+origin: "Red Team cheapest-kill ranking. Three highest information-per-hour tests, retiring up to five positions."
+
+question: "Which of the deferred positions can be killed for free, before anyone spends a week on them?"
+
+principle: "A test that costs 30 minutes and can kill a 12-week plan is worth more than any argument. None of these three requires approval — all are AUTO under A5 and A6."
+
+checks:
+  - id: K1
+    target: "B3 and C2 (both 小报童)"
+    action: "Submit the 小报童 creator application with real numbers."
+    kill_condition: "Rejection, or a reply demanding a follower threshold."
+    hours: 0.5
+    weeks_saved: 8
+    note: "Kills two positions with one observation, because they were never independent bets."
+
+  - id: K2
+    target: "A3 and B2 (both Chinese-language SEO)"
+    action: "Google Keyword Planner, free with any Ads account and no spend. Geo US/CA/UK/AU, language Chinese. Pull volumes for the 15 head terms."
+    kill_condition: "Combined addressable volume under ~500 searches/month."
+    hours: 1
+    weeks_saved: 12
+    note: "The single largest unverified quantity in the whole campaign, and the cheapest to resolve. Agent A scored A3 at 0.45 confidence and wrote 'treat the entire premise as unvalidated'."
+
+  - id: K3
+    target: "A2 (diaspora communities)"
+    action: "Post one genuinely useful 处暑 list into one forum and one group, with no link and no email ask."
+    kill_condition: "Deleted within 48h means no channel. Alive but zero human replies means no demand."
+    hours: 1
+    weeks_saved: 6
+    note: "No link and no ask is deliberate — it isolates the demand question from the conversion question."
+
+primary_metric: experiment_result
+primary_metric_tier: 4
+success_threshold: "all 3 checks completed and recorded"
+kill_threshold: "not applicable — this experiment produces information, not revenue"
+decision_date: 2026-08-22
+
+cost:
+  founder_hours: 2.5
+  cash_usd: 0
+  reversible: true
+
+expected_output: "Up to 5 of 11 Judge positions retired on evidence rather than opinion, for 2.5 hours."

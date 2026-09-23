@@ -1,0 +1,27 @@
+{
+  "content_id": "SLSP-20260818-CM-01",
+  "campaign_id": "campaign-001",
+  "product": "shilingshipu",
+  "channel": "community",
+  "channel_name": "Link-permitting communities",
+  "claim_id": "CLAIM-001",
+  "hook_family": "free-value-no-ask",
+  "status": "queued",
+  "phase": 1,
+  "publish_blocked_by": "Constitution Article 11 — Phase 1 is generate-and-queue only. Approval H8 required per channel.",
+  "destination_url": "https://www.shilingshipu.com/?utm_source=community&utm_medium=forum&utm_campaign=campaign-001&utm_content=SLSP-20260818-CM-01&utm_term=free-value-no-ask",
+  "attribution_quality": "CLEAN — link is clickable and carries UTM.",
+  "sequence": 11,
+  "payload": {
+    "content_id": "SLSP-20260818-CM-01",
+    "channel": "community",
+    "claim_id": "CLAIM-001",
+    "hook_family": "free-value-no-ask",
+    "audience_segment": "一亩三分地生活版 / 豆瓣美食组",
+    "post": "见 content/community-post.md",
+    "landing_path": "/",
+    "human_action": "手动发帖，无链接无引导（这是实验设计的一部分）",
+    "experiment": "EXP-003"
+  },
+  "human_action_required": "Post manually on Link-permitting communities. Set the bio link to the destination URL above if the channel is bio-link-only."
+}

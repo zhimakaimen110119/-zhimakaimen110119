@@ -1,0 +1,316 @@
+/* ==========================================================================
+   时令食谱 · base.css · v1
+   框架无关。Tailwind 项目：放进 @layer base（v3 在 @tailwind base 之后）。
+   对应规格：../mobile-visual-v1.md
+   每个数值旁的比值是在 --paper (#F8F6F0) 上实测的 WCAG 对比度。
+   ========================================================================== */
+
+:root {
+  /* 只做浅色。声明 only light 是规范里阻止浏览器"自动深色"强制反色的写法。
+     以后做真正的暗色主题时，改成 light dark 并补一套 token。 */
+  color-scheme: only light;
+
+  /* ---- 底与墨 ---- */
+  --paper: #F8F6F0;
+  --paper-deep: #F1EDE4;   /* 分区底色，替代白卡片。不加阴影 */
+  --ink: #33312E;          /* 正文 12.0:1 */
+  --ink-2: #6B655C;        /* 次要文字 5.3:1。别用 gray-400 一类，小字不达标 */
+  --rule: #E5E0D8;         /* 装饰细线 1.2:1 —— 只用于分隔，不用于控件边框 */
+  --control: #8F877B;      /* 复选框 / 输入框边框 3.3:1（WCAG 1.4.11 要求 ≥3:1） */
+  --rule-strong: #33312E;  /* 一级分隔用墨线，细线只做二级 */
+
+  /* ---- 季节色：--accent 可用于小字、链接、按钮底；--accent-deco 只用于 ≥24px 大字或纯装饰 ---- */
+  --accent: #8C5039;       /* 默认秋：赭石 5.9:1 */
+  --accent-deco: #9E7E38;  /* 金粟 3.5:1 —— 小字不达标，不能用作正文或按钮底 */
+
+  /* ---- 字体 ---- */
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+               "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+
+  /* ---- 动效 ---- */
+  --ease-unfold: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-unfold: 320ms;
+
+  /* ---- 布局 ---- */
+  --gutter: 16px;
+  --bar-h: 64px;           /* 底部固定栏的内容高度，不含安全区 */
+}
+
+/* 季节由节气决定（立春 / 立夏 / 立秋 / 立冬），不是按月份。
+   data-season 必须在首帧前写好：服务端渲染、构建时写死，或 <head> 里的同步内联脚本。
+   页面加载完再用 JS 改，会先闪一下默认色。 */
+[data-season="spring"] { --accent: #4A6B53; --accent-deco: #5D7A88; } /* 5.5 / 4.2 */
+[data-season="summer"] { --accent: #2D4B3E; --accent-deco: #B8513F; } /* 8.9 / 4.5 */
+[data-season="autumn"] { --accent: #8C5039; --accent-deco: #9E7E38; } /* 5.9 / 3.5 */
+[data-season="winter"] { --accent: #2F3640; --accent-deco: #6E4A35; } /* 11.3 / 7.2 */
+
+/* ==========================================================================
+   1. 重置
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;          /* iOS 横屏时不自动放大字号 */
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; /* 去掉点击蓝框 —— 下面必须补 :active，否则按钮点了没反应 */
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;   /* 兜底：iOS < 15.4、旧版安卓 WebView 不认 dvh */
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;               /* "Trader Joe's" 这类长英文词在 320px 宽不撑破 */
+  -webkit-font-smoothing: antialiased;     /* 只对 macOS 生效，手机上无作用。留着无害 */
+}
+
+/* 注意：safe-area 不加在 html / body 上。
+   两处都加会叠成双倍留白；body 加了 padding 又配 min-height: 100dvh，
+   短页面会多出一截滚动。安全区只给贴边的元素（见第 2 节）。 */
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+/* 输入框字号 < 16px 时，iOS 聚焦会自动放大页面。
+   这才是很多人去写 user-scalable=no 的真正原因 —— 正确修法是这一行，不是禁止缩放。 */
+input, textarea, select, button { font: inherit; color: inherit; }
+input, textarea, select { font-size: max(16px, 1rem); }
+
+/* ==========================================================================
+   2. 安全区 —— 只给贴边元素
+   ========================================================================== */
+
+.page {
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--paper);
+}
+
+/* 底栏：内容高度 + 安全区。没有横条的机型（iPhone SE）inset 为 0，留 8px 呼吸。
+   默认 sticky：贴视口底；页面比视口短时跟在内容后面，不盖内容，主体不用补 padding。
+   放在滚动容器的最后一个子元素位置（通常是 body 末尾）。整页截图、打印都不会盖住末尾 */
+.bottom-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding-top: 8px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+}
+
+/* 必须脱离文档流时（底栏不在滚动容器末尾）用 fixed 变体，并给主体加 .has-bottom-bar 留出高度 */
+.bottom-bar--fixed { position: fixed; left: 0; right: 0; bottom: 0; }
+.has-bottom-bar {
+  padding-bottom: calc(var(--bar-h) + max(8px, env(safe-area-inset-bottom)));
+}
+@media print { .bottom-bar, .bottom-bar--fixed { position: static; } }
+
+/* 键盘弹起时（盘一盘里"还买了别的"输入框），底部栏会浮在键盘上方盖住输入。
+   在输入框聚焦期间给 body 加 .is-typing，把栏收起来。 */
+.is-typing .bottom-bar { display: none; }
+
+/* ==========================================================================
+   3. 字
+   ========================================================================== */
+
+/* 宋体只给两样东西：节气名、菜名 / 食材名 —— 显式加 .t-serif。h1/h2 默认黑体：
+   清单标题、分区名、弹层标题都不是菜名，默认宋体会让每页都要覆盖回来 */
+h1, h2 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.35;       /* 标题行距 1.35；1.75 只给正文，多行标题用 1.75 会散 */
+  text-wrap: balance;
+  margin: 0;
+}
+.t-serif {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* 用 rem + vw 混合，不要纯 vw：纯 vw 不跟随用户放大字号 */
+h1 { font-size: clamp(1.75rem, 1.2rem + 3vw, 2.5rem); }
+h2 { font-size: clamp(1.25rem, 1rem + 1.5vw, 1.5rem); }
+/* 首屏那一个食材名：整页唯一的大字，也是唯一允许这么大的东西 */
+.h-display { font-size: clamp(2.75rem, 1.8rem + 5vw, 3.75rem); line-height: 1.1; letter-spacing: 0.06em; }
+
+.t-meta { font-size: 0.875rem; color: var(--ink-2); line-height: 1.6; }
+
+/* 不要给文字容器写死 height。安卓微信会按用户的"字体大小"设置放大网页文字，
+   写死高度的地方会被截断。只用 min-height。 */
+
+/* ==========================================================================
+   4. 替代卡片与药丸标签
+   ========================================================================== */
+
+/* 细线列表：替代"白卡片 + shadow-lg" */
+.rule-list { list-style: none; margin: 0; padding: 0; }
+.rule-list > * + * { border-top: 1px solid var(--rule); }
+
+/* 可点的行：整行都是点击区，最少 44px 高 */
+.row {
+  display: flex;
+  align-items: center;     /* 用 flex 居中，不要 height = line-height（iOS / 安卓基线不同） */
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 0;
+}
+
+/* 文字标签：替代 rounded-full bg-emerald-100 药丸。
+   默认次墨，不带季节色 —— 每个标签都上季节色，一多就是没底色的药丸。
+   --accent 全站只给三处：节气名、主按钮、勾选框。要强调再加 .tag-accent */
+.tag {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.tag-accent { color: var(--accent); }
+/* 多个标签用容器 gap 分开，不用「·」伪元素 —— 换行时会掉到行首 */
+.tags { display: flex; flex-wrap: wrap; column-gap: 0.8em; row-gap: 2px; }
+
+/* 一级分隔：墨线。细线 (--rule) 只做二级 */
+.hr-ink { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+
+/* 节气印章：一屏最多一个，不要把每个标签都做成印章 */
+.seal {
+  display: inline-block;
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  padding: 8px 5px;
+  color: var(--accent);                    /* 字用 --accent，保证对比度 */
+  border: 1.5px solid var(--accent-deco);  /* 框用装饰色 */
+  border-radius: 2px;
+}
+
+/* 分区：用底色差区分，不用阴影 */
+.band { background: var(--paper-deep); }
+
+/* ==========================================================================
+   5. 按钮与控件
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;       /* 小圆角。不要 rounded-full / rounded-2xl */
+  background: transparent;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;    /* <a class="btn"> 不带链接下划线 */
+  transition: background-color 160ms ease, opacity 160ms ease;
+}
+.btn-primary { background: var(--accent); color: var(--paper); }
+.btn-block { display: flex; width: 100%; }
+
+/* 触屏反馈：去掉了 tap highlight 就必须补这一条 */
+.btn:active { opacity: 0.78; }
+
+/* 悬停只给真有鼠标的设备。否则手机点完按钮会卡在 hover 态。
+   Tailwind v4 的 hover: 已经默认这样做；v3 在 config 里开 future.hoverOnlyWhenSupported */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--paper-deep); }
+  .btn-primary:hover { background: var(--accent); opacity: 0.9; }
+}
+
+/* 不要做 hover:scale-105 放大 */
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 复选框：自绘，各机型一致。accent-color 交给系统画，圆角和勾形每家不一样 */
+input[type="checkbox"].check {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; margin: 0; flex: none;
+  border: 1px solid var(--control); border-radius: 2px; background: #fff;
+  position: relative; cursor: pointer;
+}
+input[type="checkbox"].check:checked { background: var(--accent); border-color: var(--accent); }
+input[type="checkbox"].check:checked::after {
+  content: ""; position: absolute; left: 7px; top: 3px; width: 5px; height: 10px;
+  border: solid var(--paper); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+/* 没加 .check 的原生复选框，至少统一颜色和尺寸 */
+input[type="checkbox"]:not(.check) { accent-color: var(--accent); width: 22px; height: 22px; margin: 0; flex: none; }
+
+input[type="text"], textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--control);
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* ==========================================================================
+   6. 展开 / 折叠（"还有 12 样 ▾"、盘一盘里的折叠区）
+   不要动画 height：低端安卓会逐帧重排。用 grid 0fr → 1fr
+   ========================================================================== */
+
+.fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-unfold) var(--ease-unfold);
+}
+.fold[data-open="true"] { grid-template-rows: 1fr; }
+.fold > .fold-inner {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;                       /* 收起时读屏器和 Tab 键也跳过 */
+  transition: visibility 0s linear var(--dur-unfold);
+}
+.fold[data-open="true"] > .fold-inner { visibility: visible; transition-delay: 0s; }
+
+/* 折叠按钮本体：重置成一行文字 + 右侧箭头，整行 48px 可点 */
+.fold-toggle {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  min-height: 48px; padding: 0; border: 0;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  background: none; text-align: left; cursor: pointer;
+  font-weight: 500; color: var(--ink);
+}
+.fold-toggle:active { opacity: 0.78; }
+.fold-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.chev { display: inline-block; transition: transform var(--dur-unfold) var(--ease-unfold); }
+
+/* 底部弹层（复制范围三选一等）：内部滚动不带动背后页面 */
+.sheet {
+  max-height: 85vh;
+  max-height: 85dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

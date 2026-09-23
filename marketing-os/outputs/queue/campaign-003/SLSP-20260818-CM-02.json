@@ -1,0 +1,27 @@
+{
+  "content_id": "SLSP-20260818-CM-02",
+  "campaign_id": "campaign-003",
+  "product": "shilingshipu",
+  "channel": "community",
+  "channel_name": "Link-permitting communities",
+  "claim_id": "CLAIM-003",
+  "hook_family": "your-calendar-stopped-working",
+  "status": "queued",
+  "phase": 1,
+  "publish_blocked_by": "Constitution Article 11 — Phase 1 is generate-and-queue only. Approval H8 required per channel.",
+  "destination_url": "https://www.shilingshipu.com/qiu?utm_source=community&utm_medium=forum&utm_campaign=campaign-003&utm_content=SLSP-20260818-CM-02&utm_term=your-calendar-stopped-working",
+  "attribution_quality": "CLEAN — link is clickable and carries UTM.",
+  "sequence": 3,
+  "payload": {
+    "content_id": "SLSP-20260818-CM-02",
+    "channel": "community",
+    "claim_id": "CLAIM-003",
+    "hook_family": "your-calendar-stopped-working",
+    "audience_segment": "豆瓣 海外生活/美食组",
+    "post": "见 content/community-posts.md 帖2",
+    "landing_path": "/qiu",
+    "human_action": "手动发帖",
+    "experiment": "EXP-002"
+  },
+  "human_action_required": "Post manually on Link-permitting communities. Set the bio link to the destination URL above if the channel is bio-link-only."
+}

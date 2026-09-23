@@ -1,0 +1,140 @@
+# Channel registry. The Distribution Agent reads this to build the publish queue.
+# phase: 1 = generate and queue only. No live publishing. Constitution Article 11.
+
+slug: shilingshipu
+phase: 1
+phase_1_rule: "Every channel below is connected=false. The OS writes to outputs/queue/ and stops. Flipping connected to true for a real platform requires approval H8."
+
+tracking:
+  base_url: https://www.shilingshipu.com
+  utm_source_per_channel: true
+  utm_medium_default: organic_social
+  utm_campaign_format: "{campaign_id}"
+  utm_content_format: "{content_id}"
+  utm_term_optional: true
+  short_link_service:
+    value: none
+    status: missing
+    note: "No link shortener or click-tracking domain is configured. Until one exists, UTM parameters are built but click data cannot be attributed on platforms that strip or hide referrers. See MC-03."
+
+channels:
+  - id: tiktok
+    name: TikTok
+    connected: false
+    account: none
+    utm_source: tiktok
+    utm_medium: organic_social
+    format: vertical video 9:16
+    duration_seconds_target: 21
+    caption_max_chars: 2200
+    hashtag_target: 4
+    link_in_bio_only: true
+    notes: "No clickable in-caption link. All traffic goes through a bio link, so bio-link UTM is the only attribution path."
+
+  - id: instagram_reels
+    name: Instagram Reels
+    connected: false
+    account: none
+    utm_source: instagram
+    utm_medium: organic_social
+    format: vertical video 9:16
+    duration_seconds_target: 25
+    caption_max_chars: 2200
+    hashtag_target: 5
+    link_in_bio_only: true
+
+  - id: youtube_shorts
+    name: YouTube Shorts
+    connected: false
+    account: none
+    utm_source: youtube
+    utm_medium: organic_video
+    format: vertical video 9:16
+    duration_seconds_target: 40
+    title_max_chars: 100
+    description_max_chars: 5000
+    link_in_description: true
+    notes: "Only short-video channel where a clickable link sits next to the content. Highest attribution quality of the four."
+
+  - id: xiaohongshu
+    name: 小红书 / RED
+    connected: false
+    account: none
+    utm_source: xiaohongshu
+    utm_medium: organic_social
+    format: image carousel or vertical video
+    title_max_chars: 20
+    body_max_chars: 1000
+    hashtag_target: 6
+    link_in_bio_only: true
+    notes: "External links are heavily restricted. Assume the link cannot be clicked at all and that traffic arrives as direct/branded search. Attribution requires a distinct landing path, not a UTM."
+
+  - id: pinterest
+    name: Pinterest
+    connected: false
+    account: none
+    utm_source: pinterest
+    utm_medium: organic_search
+    format: vertical image 2:3
+    title_max_chars: 100
+    description_max_chars: 500
+    link_on_pin: true
+    notes: "A search surface, not a feed. Pins carry a real clickable destination URL, so UTM works cleanly. Slowest to show signal, longest half-life."
+
+  - id: x
+    name: X
+    connected: false
+    account: none
+    utm_source: x
+    utm_medium: organic_social
+    format: text, optional image
+    post_max_chars: 280
+    link_in_post: true
+    notes: "Weakest fit for a recipe product. Kept in the queue because it is zero marginal cost once the script exists."
+
+  - id: direct_outreach
+    name: Direct 1:1 outreach
+    connected: false
+    account: none
+    utm_source: outreach
+    utm_medium: direct
+    format: one message plus one attached pack
+    post_max_chars: 600
+    link_in_post: true
+    notes: "The only channel with perfect attribution by construction - you know exactly who received what. Sending is a HUMAN action under approval H9; the OS drafts, the founder sends."
+
+  - id: community
+    name: Link-permitting communities
+    connected: false
+    account: none
+    utm_source: community
+    utm_medium: forum
+    format: long-form post with images
+    post_max_chars: 4000
+    link_in_post: true
+    notes: "一亩三分地 / Douban groups / Dealmoon-style guides. Outbound links are permitted, so UTM works end to end. Best broadcast attribution available in month one."
+
+  - id: landing_page
+    name: Pre-order landing page
+    connected: false
+    account: none
+    utm_source: direct
+    utm_medium: landing
+    format: single page, no navigation
+    link_in_post: true
+    notes: "Owned surface. Cleanest attribution of anything we have — the checkout sits on the same page as the copy."
+
+not_in_scope_phase_1:
+  - id: douyin
+    reason: "Domestic China platform. Requires a verified domestic account and likely ICP filing. Gate H2 + H8."
+  - id: wechat_official_account
+    reason: "Requires business verification. Gate H2."
+  - id: paid_ads
+    reason: "Any spend is gate H1."
+  - id: email
+    reason: "No list exists and no ESP is connected. See MC-04."
+
+posting_cadence_hypothesis:
+  value: "3 assets per channel per week, batch-produced weekly"
+  status: assumed
+  note: "Cadence is an AUTO decision (A3) and should be tuned by experiment, not argued about."

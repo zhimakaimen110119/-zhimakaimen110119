@@ -1,0 +1,113 @@
+{
+  "campaign_id": "campaign-001",
+  "question": "时令食谱现在最可能获得第一批真实用户和未来付费用户的营销切入点是什么？",
+  "agents": [
+    "A (distribution-first)",
+    "B (search / demand-capture)",
+    "C (monetization-first)"
+  ],
+  "isolation_confirmed": true,
+  "isolation_note": "A, B and C ran as parallel subagents with no shared state and no visibility of each other's output. A ran first and was killed mid-flight by a user interrupt; B and C were relaunched from identical briefs. None saw another agent's conclusions.",
+  "unanimous": [
+    {
+      "id": "U1",
+      "claim": "Reject an English-first Western audience.",
+      "tier": 6,
+      "basis": "A: English food-blog Google traffic reportedly down 30-80% from AI answers; competing with free incumbents. B: English Chinese-ingredient queries are already AI-Overview-dominated; switching is a product rebuild, not a marketing move. C: English recipe content is the most commoditized content market online and the founder has no edge there.",
+      "note": "Three agents with three different priors reached this independently, each citing different evidence. That is the strongest form of agreement available here - convergent conclusions from divergent reasoning, not a shared assumption."
+    },
+    {
+      "id": "U2",
+      "claim": "小红书 is the top-of-funnel discovery surface.",
+      "tier": 6,
+      "basis": "A1, B1 and C1 are all 小红书 content series. A and B both frame it as a SEARCH surface rather than a feed.",
+      "note": "Flagged for red-team attack as possible correlated error: all three received the same channel list in the brief."
+    },
+    {
+      "id": "U3",
+      "claim": "The revenue model is a cheap paid seasonal content pack (~¥39 / ~$19), not an app subscription, not ads, not affiliate, not sponsorship.",
+      "tier": 6,
+      "basis": "C reached it from monetization evidence (下厨房 never monetized consumer subscription; Amazon grocery affiliate pays 1%). A reached it from conversion benchmarks (freemium ~2% vs hard paywall ~12%). B reached it from platform mechanics (小报童 is the only rail an unlicensed individual can use).",
+      "note": "Convergent from three different directions. Strong."
+    },
+    {
+      "id": "U4",
+      "claim": "The single biggest unknown is where the founder physically lives and what payment rail they can collect on.",
+      "tier": 6,
+      "basis": "A: 'that single fact decides language, channel, product shape and revenue model'. B: 'every confidence score above is conditional on this one fact'. C: 'two hours of verification here is worth more than two weeks of content'.",
+      "note": "All three independently named this as their #1 unknown, in their own words, unprompted. Under Constitution Article 5 step 1 this is an evidence check, not an arbitration - and the evidence is a fact the founder already holds. It cannot be resolved by experiment and must not be guessed."
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "CF-1",
+      "severity": "decisive",
+      "topic": "Market sequencing",
+      "positions": {
+        "A + B": "Diaspora-first. A mainland-first funnel to a .com is structurally broken: 小红书's 交易导流 rules forbid pushing users off-platform, and no ICP filing means the site cannot legally take mainland money.",
+        "C": "Mainland-first for the rail, diaspora second for the price tolerance. An individual CAN legally charge mainland strangers today via 小报童 or 公众号付费阅读 with no business licence - whereas Stripe does not serve mainland-resident founders, so a USD-first launch is rail-blocked."
+      },
+      "why_they_disagree": "They are optimizing against different binding constraints. A and B assume the constraint is the FUNNEL (can traffic reach a payable destination). C assumes the constraint is the RAIL (can the founder receive money at all). Both are correct about their own constraint.",
+      "resolution_rule": "Article 5 step 1 - evidence check. Not arbitrable and not testable: it turns entirely on the founder's residence and entity status, a Tier-1 fact the founder holds.",
+      "resolves_to": {
+        "if_founder_is_overseas": "A/B win. Diaspora-first, USD via Stripe or a merchant of record, content describes Western supermarkets.",
+        "if_founder_is_mainland_no_entity": "C wins. 小报童 rail at ¥39, content describes 菜市场, and the diaspora angle is unwritable because the founder has never shopped those stores - a point B raises explicitly."
+      },
+      "cost_of_guessing_wrong": "Roughly 4-12 weeks of content aimed at supermarkets the founder cannot describe credibly, sold through a checkout that cannot accept the buyer's money."
+    },
+    {
+      "id": "CF-2",
+      "severity": "high",
+      "topic": "How to escape 小红书's link ban",
+      "positions": {
+        "A": "Do not attempt it at all. No URL, no QR, no WeChat ID, no 'link in profile' hint. Measure branded search and direct traffic instead and accept blind attribution.",
+        "B": "Test one clickable profile-bio link with a single account for 14 days before scaling. If note-to-profile-to-site click-through is under ~1%, the off-platform path is dead.",
+        "C": "Route commenters to a personal WeChat and sell there - the 私域 play."
+      },
+      "why_they_disagree": "Different readings of how aggressively the platform enforces. A treats enforcement as near-absolute, B treats the bio link as a testable grey area, C treats comment-to-WeChat as normal creator behaviour.",
+      "direct_contradiction": "B explicitly warns that C1's core mechanic is the failure mode: 'Do not put WeChat IDs, QR codes, homophone workarounds or contact details in Xiaohongshu notes, images, comments or DMs. April 2026 enforcement uses combined human and AI review and the penalty is account-level throttling.' C1 depends on exactly that mechanic.",
+      "resolution_rule": "Article 5 step 2 - testable, and cheap. B's 14-day single-account bio-link test settles it for a few hours of work and risks one disposable account rather than the channel.",
+      "status": "→ experiment, do not arbitrate"
+    },
+    {
+      "id": "CF-3",
+      "severity": "medium",
+      "topic": "Annual price point",
+      "positions": {
+        "A": "~$6-9 one-off pack, $15-20/year",
+        "B": "¥39/year for the whole column - roughly USD 5.5/year",
+        "C": "¥39 per season pack, ¥128-199/year; USD 19 one-off, USD 29-39/year for diaspora"
+      },
+      "spread": "B's annual price and C's annual price differ by roughly 3-5x for a similar-looking product.",
+      "why_they_disagree": "B is pricing to remove all friction from a validation test; C is pricing against observed anchors (paid 小报童 columns commonly ~¥99, NYT Cooking ~USD 40/yr). B is optimizing for a yes/no answer, C for revenue per buyer.",
+      "resolution_rule": "Article 5 step 2 - testable. C already proposes the design: run ¥19 / ¥39 / ¥69 against three cohorts. Price is an AUTO decision (A2) and costs nothing to test.",
+      "status": "→ experiment, do not arbitrate"
+    },
+    {
+      "id": "CF-4",
+      "severity": "medium",
+      "topic": "What the owned asset should be",
+      "positions": {
+        "A + B": "An email list. Portable, platform-risk-free, works for diaspora, measurable.",
+        "C": "A WeChat 私域 list. One-tap payment, far higher conversion, but locked to the mainland ecosystem and not portable."
+      },
+      "why_they_disagree": "Downstream of CF-1. Email is correct for diaspora; WeChat is correct for mainland. It is the same disagreement wearing different clothes.",
+      "resolution_rule": "Blocked on CF-1. Do not build either until the founder's residence is known.",
+      "status": "→ blocked, do not build"
+    },
+    {
+      "id": "CF-5",
+      "severity": "low",
+      "topic": "Google SEO",
+      "positions": {
+        "A": "A3, worth doing, confidence 0.45, 60 days to signal",
+        "B": "B2, background task only, confidence 0.4, 90 days. 'Do not make Google organic the primary channel for months 0-3' - and B says this against its own search-first prior",
+        "C": "Do not chase recipe SEO at all"
+      },
+      "resolution_rule": "Article 5 step 1 - evidence check. B holds the strongest evidence here (Fortune's 22-creator report of 40-80% traffic loss, ~93% of AI Mode searches ending with no click, Seer's CTR drop from 1.76% to 0.61%) and it argues AGAINST B's own prior. A position that cuts against the agent's own bias is worth more than one that flatters it.",
+      "resolved": "Not the primary channel. Deferred, not killed - it is the only compounding, founder-owned asset in the set.",
+      "status": "→ deferred with trigger"
+    }
+  ],
+  "meta_observation": "The council did not fail to reach consensus - it reached consensus on the strategy and localized the entire remaining disagreement onto one unknown fact. Four of five conflicts are downstream of CF-1. That is the useful output: not an answer, but the discovery that one question is worth more than any further analysis."
+}

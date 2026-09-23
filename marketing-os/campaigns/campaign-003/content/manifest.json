@@ -1,0 +1,54 @@
+{
+  "campaign_id": "campaign-003",
+  "product": "shilingshipu",
+  "claim_id": "CLAIM-003",
+  "claim": "节气 intuition breaks when you emigrate, and someone will pay to have that gap closed.",
+  "note": "4 assets, one claim, three genuinely different community posts. Not one post retitled three times - the same person seeing identical text in three communities loses trust in all three.",
+  "assets": [
+    {
+      "content_id": "SLSP-20260818-LP-01",
+      "channel": "landing_page",
+      "claim_id": "CLAIM-003",
+      "hook_family": "your-calendar-stopped-working",
+      "audience_segment": "预售落地页",
+      "post": "见 content/landing-preorder.md",
+      "landing_path": "/qiu",
+      "offer": "$19 六期北美秋季时令包，9/25 前交付第一期，无条件退款",
+      "human_action": "Codex 实现单页 + Stripe Payment Link（含 City 自定义字段）",
+      "experiment": "EXP-002"
+    },
+    {
+      "content_id": "SLSP-20260818-CM-01",
+      "channel": "community",
+      "claim_id": "CLAIM-003",
+      "hook_family": "your-calendar-stopped-working",
+      "audience_segment": "一亩三分地 生活版",
+      "post": "见 content/community-posts.md 帖1",
+      "landing_path": "/qiu",
+      "human_action": "手动发帖，先确认版规允许外链",
+      "experiment": "EXP-002"
+    },
+    {
+      "content_id": "SLSP-20260818-CM-02",
+      "channel": "community",
+      "claim_id": "CLAIM-003",
+      "hook_family": "your-calendar-stopped-working",
+      "audience_segment": "豆瓣 海外生活/美食组",
+      "post": "见 content/community-posts.md 帖2",
+      "landing_path": "/qiu",
+      "human_action": "手动发帖",
+      "experiment": "EXP-002"
+    },
+    {
+      "content_id": "SLSP-20260818-CM-03",
+      "channel": "community",
+      "claim_id": "CLAIM-003",
+      "hook_family": "your-calendar-stopped-working",
+      "audience_segment": "Dealmoon / 西雅图华人社区",
+      "post": "见 content/community-posts.md 帖3",
+      "landing_path": "/qiu",
+      "human_action": "手动发帖",
+      "experiment": "EXP-002"
+    }
+  ]
+}

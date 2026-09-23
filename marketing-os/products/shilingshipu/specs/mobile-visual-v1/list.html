@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-season="autumn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F8F6F0">
+<meta name="color-scheme" content="only light">
+<title>买菜清单 · 秋分</title>
+<!-- 宋体 600 + 黑体 400/500。Google Fonts 按 unicode-range 分片，只下载用到的字；真机上 PingFang 优先，黑体不会下载 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* 合成版 · 买菜清单。只在 base.css 之上加，不改 token。
+     骨架来自方向 B：data-state 状态机、自绘方形复选框、tabular-nums。
+     --accent 只出现在三处：节气名、主按钮、勾选框。标签一律 --ink-2。链接 --ink + 下划线。
+     底栏：base.css 是 fixed；这里改成 sticky（贴视口底，短页面时跟在内容后面），真机与整页截图行为一致，不需要样张/产品两套写法。 */
+  body { font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  .notice {
+    font-size: 0.75rem; line-height: 1.5; letter-spacing: 0.04em;
+    color: var(--ink-2); padding: 8px 0; border-bottom: 1px solid var(--rule);
+  }
+  .app-header .bar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    min-height: 48px; padding: 14px 0 6px;
+  }
+  .wordmark { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; }
+  .region { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-2); }
+
+  /* 黑体标题：清单名、分区名不是节气名也不是菜名 */
+  .h-sans { font-family: var(--font-sans); font-weight: 500; letter-spacing: 0; text-wrap: initial; }
+
+  .head { padding: 28px 0 0; }
+  h1.list-title { font-size: 1.5rem; line-height: 1.3; letter-spacing: 0.04em; }
+  .meta {
+    margin: 6px 0 0; font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--ink-2);
+  }
+  .meta .jieqi { font-family: var(--font-serif); font-weight: 600; font-size: 0.9375rem; letter-spacing: 0.14em; color: var(--accent); }
+
+  /* 进度：一句人话 + 一根线。不做圆环，不做百分比，也不做「5 / 9」分数——数字只说一次 */
+  .progress { margin: 22px 0 0; }
+  .progress .line { margin: 0; font-size: 1rem; }
+  .progress .line b { font-weight: 500; }
+  .progress .track { position: relative; height: 1px; background: var(--rule); margin-top: 10px; }
+  .progress .fill { position: absolute; left: 0; top: -1px; height: 3px; background: var(--ink); width: 0; transition: width 240ms var(--ease-unfold); }
+  .done-line {
+    display: none; align-items: center; min-height: 44px; margin: 0;
+    font-size: 1rem; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+  }
+  [data-state="done"] .progress .line { display: none; }
+  [data-state="done"] .done-line { display: flex; }
+
+  /* 分区 */
+  .sec { margin-top: 28px; }
+  .sec-h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 0 0 2px; font-size: 0.8125rem; letter-spacing: 0.16em; color: var(--ink-2);
+  }
+  .sec-h .count { letter-spacing: 0.06em; font-size: 0.8125rem; }
+  .sec-h .count.full { color: var(--ink); font-weight: 500; }
+  .rule-list > :first-child { border-top: 1px solid var(--rule); }
+  .rule-list > :last-child { border-bottom: 1px solid var(--rule); }
+
+  /* 行：整行可点，食材名宋体 */
+  .row { cursor: pointer; }
+  .row .name { flex: 1; min-width: 0; font-family: var(--font-serif); font-weight: 600; font-size: 1.0625rem; letter-spacing: 0.04em; }
+  .row .name small { font-family: var(--font-sans); font-weight: 400; font-size: 0.8125rem; color: var(--ink-2); letter-spacing: 0.02em; margin-left: 0.3em; }
+  .row .tag { color: var(--ink-2); letter-spacing: 0.04em; }
+  .row.is-checked .name { color: var(--ink-2); font-weight: 400; }
+
+  /* 复选框：用 base.css 的 .check（自绘方框，各机型一致） */
+
+  /* 列表尾：加一样 */
+  .add-row {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 8px 0;
+    border: 0; background: none; cursor: pointer; text-align: left; color: var(--ink-2); font-size: 0.9375rem;
+  }
+  .add-row .plus { width: 22px; text-align: center; flex: none; font-size: 1.125rem; line-height: 1; }
+  .add-row:active { opacity: 0.7; }
+
+  /* 次级操作：文字，不做第二排按钮。分区方式当前项下画线 */
+  .tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; row-gap: 0; margin-top: 8px; }  /* 320px 正好排满；系统字号放大时允许换行 */
+  .seg { display: flex; gap: 16px; }
+  .textbtn, .seg button {
+    min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+    font-size: 0.875rem; color: var(--ink-2); letter-spacing: 0.04em; white-space: nowrap;
+  }
+  .seg button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -1px 0 var(--ink); }
+  .textbtn:active, .seg button:active { opacity: 0.7; }
+  .tools .import { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.875rem; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; letter-spacing: 0.04em; white-space: nowrap; }
+
+  /* 空清单 */
+  .empty { display: none; padding: 28px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  [data-state="empty"] .empty { display: block; }
+  [data-state="empty"] .sec, [data-state="empty"] .progress, [data-state="empty"] .tools { display: none; }
+  .empty p { margin: 0 0 16px; }
+  .empty .acts { display: flex; gap: 16px; align-items: center; }
+  .empty .acts .btn { flex: 1; text-decoration: none; }
+  .empty .acts .txt { min-height: 48px; padding: 0 6px; border: 0; background: none; cursor: pointer; color: var(--ink); font-size: 0.875rem; letter-spacing: 0.04em; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; white-space: nowrap; }
+  [data-state="empty"] .meta .dishes { display: none; }
+
+  /* 底栏：主按钮 + 一个文字次级。进行中：主按钮按下即复制还差的，不再问；「复制别的」文字链才打开三选一 */
+  .bottom-bar { position: sticky; margin-top: 8px; }
+  .bottom-bar .inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 12px; min-height: var(--bar-h); }
+  .bottom-bar .btn-primary { flex: 1; letter-spacing: 0.04em; text-decoration: none; min-height: 52px; font-size: 1.0625rem; }
+  .bottom-bar .txt { min-height: 48px; padding: 0 6px; border: 0; background: none; cursor: pointer; color: var(--ink); font-size: 0.875rem; letter-spacing: 0.04em; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; white-space: nowrap; }
+  .bottom-bar .txt:active { opacity: 0.7; }
+  .bottom-bar .btn-primary [hidden] { display: none; }
+  .bottom-bar .for-done { display: none; }
+  [data-state="done"] .bottom-bar .for-progress { display: none; }
+  [data-state="done"] .bottom-bar .for-done { display: inline-flex; }
+  [data-state="empty"] .bottom-bar { display: none; }  /* 空清单的两个动作已经在正文里 */
+
+  /* 复制范围弹层：真的弹层，「复制别的」/ 100% 后的「复制」打开；主按钮直接复制失败时也落到这里的降级态。
+     打开时 body 加 .sheet-open 锁住背后滚动；遮罩 touch-action: none 防 iOS 手指落在遮罩上带动列表（.sheet 自己是滚动容器，不受影响） */
+  .scrim { position: fixed; inset: 0; z-index: 20; background: rgba(51,49,46,0.28); display: none; align-items: flex-end; touch-action: none; }
+  .scrim[data-open="true"] { display: flex; }
+  body.sheet-open { overflow: hidden; }
+  .sheet {
+    width: 100%; max-width: 480px; margin: 0 auto;
+    background: var(--paper); border-radius: 8px 8px 0 0;
+    padding: 12px max(var(--gutter), env(safe-area-inset-left)) 0;
+  }
+  .sheet .grab { width: 36px; height: 3px; border-radius: 2px; background: var(--control); margin: 0 auto 14px; opacity: 0.6; }
+  .sheet h2 { font-size: 0.9375rem; letter-spacing: 0.1em; margin: 0 0 6px; }
+  .sheet .lead { display: none; margin: 0 0 8px; font-size: 0.9375rem; color: var(--ink-2); }
+  .sheet[data-mode="done"] .lead { display: block; }
+  .sheet .opt {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+    min-height: 52px; padding: 0; border: 0; border-top: 1px solid var(--rule);
+    background: none; text-align: left; cursor: pointer; letter-spacing: 0.04em; font-size: 1rem; color: var(--ink);
+  }
+  .sheet .opt:last-of-type { border-bottom: 1px solid var(--rule); }
+  .sheet .opt .n { color: var(--ink-2); letter-spacing: 0.08em; font-size: 0.875rem; }
+  .sheet .opt[disabled] { color: var(--ink-2); cursor: default; }
+  .sheet .opt[disabled] .n { color: var(--ink-2); }
+  .sheet .opt:not([disabled]):active { opacity: 0.7; }
+  .sheet .cancel { width: 100%; min-height: 48px; border: 0; background: none; color: var(--ink-2); letter-spacing: 0.06em; cursor: pointer; font-size: 0.9375rem; }
+  /* 剪贴板失败降级：不静默，给可长按选中的纯文本 */
+  .sheet .fallback { display: none; padding: 4px 0 8px; }
+  .sheet[data-mode="fallback"] .fallback { display: block; }
+  .sheet[data-mode="fallback"] .opts, .sheet[data-mode="fallback"] h2, .sheet[data-mode="fallback"] .lead { display: none; }
+  .sheet .fallback p { margin: 0 0 10px; font-size: 0.9375rem; }
+  .sheet .fallback pre {
+    margin: 0; padding: 10px 12px; border: 1px dashed var(--control); border-radius: 4px;
+    font: inherit; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap;
+    user-select: all; -webkit-user-select: all; max-height: 40vh; max-height: 40dvh; overflow-y: auto;
+  }
+</style>
+</head>
+<body data-state="progress">
+<div class="page wrap">
+
+  <div class="notice" role="note">样张 · 食材信息为起草，未到店核实</div>
+
+  <header class="app-header">
+    <div class="bar">
+      <span class="wordmark">时令食谱</span>
+      <span class="region">华盛顿州</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="head">
+      <h1 class="list-title h-sans">买菜清单</h1>
+      <p class="meta"><span class="jieqi">秋分</span> · 9月22日 周二 · <span class="dishes">两道菜，</span><span id="meta-count">9 样</span></p>
+    </div>
+
+    <div class="progress" id="progress" aria-live="polite">
+      <p class="line"><span id="p-text">拿了 <b>5</b> 样，还差 <b>4</b> 样。</span></p>
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="9" aria-valuenow="5"><div class="fill" id="p-fill" style="width:55.6%"></div></div>
+      <!-- #pantry / #table 是真机上的独立页面路由（盘一盘 / 餐桌），本文件里没有对应 id，样张中点击无反应 -->
+      <a class="done-line" href="#pantry">都拿齐了，回家做饭 →</a>
+    </div>
+
+    <div class="empty">
+      <p>还没有要买的。从餐桌带一份进来，或者随手加一样。</p>
+      <div class="acts">
+        <button class="btn btn-primary" type="button" data-act="import">从餐桌带入</button>
+        <button class="txt" type="button" data-act="add">随手加一样</button>
+      </div>
+    </div>
+
+    <section class="sec" data-sec>
+      <h2 class="sec-h h-sans"><span>蔬菜</span><span class="count" data-sec-count>还差 2 样</span></h2>
+      <ul class="rule-list">
+        <li><label class="row is-checked"><input class="box check" type="checkbox" checked><span class="name">番茄<small>番茄炒蛋</small></span><span class="tag">只剩两周</span></label></li>
+        <li><label class="row"><input class="box check" type="checkbox"><span class="name">芋头<small>蒸排骨</small></span><span class="tag">亚超才有</span></label></li>
+        <li><label class="row is-checked"><input class="box check" type="checkbox" checked><span class="name">小葱</span></label></li>
+        <li><label class="row is-checked"><input class="box check" type="checkbox" checked><span class="name">姜</span></label></li>
+        <li><label class="row is-checked"><input class="box check" type="checkbox" checked><span class="name">蒜</span></label></li>
+        <li><label class="row"><input class="box check" type="checkbox"><span class="name">香菜</span><span class="tag">普通超市就有</span></label></li>
+      </ul>
+    </section>
+
+    <section class="sec" data-sec>
+      <h2 class="sec-h h-sans"><span>肉蛋</span><span class="count" data-sec-count>还差 1 样</span></h2>
+      <ul class="rule-list">
+        <li><label class="row is-checked"><input class="box check" type="checkbox" checked><span class="name">鸡蛋<small>番茄炒蛋</small></span></label></li>
+        <li><label class="row"><input class="box check" type="checkbox"><span class="name">猪小排<small>蒸排骨</small></span><span class="tag">亚超才有</span></label></li>
+      </ul>
+    </section>
+
+    <section class="sec" data-sec>
+      <h2 class="sec-h h-sans"><span>调料</span><span class="count" data-sec-count>还差 1 样</span></h2>
+      <ul class="rule-list">
+        <li><label class="row"><input class="box check" type="checkbox"><span class="name">豆豉<small>蒸排骨</small></span><span class="tag">亚超才有</span></label></li>
+        <li><button class="add-row" type="button" data-act="add"><span class="plus" aria-hidden="true">+</span><span>随手加一样</span></button></li>
+      </ul>
+    </section>
+
+    <div class="tools">
+      <div class="seg" role="group" aria-label="分区方式">
+        <button type="button" aria-pressed="true">按菜分</button>
+        <button type="button" aria-pressed="false">按店分</button>
+      </div>
+      <a class="import" href="#table" data-act="import">从餐桌带入</a><!-- #table：占位路由，见上 -->
+      <button class="textbtn" type="button" data-act="clear">清掉整张单</button>
+    </div>
+  </main>
+</div>
+
+<div class="bottom-bar">
+  <div class="inner">
+    <button class="btn btn-primary for-progress" type="button" data-act="copy-left"><span class="lbl">复制还差的 <span id="cta-left">4</span> 样</span><span class="ok" hidden>复制好了</span></button>
+    <button class="txt for-progress" type="button" data-act="copy">复制别的</button>
+    <a class="btn btn-primary for-done" href="#pantry">盘一盘 →</a><!-- #pantry：占位路由，见上 -->
+    <button class="txt for-done" type="button" data-act="copy">复制</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" data-open="false">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h" data-mode="progress">
+    <div class="grab" aria-hidden="true"></div>
+    <h2 id="sheet-h" class="h-sans">复制哪些</h2>
+    <p class="lead">已经齐了，没有还差的。复制整张单？</p>
+    <div class="opts">
+      <button class="opt" type="button" data-scope="left"><span>还差的</span><span class="n"><span id="s-left">4</span> 样</span></button>
+      <button class="opt" type="button" data-scope="all"><span>整张单</span><span class="n"><span id="s-all">9</span> 样</span></button>
+      <button class="opt" type="button" data-scope="done"><span>拿了的</span><span class="n"><span id="s-done">5</span> 样</span></button>
+    </div>
+    <div class="fallback">
+      <p>没能写进剪贴板。长按下面这段，自己复制。</p>
+      <pre id="fallback-text"></pre>
+    </div>
+    <button class="cancel" type="button" data-act="close">算了</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var body = document.body;
+    var scrim = document.getElementById('scrim');
+    var sheet = scrim.querySelector('.sheet');
+
+    function boxes() { return Array.prototype.slice.call(document.querySelectorAll('.box')); }
+
+    function render() {
+      var bs = boxes(), total = bs.length, done = 0;
+      bs.forEach(function (b) {
+        if (b.checked) done++;
+        b.closest('.row').classList.toggle('is-checked', b.checked);
+      });
+      var left = total - done;
+      document.querySelectorAll('[data-sec]').forEach(function (sec) {
+        var sb = sec.querySelectorAll('.box'), n = 0;
+        sb.forEach(function (b) { if (!b.checked) n++; });
+        var el = sec.querySelector('[data-sec-count]');
+        el.textContent = sb.length === 0 ? '' : (n === 0 ? '齐了' : '还差 ' + n + ' 样');
+        el.classList.toggle('full', sb.length > 0 && n === 0);
+      });
+      document.getElementById('p-text').innerHTML = done === 0
+        ? total + ' 样，一样都还没拿。'
+        : '拿了 <b>' + done + '</b> 样，还差 <b>' + left + '</b> 样。';
+      document.getElementById('p-fill').style.width = total ? (done / total * 100) + '%' : '0';
+      document.querySelector('[role=progressbar]').setAttribute('aria-valuenow', done);
+      document.querySelector('[role=progressbar]').setAttribute('aria-valuemax', total);
+      document.getElementById('meta-count').textContent = total + ' 样';
+      document.getElementById('cta-left').textContent = left;
+      document.getElementById('s-left').textContent = left;
+      document.getElementById('s-all').textContent = total;
+      document.getElementById('s-done').textContent = done;
+      sheet.querySelector('[data-scope=left]').disabled = left === 0;
+      sheet.querySelector('[data-scope=done]').disabled = done === 0;
+      // 状态由数据推导
+      body.setAttribute('data-state', total === 0 ? 'empty' : (done === total ? 'done' : 'progress'));
+    }
+
+    function listText(scope) {
+      var out = ['买菜清单 · 秋分 · 9月22日'];
+      document.querySelectorAll('[data-sec]').forEach(function (sec) {
+        var lines = [];
+        sec.querySelectorAll('.row').forEach(function (row) {
+          var b = row.querySelector('.box');
+          if (scope === 'left' && b.checked) return;
+          if (scope === 'done' && !b.checked) return;
+          var name = row.querySelector('.name').childNodes[0].textContent;
+          var tag = row.querySelector('.tag');
+          lines.push((b.checked ? '✓ ' : '  ') + name + (tag ? '（' + tag.textContent + '）' : ''));
+        });
+        if (lines.length) out.push('', '【' + sec.querySelector('.sec-h span').textContent + '】', lines.join('\n'));
+      });
+      return out.join('\n');
+    }
+
+    // 弹层：打开时焦点移进去、锁背后滚动；关闭时焦点还给触发它的按钮；Escape 可关
+    var trigger = null;
+    function isOpen() { return scrim.getAttribute('data-open') === 'true'; }
+    function openSheet(mode) {
+      if (!isOpen()) trigger = document.activeElement;
+      sheet.setAttribute('data-mode', mode || (body.getAttribute('data-state') === 'done' ? 'done' : 'progress'));
+      scrim.setAttribute('data-open', 'true');
+      body.classList.add('sheet-open');
+      var first = sheet.querySelector(mode === 'fallback' ? '.cancel' : '.opt:not([disabled])') || sheet.querySelector('.cancel');
+      if (first) first.focus();
+    }
+    function closeSheet() {
+      if (!isOpen()) return;
+      scrim.setAttribute('data-open', 'false');
+      body.classList.remove('sheet-open');
+      if (trigger && typeof trigger.focus === 'function' && document.contains(trigger)) trigger.focus();
+      trigger = null;
+    }
+
+    function hasItems(text) { return !!text.replace(/^[^\n]*\n?/, '').trim(); } // R1：永不复制空内容
+    function writeClip(text) {
+      return (navigator.clipboard && navigator.clipboard.writeText)
+        ? navigator.clipboard.writeText(text)
+        : Promise.reject(new Error('no clipboard'));
+    }
+    function showFallback(text) {
+      document.getElementById('fallback-text').textContent = text;
+      isOpen() ? sheet.setAttribute('data-mode', 'fallback') : openSheet('fallback');
+    }
+
+    // 弹层里的三选一
+    function copy(scope) {
+      var text = listText(scope);
+      if (!hasItems(text)) { sheet.setAttribute('data-mode', 'done'); return; }
+      writeClip(text).then(closeSheet, function () { showFallback(text); });
+    }
+
+    // 主按钮：标签说「复制还差的 4 样」，按下就做这件事，不再问一遍
+    var okTimer = null;
+    function copyLeft(btn) {
+      var text = listText('left');
+      if (!hasItems(text)) { openSheet('done'); return; }
+      writeClip(text).then(function () {
+        btn.querySelector('.lbl').hidden = true;
+        btn.querySelector('.ok').hidden = false;
+        clearTimeout(okTimer);
+        okTimer = setTimeout(function () { btn.querySelector('.lbl').hidden = false; btn.querySelector('.ok').hidden = true; }, 1600);
+      }, function () { showFallback(text); });
+    }
+
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-act], [data-scope]');
+      if (!t) { if (e.target === scrim) closeSheet(); return; }
+      var act = t.getAttribute('data-act'), scope = t.getAttribute('data-scope');
+      if (scope) { copy(scope); return; }
+      if (act === 'copy-left') copyLeft(t);
+      else if (act === 'copy') openSheet();
+      else if (act === 'close') closeSheet();
+      else if (act === 'clear') { document.querySelectorAll('[data-sec] .rule-list > li').forEach(function (li) { if (li.querySelector('.box')) li.remove(); }); render(); }
+      else if (act === 'add') {
+        var name = window.prompt('加一样');
+        if (!name) return;
+        var li = document.createElement('li');
+        li.innerHTML = '<label class="row"><input class="box check" type="checkbox"><span class="name"></span></label>';
+        li.querySelector('.name').textContent = name.trim();
+        var sec = document.querySelector('[data-sec]');
+        if (!sec) return;
+        var ul = sec.querySelector('.rule-list');
+        var add = ul.querySelector('.add-row');
+        add ? ul.insertBefore(li, add.parentNode) : ul.appendChild(li);
+        li.querySelector('.box').addEventListener('change', render);
+        render();
+      }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Esc') closeSheet(); });
+    boxes().forEach(function (b) { b.addEventListener('change', render); });
+    document.querySelectorAll('.seg button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.seg button').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        btn.setAttribute('aria-pressed', 'true');
+      });
+    });
+    render();
+  })();
+</script>
+</body>
+</html>
